@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雅思阅读考点词538 — 交互式背诵</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #ffffff;
+  --bg2: #f5f5f4;
+  --bg3: #eeede9;
+  --text: #1a1a18;
+  --text2: #5f5e5a;
+  --text3: #888780;
+  --border: rgba(0,0,0,0.12);
+  --border2: rgba(0,0,0,0.22);
+  --info-bg: #e6f1fb;
+  --info-text: #185fa5;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1a;
+    --bg2: #252523;
+    --bg3: #2e2e2b;
+    --text: #f0ede8;
+    --text2: #b4b2a9;
+    --text3: #888780;
+    --border: rgba(255,255,255,0.12);
+    --border2: rgba(255,255,255,0.22);
+    --info-bg: #0c2d4a;
+    --info-text: #85b7eb;
+  }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; padding: 1rem; }
+#app { max-width: 700px; margin: 0 auto; background: var(--bg3); }
+h1 { font-size: 18px; font-weight: 500; margin-bottom: 1.25rem; color: var(--text); }
+.top-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+.cat-btn { padding: 6px 14px; border-radius: 999px; border: 0.5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.cat-btn.active { background: var(--info-bg); color: var(--info-text); border-color: transparent; font-weight: 500; }
+.mode-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.mode-btn { padding: 6px 14px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.mode-btn.active { background: var(--bg2); color: var(--text); border-color: var(--border2); font-weight: 500; }
+.mode-btn:hover { background: var(--bg2); }
+.progress-bar-wrap { height: 4px; background: var(--bg2); border-radius: 2px; margin-bottom: 1.25rem; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 2px; background: #378ADD; transition: width 0.3s; }
+.stats-row { display: flex; gap: 10px; margin-bottom: 1rem; }
+.stat-box { flex: 1; background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; text-align: center; }
+.stat-num { font-size: 20px; font-weight: 500; color: var(--text); }
+.stat-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.flashcard { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 2rem 1.5rem; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer; position: relative; user-select: none; transition: border-color 0.15s; }
+.flashcard:hover { border-color: var(--border2); }
+.card-cat { font-size: 11px; color: var(--text3); position: absolute; top: 14px; left: 18px; }
+.card-num { font-size: 11px; color: var(--text3); position: absolute; top: 14px; right: 18px; }
+.card-word { font-size: 26px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+.card-pos { font-size: 13px; color: var(--text3); margin-bottom: 8px; }
+.card-back { font-size: 17px; color: var(--text); margin-top: 4px; line-height: 1.6; }
+.card-synonyms { font-size: 12px; color: var(--text3); margin-top: 10px; line-height: 1.6; }
+.flip-hint { font-size: 12px; color: var(--text3); margin-top: 18px; }
+.btn-row { display: flex; gap: 10px; margin-top: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-action { padding: 8px 20px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: transparent; font-size: 14px; cursor: pointer; transition: all 0.15s; color: var(--text); }
+.btn-action:active { transform: scale(0.97); }
+.btn-prev { color: var(--text2); }
+.btn-know { border-color: #1D9E75; color: #1D9E75; }
+.btn-know:hover { background: #E1F5EE; }
+.btn-unsure { border-color: #BA7517; color: #BA7517; }
+.btn-unsure:hover { background: #FAEEDA; }
+.btn-next { background: var(--bg2); }
+.btn-next:hover { background: var(--bg3); }
+.search-row { margin-bottom: 1rem; }
+.search-row input { width: 100%; padding: 8px 12px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: var(--bg); font-size: 14px; color: var(--text); outline: none; }
+.search-row input:focus { border-color: #378ADD; }
+.review-title { font-size: 13px; color: var(--text2); margin-bottom: 10px; }
+.review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.review-card { background: var(--bg2); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; cursor: pointer; border: 0.5px solid var(--border); transition: border-color 0.15s; }
+.review-card:hover { border-color: var(--border2); }
+.review-word { font-weight: 500; color: var(--text); }
+.review-cn { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.review-tag { font-size: 10px; margin-top: 4px; }
+.tag-known { color: #1D9E75; }
+.tag-unsure { color: #BA7517; }
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; width: 100%; max-width: 440px; }
+.quiz-opt { padding: 10px 16px; border-radius: var(--radius); border: 0.5px solid var(--border2); background: transparent; text-align: left; font-size: 14px; cursor: pointer; color: var(--text); transition: all 0.15s; }
+.quiz-opt:hover { background: var(--bg2); }
+.quiz-opt.correct { border-color: #1D9E75; background: #E1F5EE; color: #0F6E56; }
+.quiz-opt.wrong { border-color: #D85A30; background: #FAECE7; color: #993C1D; }
+.shuffle-note { font-size: 11px; color: var(--text3); margin-left: auto; }
+.ml-auto { margin-left: auto; }
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>雅思阅读考点词 538</h1>
+  <div class="top-bar">
+    <button class="cat-btn active" onclick="setCategory('all',this)">全部 538</button>
+    <button class="cat-btn" onclick="setCategory('1',this)">第1类 <span style="font-size:11px;opacity:0.7">54词</span></button>
+    <button class="cat-btn" onclick="setCategory('2',this)">第2类 <span style="font-size:11px;opacity:0.7">100词</span></button>
+    <button class="cat-btn" onclick="setCategory('3',this)">第3类 <span style="font-size:11px;opacity:0.7">256词</span></button>
+    <button class="cat-btn" id="btn-unsure-cat" onclick="setCategory('unsure',this)" style="display:none">待复习</button>
+    <span class="shuffle-note" id="shuffle-label"></span>
+  </div>
+  <div class="mode-row">
+    <button class="mode-btn active" id="mb-flash" onclick="setMode('flash')">单词卡</button>
+    <button class="mode-btn" id="mb-quiz" onclick="setMode('quiz')">测验</button>
+    <button class="mode-btn" id="mb-list" onclick="setMode('list')">列表</button>
+    <button class="mode-btn ml-auto" onclick="shuffleCards()">洗牌</button>
+    <button class="mode-btn" onclick="resetProgress()">重置进度</button>
+  </div>
+  <div class="search-row" id="search-row" style="display:none">
+    <input type="text" placeholder="搜索单词…" oninput="searchWords(this.value)" id="search-input">
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar" style="width:0%"></div></div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num" id="stat-total">0</div><div class="stat-label">总数</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-known" style="color:#1D9E75">0</div><div class="stat-label">已掌握</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-unsure" style="color:#BA7517">0</div><div class="stat-label">待复习</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-idx">0/0</div><div class="stat-label">当前</div></div>
+  </div>
+  <div id="flash-area"></div>
+  <div id="quiz-area" style="display:none"></div>
+  <div id="list-area" style="display:none"></div>
+</div>
+<script>
+const RAW = [
+  {w:"resemble",pos:"v.",cn:"像，与……相似",syn:"like, look like, be similar to",cat:"1"},
+  {w:"recognize",pos:"v.",cn:"认出，识别；承认",syn:"perceive, acknowledge, realize, identify, comprehend",cat:"1"},
+  {w:"adjust",pos:"v.",cn:"调整，使适合",syn:"change, modify, shift, alter",cat:"1"},
+  {w:"approach",pos:"n.",cn:"方法",syn:"method, way",cat:"1"},
+  {w:"fundamental",pos:"adj.",cn:"基本的，基础的",syn:"rudimentary, preliminary, basic",cat:"1"},
+  {w:"rely on",pos:"ph.",cn:"依靠，依赖",syn:"depend on",cat:"1"},
+  {w:"domestic",pos:"adj.",cn:"家庭的；国内的",syn:"home, local, national",cat:"1"},
+  {w:"measure",pos:"v.",cn:"测量",syn:"calculate, assess, evaluate",cat:"1"},
+  {w:"trait",pos:"n.",cn:"特性，特征",syn:"characteristic, feature, property",cat:"1"},
+  {w:"coin",pos:"v.",cn:"创造",syn:"first used, invent",cat:"1"},
+  {w:"artificial",pos:"adj.",cn:"人造的，仿造的",syn:"synthetic, man-made",cat:"1"},
+  {w:"prompt",pos:"v.",cn:"促进，激起",syn:"initiate, immediately",cat:"1"},
+  {w:"exchange",pos:"v.",cn:"交换",syn:"share, apply A to B",cat:"1"},
+  {w:"underlie",pos:"v.",cn:"成为……基础",syn:"based on, ground, root",cat:"1"},
+  {w:"ignore",pos:"v.",cn:"忽视，不顾",syn:"neglect, overlook, underestimate",cat:"1"},
+  {w:"fertiliser",pos:"n.",cn:"化肥，肥料",syn:"chemical, toxic, unnatural",cat:"1"},
+  {w:"that",pos:"pron.",cn:"指代关系（考点）",syn:"this, it, they, those, these, such",cat:"1"},
+  {w:"and",pos:"conj.",cn:"并列结构（考点）",syn:"or, as well as, both…and, not only…but also",cat:"1"},
+  {w:"rather than",pos:"ph.",cn:"而非，不是",syn:"but, yet, however, whereas, although, instead",cat:"1"},
+  {w:"thanks to",pos:"ph.",cn:"由于，幸亏",syn:"stem from, owing to, due to, because of, as a result of",cat:"1"},
+  {w:"diversity",pos:"n.",cn:"多样性，差异",syn:"variety, difference",cat:"2"},
+  {w:"detect",pos:"v.",cn:"查明，发现",syn:"find, look for, seek, search",cat:"2"},
+  {w:"isolate",pos:"v.",cn:"使隔离，使孤立",syn:"inaccessible",cat:"2"},
+  {w:"avoid",pos:"v.",cn:"避免",syn:"escape, evitable",cat:"2"},
+  {w:"budget",pos:"n.",cn:"预算",syn:"fund, financial",cat:"2"},
+  {w:"adapt to",pos:"ph.",cn:"使适应",syn:"fit, suit",cat:"2"},
+  {w:"alternative",pos:"adj./n.",cn:"供替代的；替代品",syn:"substitute",cat:"2"},
+  {w:"compensate",pos:"v.",cn:"补偿，赔偿",syn:"make up, offset",cat:"2"},
+  {w:"component",pos:"n.",cn:"成分，要素",syn:"proportion",cat:"2"},
+  {w:"military",pos:"adj.",cn:"军事的",syn:"weapon, army",cat:"2"},
+  {w:"criteria",pos:"n.",cn:"标准",syn:"standard",cat:"2"},
+  {w:"curriculum",pos:"n.",cn:"课程",syn:"syllabus, course of study",cat:"2"},
+  {w:"feasible",pos:"adj.",cn:"可行的",syn:"realistic, viable",cat:"2"},
+  {w:"constrain",pos:"v.",cn:"束缚，限制",syn:"stop, control",cat:"2"},
+  {w:"deficiency",pos:"n.",cn:"缺陷，缺点",syn:"shortage, defect, weakness",cat:"2"},
+  {w:"supplement",pos:"v.",cn:"补充",syn:"provision",cat:"2"},
+  {w:"distinguish",pos:"v.",cn:"区别，辨别",syn:"separate, differentiate",cat:"2"},
+  {w:"analyze",pos:"v.",cn:"分析，解释",syn:"examine, diagnose",cat:"2"},
+  {w:"emphasize",pos:"v.",cn:"强调，着重",syn:"focus on, stress",cat:"2"},
+  {w:"enormous",pos:"adj.",cn:"庞大的，巨大的",syn:"massive, large",cat:"2"},
+  {w:"imitate",pos:"v.",cn:"模仿",syn:"mimic, copy",cat:"2"},
+  {w:"impair",pos:"v.",cn:"削弱，减少",syn:"damage, diminish, decrease",cat:"2"},
+  {w:"hinder",pos:"v.",cn:"阻碍",syn:"impede, prevent, deter, obstacle",cat:"2"},
+  {w:"legitimate",pos:"adj.",cn:"合法的",syn:"legal",cat:"2"},
+  {w:"limitation",pos:"n.",cn:"限制",syn:"restriction",cat:"2"},
+  {w:"convention",pos:"n.",cn:"手法；习俗",syn:"method; tradition",cat:"2"},
+  {w:"demanding",pos:"adj.",cn:"苛求的",syn:"troublesome",cat:"2"},
+  {w:"determine",pos:"v.",cn:"决定",syn:"decide",cat:"2"},
+  {w:"accelerate",pos:"v.",cn:"加速，促进",syn:"speed up",cat:"2"},
+  {w:"ancient",pos:"adj.",cn:"古代的；古老的",syn:"aged, old",cat:"2"},
+  {w:"beneficial",pos:"adj.",cn:"有益的",syn:"helpful, advantageous, wholesome",cat:"2"},
+  {w:"chronic",pos:"adj.",cn:"慢性的，长期性的",syn:"lasting",cat:"2"},
+  {w:"conscious",pos:"adj.",cn:"有意识的，神志清醒的",syn:"aware, knowing",cat:"2"},
+  {w:"minimize",pos:"v.",cn:"最小化，使减少到最少",syn:"reduce, lessen",cat:"2"},
+  {w:"immunity",pos:"n.",cn:"免疫力",syn:"resistance",cat:"2"},
+  {w:"imperative",pos:"adj.",cn:"必要的，紧急的",syn:"compelling, necessary, urgent",cat:"2"},
+  {w:"secrete",pos:"v.",cn:"分泌",syn:"discharge, exude",cat:"2"},
+  {w:"exaggerate",pos:"v.",cn:"夸大，夸张",syn:"overstate",cat:"2"},
+  {w:"transmit",pos:"v.",cn:"传达，传输",syn:"pass, send, transfer",cat:"2"},
+  {w:"extinct",pos:"v.",cn:"灭绝",syn:"die out, lost",cat:"2"},
+  {w:"exclusive",pos:"adj.",cn:"独有的；排外的",syn:"only",cat:"2"},
+  {w:"guarantee",pos:"v.",cn:"保证，担保",syn:"assure",cat:"2"},
+  {w:"inherit",pos:"v.",cn:"继承",syn:"receive",cat:"2"},
+  {w:"witness",pos:"n.",cn:"见证，证据；目击者",syn:"view, see",cat:"2"},
+  {w:"magnetic",pos:"adj.",cn:"有磁性的",syn:"attractive",cat:"2"},
+  {w:"loss",pos:"n.",cn:"减少；亏损；遗失",syn:"waste, gone",cat:"2"},
+  {w:"option",pos:"n.",cn:"选择",syn:"choice",cat:"2"},
+  {w:"prefer to",pos:"ph.",cn:"更喜欢",syn:"rather",cat:"2"},
+  {w:"priority",pos:"n.",cn:"优先权",syn:"preference, preferential",cat:"2"},
+  {w:"primary",pos:"adj.",cn:"主要的",syn:"principle, main",cat:"2"},
+  {w:"principle",pos:"n.",cn:"原理",syn:"rule",cat:"2"},
+  {w:"potential",pos:"n./adj.",cn:"潜能；潜在的",syn:"possibility",cat:"2"},
+  {w:"quantity",pos:"n.",cn:"量，数量",syn:"number",cat:"2"},
+  {w:"settle",pos:"v.",cn:"解决；定居，稳定",syn:"fix, figure out",cat:"2"},
+  {w:"sophisticate",pos:"v.",cn:"使复杂",syn:"complicate",cat:"2"},
+  {w:"specific",pos:"adj.",cn:"明确的；特殊的",syn:"detailed, particular",cat:"2"},
+  {w:"survive",pos:"v.",cn:"存活，幸存",syn:"remain",cat:"2"},
+  {w:"swift",pos:"adj.",cn:"迅速的，敏捷的",syn:"quick, rapid",cat:"2"},
+  {w:"unexpectedly",pos:"adv.",cn:"出乎意料的",syn:"surprising",cat:"2"},
+  {w:"surrounding",pos:"n.",cn:"环境",syn:"setting, environment",cat:"2"},
+  {w:"attempt",pos:"n.",cn:"试图，尝试",syn:"try, test",cat:"2"},
+  {w:"expertise",pos:"n.",cn:"专门技术",syn:"knowledge, skill",cat:"2"},
+  {w:"faculty",pos:"n.",cn:"能力，才能；全体教员",syn:"ability",cat:"2"},
+  {w:"donate",pos:"v.",cn:"捐赠",syn:"contribute",cat:"2"},
+  {w:"dynamics",pos:"n.",cn:"动力学",syn:"energy, force, move",cat:"2"},
+  {w:"incentive",pos:"n.",cn:"刺激，鼓励；动机",syn:"motive, stimulus",cat:"2"},
+  {w:"mortality",pos:"n.",cn:"死亡率",syn:"death",cat:"2"},
+  {w:"peripheral",pos:"adj.",cn:"外围的，次要的",syn:"unimportant, minor",cat:"2"},
+  {w:"vicinity",pos:"n.",cn:"邻近，附近",syn:"neighbourhood, nearby",cat:"2"},
+  {w:"threaten",pos:"v.",cn:"威胁，危及",syn:"endanger, jeopardize, risk, hazard",cat:"2"},
+  {w:"practice",pos:"n.",cn:"实行；练习",syn:"method, exercise",cat:"2"},
+  {w:"bacteria",pos:"n.",cn:"细菌",syn:"virus, germ, microbe",cat:"2"},
+  {w:"be subject to",pos:"ph.",cn:"受……支配",syn:"face",cat:"2"},
+  {w:"be liable to",pos:"ph.",cn:"易于……",syn:"potential",cat:"2"},
+  {w:"innate",pos:"adj.",cn:"天生的；内在的",syn:"built-in, inborn",cat:"2"},
+  {w:"pattern",pos:"n.",cn:"模式",syn:"formation",cat:"2"},
+  {w:"therapy",pos:"n.",cn:"治疗，理疗",syn:"treatment",cat:"2"},
+  {w:"original",pos:"adj.",cn:"原始的，最初的",syn:"initial, first",cat:"2"},
+  {w:"confidential",pos:"adj.",cn:"机密的，秘密的",syn:"undisclosed, secret, hidden",cat:"2"},
+  {w:"cognitive",pos:"adj.",cn:"认知的",syn:"mental",cat:"2"},
+  {w:"comply with",pos:"ph.",cn:"照做，遵守",syn:"obey",cat:"2"},
+  {w:"consult",pos:"v.",cn:"查阅，商量，咨询",syn:"ask for advice",cat:"2"},
+  {w:"superior",pos:"adj.",cn:"上级的；优秀的",syn:"higher, upper",cat:"2"},
+  {w:"co-operation",pos:"n.",cn:"合作，协作",syn:"support, work together",cat:"2"},
+  {w:"co-ordinate",pos:"v.",cn:"使……协调",syn:"organize, harmonize",cat:"2"},
+  {w:"differ",pos:"v.",cn:"使……相异",syn:"vary",cat:"2"},
+  {w:"cue",pos:"n.",cn:"线索",syn:"hint, clue",cat:"2"},
+  {w:"signal",pos:"n.",cn:"信号",syn:"symbol, mark, sign",cat:"2"},
+  {w:"abandon",pos:"v.",cn:"放弃，遗弃",syn:"quit, give up, forsake, derelict",cat:"2"},
+  {w:"halt",pos:"n.",cn:"停止",syn:"stop, quit",cat:"2"},
+  {w:"fragile",pos:"adj.",cn:"脆弱的",syn:"vulnerable",cat:"2"},
+  {w:"retain",pos:"v.",cn:"记住",syn:"maintain",cat:"2"},
+  {w:"vanish",pos:"n.",cn:"消失，绝迹",syn:"disappear",cat:"2"},
+  {w:"delivery",pos:"n.",cn:"递送",syn:"send",cat:"2"},
+  {w:"erode",pos:"v.",cn:"侵蚀",syn:"rust, damage",cat:"2"},
+  {w:"induce",pos:"v.",cn:"引起，引诱",syn:"cause, lead to",cat:"2"},
+  {w:"stable",pos:"adj.",cn:"稳定的",syn:"constant, unchanged",cat:"2"},
+  {w:"integrate",pos:"v.",cn:"使……成整体",syn:"combine, whole",cat:"2"},
+  {w:"equal",pos:"adj.",cn:"平等的；相等的",syn:"fair, even",cat:"2"},
+  {w:"grant",pos:"v.",cn:"拨款；授予",syn:"offer",cat:"2"},
+  {w:"accumulate",pos:"v.",cn:"积累，积聚",syn:"gather",cat:"3"},
+  {w:"addictive",pos:"adj.",cn:"上瘾的",syn:"habit",cat:"3"},
+  {w:"adversity",pos:"n.",cn:"逆境，不幸",syn:"trouble",cat:"3"},
+  {w:"aggression",pos:"n.",cn:"侵犯，侵害",syn:"attack",cat:"3"},
+  {w:"agreeable",pos:"adj.",cn:"令人愉快的；合适的",syn:"pleasant",cat:"3"},
+  {w:"aid",pos:"n.",cn:"援助，帮助",syn:"help",cat:"3"},
+  {w:"allergic",pos:"adj.",cn:"过敏的；对……极讨厌的",syn:"irritate",cat:"3"},
+  {w:"altitude",pos:"n.",cn:"高度，海拔",syn:"height",cat:"3"},
+  {w:"application",pos:"n.",cn:"应用",syn:"utilization",cat:"3"},
+  {w:"approve",pos:"v.",cn:"批准",syn:"agree",cat:"3"},
+  {w:"array",pos:"n.",cn:"排列，大批",syn:"order",cat:"3"},
+  {w:"assign",pos:"v.",cn:"分配，指派",syn:"allocate",cat:"3"},
+  {w:"association",pos:"n.",cn:"协会，联盟；联系",syn:"union",cat:"3"},
+  {w:"attitude",pos:"n.",cn:"看法，态度",syn:"opinion",cat:"3"},
+  {w:"authority",pos:"n.",cn:"当局，权威",syn:"government",cat:"3"},
+  {w:"be consistent with",pos:"ph.",cn:"与……一致",syn:"compatible",cat:"3"},
+  {w:"bear",pos:"v.",cn:"承担；忍受",syn:"tolerate",cat:"3"},
+  {w:"blight",pos:"v.",cn:"损害；枯萎",syn:"destroy",cat:"3"},
+  {w:"boundary",pos:"n.",cn:"边界；底线",syn:"barrier",cat:"3"},
+  {w:"bungle",pos:"v.",cn:"搞糟，拙劣地工作",syn:"mishandle",cat:"3"},
+  {w:"burden",pos:"n.",cn:"负担",syn:"load",cat:"3"},
+  {w:"calamity",pos:"n.",cn:"灾难",syn:"disaster",cat:"3"},
+  {w:"capacity",pos:"n.",cn:"容量",syn:"volume",cat:"3"},
+  {w:"catastrophic",pos:"adj.",cn:"灾难的",syn:"disastrous",cat:"3"},
+  {w:"cater",pos:"v.",cn:"迎合；满足需求",syn:"serve",cat:"3"},
+  {w:"certify",pos:"v.",cn:"证明，保证",syn:"verify",cat:"3"},
+  {w:"civic",pos:"adj.",cn:"实名的",syn:"municipal",cat:"3"},
+  {w:"comment",pos:"n./v.",cn:"评论；意见",syn:"remark",cat:"3"},
+  {w:"commitment",pos:"n.",cn:"承诺，许诺，义务",syn:"engagement",cat:"3"},
+  {w:"communal",pos:"adj.",cn:"公共的，公社的",syn:"public",cat:"3"},
+  {w:"commute",pos:"v.",cn:"通勤；用……交换",syn:"travel",cat:"3"},
+  {w:"compare",pos:"v.",cn:"与……相比较",syn:"contrast",cat:"3"},
+  {w:"conceal",pos:"v.",cn:"隐藏；隐瞒",syn:"hide",cat:"3"},
+  {w:"concentrate",pos:"v.",cn:"专心于；集中",syn:"focus",cat:"3"},
+  {w:"concur",pos:"v.",cn:"同意",syn:"agree",cat:"3"},
+  {w:"confer",pos:"v.",cn:"授予，给予",syn:"grant",cat:"3"},
+  {w:"conflict",pos:"n.",cn:"冲突，矛盾",syn:"unharmonious",cat:"3"},
+  {w:"confuse",pos:"v.",cn:"使混乱，使迷惑",syn:"puzzle",cat:"3"},
+  {w:"conservative",pos:"adj.",cn:"保守的",syn:"traditional",cat:"3"},
+  {w:"considerable",pos:"adj.",cn:"相当大的，重要的",syn:"significant",cat:"3"},
+  {w:"contingent",pos:"adj.",cn:"因情况而异的",syn:"uncertain",cat:"3"},
+  {w:"controversial",pos:"adj.",cn:"有争论的",syn:"disputable",cat:"3"},
+  {w:"correlation",pos:"n.",cn:"相关，关联",syn:"link",cat:"3"},
+  {w:"courtship",pos:"n.",cn:"求爱（时期）",syn:"mate",cat:"3"},
+  {w:"crash",pos:"n.",cn:"碰撞",syn:"collapse",cat:"3"},
+  {w:"credibility",pos:"n.",cn:"可信性",syn:"reliance",cat:"3"},
+  {w:"criminal",pos:"n.",cn:"罪犯，犯人",syn:"conviction",cat:"3"},
+  {w:"crisis",pos:"n.",cn:"危机",syn:"risk",cat:"3"},
+  {w:"criticism",pos:"n.",cn:"评论",syn:"condemn",cat:"3"},
+  {w:"curb",pos:"v.",cn:"限制，抑制",syn:"restrict",cat:"3"},
+  {w:"damp",pos:"adj.",cn:"潮湿的",syn:"wet",cat:"3"},
+  {w:"dazzle",pos:"v.",cn:"使目眩；使眼花",syn:"flash",cat:"3"},
+  {w:"deadline",pos:"n.",cn:"最后期限",syn:"limit",cat:"3"},
+  {w:"delay",pos:"n.",cn:"延期，耽搁",syn:"postpone",cat:"3"},
+  {w:"democratic",pos:"adj.",cn:"民主的",syn:"republic",cat:"3"},
+  {w:"demographic",pos:"adj.",cn:"人口统计学的",syn:"population statistic",cat:"3"},
+  {w:"dental",pos:"adj.",cn:"牙科的，牙齿的",syn:"teeth",cat:"3"},
+  {w:"depression",pos:"n.",cn:"抑郁，沮丧",syn:"frustration",cat:"3"},
+  {w:"designate",pos:"v.",cn:"指定；指派，标出",syn:"appoint",cat:"3"},
+  {w:"detain",pos:"v.",cn:"留住",syn:"hold",cat:"3"},
+  {w:"devastate",pos:"v.",cn:"毁坏，毁灭",syn:"wreck",cat:"3"},
+  {w:"disclose",pos:"v.",cn:"公开；揭露",syn:"expose",cat:"3"},
+  {w:"disparate",pos:"adj.",cn:"不同的",syn:"different",cat:"3"},
+  {w:"display",pos:"n.",cn:"显示",syn:"show",cat:"3"},
+  {w:"disrupt",pos:"v.",cn:"破坏",syn:"destroy",cat:"3"},
+  {w:"distract",pos:"v.",cn:"转移，分心",syn:"divert",cat:"3"},
+  {w:"distribute",pos:"v.",cn:"分配，分发",syn:"spread",cat:"3"},
+  {w:"documentation",pos:"n.",cn:"文件；文献",syn:"record",cat:"3"},
+  {w:"domain",pos:"n.",cn:"领域",syn:"field",cat:"3"},
+  {w:"dominant",pos:"adj.",cn:"占优势的，占支配地位的",syn:"overbearing",cat:"3"},
+  {w:"dramatic",pos:"adj.",cn:"戏剧化的；引人注意的",syn:"striking",cat:"3"},
+  {w:"drought",pos:"n.",cn:"干旱",syn:"dry",cat:"3"},
+  {w:"durable",pos:"adj.",cn:"持久的",syn:"lasting",cat:"3"},
+  {w:"eco-friendly",pos:"adj.",cn:"生态友好的，环保的",syn:"environmentally-friendly",cat:"3"},
+  {w:"elaborate",pos:"v.",cn:"详细阐述",syn:"illustrate",cat:"3"},
+  {w:"elderly",pos:"adj.",cn:"高龄的",syn:"aged",cat:"3"},
+  {w:"eliminate",pos:"v.",cn:"消除，排除",syn:"dispose",cat:"3"},
+  {w:"elusive",pos:"adj.",cn:"难懂的，行踪隐秘的",syn:"hard",cat:"3"},
+  {w:"encyclopaedia",pos:"n.",cn:"百科全书",syn:"entire range of knowledge",cat:"3"},
+  {w:"entrepreneur",pos:"n.",cn:"企业家",syn:"boss",cat:"3"},
+  {w:"equator",pos:"n.",cn:"赤道",syn:"geography",cat:"3"},
+  {w:"erratically",pos:"adv.",cn:"不定的，无视规律地",syn:"unpredictably",cat:"3"},
+  {w:"established",pos:"adj.",cn:"确定的；已建立的",syn:"built",cat:"3"},
+  {w:"estate",pos:"n.",cn:"房地产",syn:"property",cat:"3"},
+  {w:"ethical",pos:"adj.",cn:"道德的",syn:"moral",cat:"3"},
+  {w:"eventually",pos:"adv.",cn:"最后，终于",syn:"finally",cat:"3"},
+  {w:"evidence",pos:"n.",cn:"迹象；证据",syn:"proof",cat:"3"},
+  {w:"evolve",pos:"v.",cn:"进化，发展",syn:"develop",cat:"3"},
+  {w:"exhausted",pos:"adj.",cn:"疲惫的，耗尽的",syn:"fatigue",cat:"3"},
+  {w:"experiment",pos:"n.",cn:"试验，实验",syn:"test",cat:"3"},
+  {w:"exceptional",pos:"adj.",cn:"异常的，特别出色的",syn:"extreme, utmost",cat:"3"},
+  {w:"explicit",pos:"adj.",cn:"明确的",syn:"clear",cat:"3"},
+  {w:"exploit",pos:"v.",cn:"开发，利用",syn:"use",cat:"3"},
+  {w:"extend",pos:"v.",cn:"扩展，延伸，推广",syn:"expand",cat:"3"},
+  {w:"extract",pos:"n./v.",cn:"摘录；提取",syn:"quotation",cat:"3"},
+  {w:"famine",pos:"n.",cn:"饥荒",syn:"hunger",cat:"3"},
+  {w:"finite",pos:"adj.",cn:"有限的",syn:"limited",cat:"3"},
+  {w:"fitness",pos:"n.",cn:"健康",syn:"health",cat:"3"},
+  {w:"foe",pos:"n.",cn:"敌人，危害物",syn:"enemy",cat:"3"},
+  {w:"format",pos:"n.",cn:"格式",syn:"structure",cat:"3"},
+  {w:"fragment",pos:"n.",cn:"碎片",syn:"piece",cat:"3"},
+  {w:"freeze",pos:"n.",cn:"冰冻，冻结",syn:"chill",cat:"3"},
+  {w:"fulfill",pos:"v.",cn:"满足，实现",syn:"execute",cat:"3"},
+  {w:"gene",pos:"n.",cn:"基因",syn:"factor",cat:"3"},
+  {w:"gifted",pos:"adj.",cn:"有天赋的，有才华的",syn:"talented",cat:"3"},
+  {w:"graphic",pos:"adj.",cn:"形象的；图解的",syn:"picture",cat:"3"},
+  {w:"habitat",pos:"n.",cn:"栖息地，住所",syn:"residence",cat:"3"},
+  {w:"harbor",pos:"v./n.",cn:"怀有；海港",syn:"hold",cat:"3"},
+  {w:"hardship",pos:"n.",cn:"困苦；苦难",syn:"difficult",cat:"3"},
+  {w:"harsh",pos:"adj.",cn:"艰难的；严酷的",syn:"rough",cat:"3"},
+  {w:"hypothesis",pos:"n.",cn:"假设",syn:"assumption",cat:"3"},
+  {w:"impact",pos:"n.",cn:"影响",syn:"influence",cat:"3"},
+  {w:"impressive",pos:"adj.",cn:"感人的；给人深刻印象的",syn:"touching",cat:"3"},
+  {w:"in accordance with",pos:"ph.",cn:"依照；与……一致",syn:"conform",cat:"3"},
+  {w:"inaccurate",pos:"adj.",cn:"错误的",syn:"incorrect",cat:"3"},
+  {w:"inactive",pos:"adj.",cn:"不活跃的，不活动的",syn:"passive",cat:"3"},
+  {w:"inappropriate",pos:"adj.",cn:"不适当的",syn:"hard",cat:"3"},
+  {w:"indulge",pos:"v.",cn:"沉溺（于）",syn:"spoil",cat:"3"},
+  {w:"infest",pos:"v.",cn:"侵害；寄生于",syn:"plague",cat:"3"},
+  {w:"installment",pos:"n.",cn:"安装；分期付款",syn:"payment on its completion",cat:"3"},
+  {w:"intelligence",pos:"n.",cn:"智力",syn:"mind",cat:"3"},
+  {w:"intense",pos:"adj.",cn:"强烈的；紧张的",syn:"strong",cat:"3"},
+  {w:"interaction",pos:"n.",cn:"相互作用，交流互动",syn:"social activities",cat:"3"},
+  {w:"interference",pos:"n.",cn:"干涉",syn:"interdependence",cat:"3"},
+  {w:"interior",pos:"n./adj.",cn:"内部；内部的",syn:"inner",cat:"3"},
+  {w:"interrupt",pos:"v.",cn:"中断",syn:"stop",cat:"3"},
+  {w:"introverted",pos:"adj.",cn:"内向的，含蓄的",syn:"shyness",cat:"3"},
+  {w:"involve",pos:"v.",cn:"包含，牵涉",syn:"associate",cat:"3"},
+  {w:"keen",pos:"adj.",cn:"热切的；强烈的",syn:"strong",cat:"3"},
+  {w:"label",pos:"v.",cn:"打上标签",syn:"display",cat:"3"},
+  {w:"lack",pos:"v.",cn:"缺乏；不足",syn:"shortage",cat:"3"},
+  {w:"landscape",pos:"n.",cn:"风景",syn:"scene",cat:"3"},
+  {w:"likelihood",pos:"n.",cn:"可能性",syn:"chance",cat:"3"},
+  {w:"limb",pos:"n.",cn:"四肢",syn:"arm or leg",cat:"3"},
+  {w:"linguistic",pos:"adj.",cn:"语言（学）的",syn:"language",cat:"3"},
+  {w:"log",pos:"v.",cn:"记录",syn:"record",cat:"3"},
+  {w:"look-in",pos:"n.",cn:"成功的机会",syn:"opportunity, chance",cat:"3"},
+  {w:"lopsided",pos:"adj.",cn:"不平衡的",syn:"uneven",cat:"3"},
+  {w:"mainly",pos:"adv.",cn:"主要的，大体的",syn:"primarily",cat:"3"},
+  {w:"malfunction",pos:"v.",cn:"发生故障；不起作用",syn:"breakdown",cat:"3"},
+  {w:"mammal",pos:"n.",cn:"哺乳动物",syn:"creature",cat:"3"},
+  {w:"manage to do",pos:"ph.",cn:"设法完成某事",syn:"success",cat:"3"},
+  {w:"manifest",pos:"v.",cn:"出现，表现",syn:"obvious",cat:"3"},
+  {w:"manufacture",pos:"n.",cn:"生产",syn:"produce",cat:"3"},
+  {w:"marine",pos:"adj.",cn:"海产的；航海的；海运的",syn:"sea",cat:"3"},
+  {w:"mate",pos:"n.",cn:"配偶",syn:"spouse",cat:"3"},
+  {w:"mechanism",pos:"n.",cn:"机制，原理",syn:"method",cat:"3"},
+  {w:"mental",pos:"adj.",cn:"精神的，心理的",syn:"intelligent",cat:"3"},
+  {w:"mercury",pos:"n.",cn:"汞，水银",syn:"liquid metal",cat:"3"},
+  {w:"meteorological",pos:"adj.",cn:"气象学的",syn:"weather",cat:"3"},
+  {w:"migrate",pos:"v.",cn:"转移，迁移",syn:"move",cat:"3"},
+  {w:"moisture",pos:"n.",cn:"水分，湿度",syn:"humidity",cat:"3"},
+  {w:"monitor",pos:"v.",cn:"监控",syn:"surveillance",cat:"3"},
+  {w:"motif",pos:"n.",cn:"主题；图形",syn:"theme",cat:"3"},
+  {w:"mould",pos:"v.",cn:"模压，塑造",syn:"form",cat:"3"},
+  {w:"native",pos:"adj.",cn:"本国的，土著的；天赋的",syn:"original",cat:"3"},
+  {w:"nocturnal",pos:"adj.",cn:"夜间的，夜间发生的",syn:"night",cat:"3"},
+  {w:"norm",pos:"n.",cn:"规范",syn:"regulation",cat:"3"},
+  {w:"notoriety",pos:"n.",cn:"名声",syn:"famous",cat:"3"},
+  {w:"objective",pos:"n./adj.",cn:"目标，目的；客观的",syn:"goal",cat:"3"},
+  {w:"obligation",pos:"n.",cn:"义务",syn:"responsibility",cat:"3"},
+  {w:"obscure",pos:"v.",cn:"掩盖，使模糊不清",syn:"hide",cat:"3"},
+  {w:"obtain",pos:"v.",cn:"获得",syn:"get",cat:"3"},
+  {w:"odd",pos:"adj.",cn:"古怪的",syn:"strange",cat:"3"},
+  {w:"odour",pos:"n.",cn:"气味",syn:"smell",cat:"3"},
+  {w:"offensive",pos:"adj.",cn:"冒犯的，无礼的",syn:"hostile",cat:"3"},
+  {w:"official",pos:"n./adj.",cn:"官员；官方的",syn:"authority",cat:"3"},
+  {w:"optimum",pos:"n./adj.",cn:"最佳效果；最适宜的",syn:"best",cat:"3"},
+  {w:"ordinary",pos:"adj.",cn:"普通的；平常的",syn:"common",cat:"3"},
+  {w:"organ",pos:"n.",cn:"器官；机构",syn:"a part of a body",cat:"3"},
+  {w:"out of the question",pos:"ph.",cn:"不可能",syn:"impossible",cat:"3"},
+  {w:"overcome",pos:"v.",cn:"克服",syn:"defeat",cat:"3"},
+  {w:"overtake",pos:"v.",cn:"赶上",syn:"surpass",cat:"3"},
+  {w:"paralyse",pos:"v.",cn:"使……麻痹；使……瘫痪",syn:"cannot move",cat:"3"},
+  {w:"paramount",pos:"adj.",cn:"最重要的，主要的",syn:"principal",cat:"3"},
+  {w:"participate",pos:"v.",cn:"参加",syn:"join",cat:"3"},
+  {w:"patient",pos:"adj./n.",cn:"有耐性的；病人",syn:"repetitive",cat:"3"},
+  {w:"peak",pos:"n./v.",cn:"最高峰，顶点",syn:"top",cat:"3"},
+  {w:"permit",pos:"n./v.",cn:"许可证；许可",syn:"allow",cat:"3"},
+  {w:"persuade",pos:"v.",cn:"说服，劝说",syn:"influence",cat:"3"},
+  {w:"pessimistic",pos:"adj.",cn:"悲观的",syn:"negative",cat:"3"},
+  {w:"phase",pos:"n.",cn:"阶段",syn:"process",cat:"3"},
+  {w:"physical",pos:"adj.",cn:"身体上的；物质的",syn:"body",cat:"3"},
+  {w:"plagiarise",pos:"v.",cn:"抄袭",syn:"copy",cat:"3"},
+  {w:"plenty of",pos:"ph.",cn:"大量的",syn:"many",cat:"3"},
+  {w:"plot",pos:"v.",cn:"密谋",syn:"plan",cat:"3"},
+  {w:"pose",pos:"v.",cn:"提出，造成，形成",syn:"cause",cat:"3"},
+  {w:"portable",pos:"adj.",cn:"可携带的",syn:"conveyable",cat:"3"},
+  {w:"poverty",pos:"n.",cn:"贫穷",syn:"poor",cat:"3"},
+  {w:"praise",pos:"n.",cn:"赞扬",syn:"commend",cat:"3"},
+  {w:"predict",pos:"v.",cn:"预测，预知",syn:"expect",cat:"3"},
+  {w:"pressing",pos:"adj.",cn:"迫切的",syn:"urgent",cat:"3"},
+  {w:"private",pos:"adj.",cn:"私人的；私有的",syn:"personal",cat:"3"},
+  {w:"prohibit",pos:"v.",cn:"禁止的",syn:"not allowed",cat:"3"},
+  {w:"prolong",pos:"v.",cn:"拉长，延长",syn:"extend",cat:"3"},
+  {w:"promote",pos:"v.",cn:"促进，推销",syn:"improve",cat:"3"},
+  {w:"prosper",pos:"v.",cn:"使成功，使繁荣",syn:"success",cat:"3"},
+  {w:"purify",pos:"v.",cn:"净化",syn:"clean",cat:"3"},
+  {w:"qualify",pos:"v.",cn:"取得资格",syn:"fulfill",cat:"3"},
+  {w:"radical",pos:"adj.",cn:"彻底的，根本的",syn:"utmost",cat:"3"},
+  {w:"range",pos:"n.",cn:"范围；幅度",syn:"scope",cat:"3"},
+  {w:"rare",pos:"adj.",cn:"稀有的",syn:"unusual",cat:"3"},
+  {w:"rate",pos:"n./v.",cn:"等级；评估",syn:"rank; measure",cat:"3"},
+  {w:"react",pos:"v.",cn:"反应",syn:"respond",cat:"3"},
+  {w:"recreation",pos:"n.",cn:"娱乐，消遣",syn:"entertainment",cat:"3"},
+  {w:"reduction",pos:"n.",cn:"下降，减少",syn:"decrease",cat:"3"},
+  {w:"refer to",pos:"ph.",cn:"指（的是），涉及，提及",syn:"talk about",cat:"3"},
+  {w:"rehearsal",pos:"n.",cn:"排演；预演；练习",syn:"preparation",cat:"3"},
+  {w:"reject",pos:"v.",cn:"拒绝，排斥，丢弃",syn:"exclude",cat:"3"},
+  {w:"relevant",pos:"adj.",cn:"相关的",syn:"relative",cat:"3"},
+  {w:"religious",pos:"adj.",cn:"宗教的；虔诚的",syn:"sacred",cat:"3"},
+  {w:"reluctant",pos:"adj.",cn:"不情愿的",syn:"unwilling",cat:"3"},
+  {w:"reproduce",pos:"v.",cn:"繁殖",syn:"breed",cat:"3"},
+  {w:"responsible",pos:"adj.",cn:"负责的，可靠的",syn:"liable",cat:"3"},
+  {w:"revision",pos:"n.",cn:"修正",syn:"editing",cat:"3"},
+  {w:"revive",pos:"v.",cn:"使复苏，恢复",syn:"renaissance",cat:"3"},
+  {w:"ruin",pos:"v.",cn:"毁灭",syn:"destroy",cat:"3"},
+  {w:"scenic",pos:"adj.",cn:"风景优美的",syn:"beautiful",cat:"3"},
+  {w:"shade",pos:"n.",cn:"遮阳；阴影",syn:"shelter",cat:"3"},
+  {w:"skepticism",pos:"n.",cn:"怀疑",syn:"doubt",cat:"3"},
+  {w:"soar",pos:"v.",cn:"激增",syn:"increase",cat:"3"},
+  {w:"solely",pos:"adv.",cn:"唯一地",syn:"alone",cat:"3"},
+  {w:"solicitor",pos:"n.",cn:"律师",syn:"lawyer",cat:"3"},
+  {w:"steer",pos:"v.",cn:"控制，引导",syn:"manage",cat:"3"},
+  {w:"stimulate",pos:"v.",cn:"刺激，激励",syn:"motivate",cat:"3"},
+  {w:"stride",pos:"n.",cn:"进展",syn:"progress",cat:"3"},
+  {w:"succumb",pos:"vi.",cn:"屈服",syn:"yield",cat:"3"},
+  {w:"subdivide",pos:"v.",cn:"把……细分",syn:"break down",cat:"3"},
+  {w:"subtle",pos:"adj.",cn:"微妙的",syn:"delicate",cat:"3"},
+  {w:"substance",pos:"n.",cn:"物质；实质",syn:"matter",cat:"3"},
+  {w:"sufficiency",pos:"n.",cn:"足量，充足",syn:"enough",cat:"3"},
+  {w:"supersede",pos:"v.",cn:"取代，代替",syn:"replace",cat:"3"},
+  {w:"suppress",pos:"v.",cn:"抑制，隐瞒",syn:"hold",cat:"3"},
+  {w:"supremacy",pos:"n.",cn:"至高无上，很高的地位",syn:"priority",cat:"3"},
+  {w:"suspicious",pos:"adj.",cn:"可疑的",syn:"odd",cat:"3"},
+  {w:"sustainable",pos:"adj.",cn:"可持续的",syn:"long-term",cat:"3"},
+  {w:"symptom",pos:"n.",cn:"症状，征兆",syn:"sign",cat:"3"},
+  {w:"tension",pos:"n.",cn:"紧张，不安",syn:"upset",cat:"3"},
+  {w:"term",pos:"n.",cn:"术语",syn:"word",cat:"3"},
+  {w:"throughout",pos:"adv.",cn:"自始至终，到处；全部",syn:"anywhere",cat:"3"},
+  {w:"toll",pos:"n./v.",cn:"通行费；征收",syn:"charge",cat:"3"},
+  {w:"trace",pos:"n.",cn:"追溯；痕迹",syn:"track",cat:"3"},
+  {w:"transcend",pos:"v.",cn:"胜过，超越",syn:"excel",cat:"3"},
+  {w:"transit",pos:"n./v.",cn:"运输；经过；运送",syn:"send",cat:"3"},
+  {w:"tremendous",pos:"adj.",cn:"巨大的，惊人的",syn:"vast",cat:"3"},
+  {w:"trigger",pos:"n.",cn:"触发，引发，引起",syn:"begin",cat:"3"},
+  {w:"tropical",pos:"adj.",cn:"热带的",syn:"hot",cat:"3"},
+  {w:"unbiased",pos:"adj.",cn:"公正的，无偏见的",syn:"fair",cat:"3"},
+  {w:"uniform",pos:"adj.",cn:"始终如一的",syn:"consistent",cat:"3"},
+  {w:"valuable",pos:"adj.",cn:"宝贵的，有价值的",syn:"benefit",cat:"3"},
+  {w:"versatile",pos:"adj.",cn:"多功能",syn:"all-around",cat:"3"},
+  {w:"view",pos:"v.",cn:"看",syn:"overlook",cat:"3"},
+  {w:"violent",pos:"adj.",cn:"暴力的；猛烈的",syn:"fierce",cat:"3"},
+  {w:"visible",pos:"adj.",cn:"明显的，看得见的",syn:"see",cat:"3"},
+  {w:"visual",pos:"adj.",cn:"视觉的",syn:"image",cat:"3"},
+  {w:"well-being",pos:"n.",cn:"健康，康乐",syn:"health",cat:"3"}
+];
+
+let allCards=[...RAW],filteredCards=[...RAW],currentIdx=0,flipped=false,known=new Set(),unsure=new Set(),currentCat='all',currentMode='flash',quizAnswered=false,quizOptions=[],correctOpt='';
+
+function setCategory(cat,el){
+  currentCat=cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  if(cat==='all') filteredCards=[...allCards];
+  else if(cat==='unsure') filteredCards=allCards.filter(c=>unsure.has(c.w));
+  else filteredCards=allCards.filter(c=>c.cat===cat);
+  currentIdx=0;flipped=false;render();
+}
+function setMode(mode){
+  currentMode=mode;
+  ['flash','quiz','list'].forEach(m=>{
+    document.getElementById('mb-'+m).classList.toggle('active',m===mode);
+    document.getElementById(m+'-area').style.display=m===mode?'':'none';
+  });
+  document.getElementById('search-row').style.display=mode==='list'?'':'none';
+  flipped=false;quizAnswered=false;render();
+}
+function shuffleCards(){
+  for(let i=filteredCards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[filteredCards[i],filteredCards[j]]=[filteredCards[j],filteredCards[i]];}
+  currentIdx=0;flipped=false;
+  const lbl=document.getElementById('shuffle-label');lbl.textContent='已洗牌';setTimeout(()=>lbl.textContent='',1500);
+  render();
+}
+function resetProgress(){known.clear();unsure.clear();currentIdx=0;flipped=false;document.getElementById('btn-unsure-cat').style.display='none';render();}
+function markKnown(){const c=filteredCards[currentIdx];known.add(c.w);unsure.delete(c.w);next();}
+function markUnsure(){const c=filteredCards[currentIdx];unsure.add(c.w);known.delete(c.w);document.getElementById('btn-unsure-cat').style.display='';next();}
+function next(){if(currentIdx<filteredCards.length-1)currentIdx++;flipped=false;quizAnswered=false;render();}
+function prev(){if(currentIdx>0)currentIdx--;flipped=false;quizAnswered=false;render();}
+function flipCard(){flipped=!flipped;render();}
+function catLabel(c){return c==='1'?'第1类':c==='2'?'第2类':'第3类';}
+function buildQuizOptions(card){
+  const wrong=allCards.filter(c=>c.w!==card.w&&c.cn!==card.cn).sort(()=>Math.random()-0.5).slice(0,3);
+  return{opts:[...wrong.map(c=>c.cn),card.cn].sort(()=>Math.random()-0.5),correct:card.cn};
+}
+function updateStats(){
+  const total=filteredCards.length,k=filteredCards.filter(c=>known.has(c.w)).length,u=filteredCards.filter(c=>unsure.has(c.w)).length;
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-known').textContent=k;
+  document.getElementById('stat-unsure').textContent=u;
+  document.getElementById('stat-idx').textContent=total>0?`${currentIdx+1}/${total}`:'0/0';
+  document.getElementById('prog-bar').style.width=(total>0?Math.round(k/total*100):0)+'%';
+}
+function render(){updateStats();if(currentMode==='flash')renderFlash();else if(currentMode==='quiz')renderQuiz();else renderList();}
+function renderFlash(){
+  const area=document.getElementById('flash-area');
+  if(!filteredCards.length){area.innerHTML='<div style="text-align:center;color:var(--text3);padding:2rem">该分类暂无单词</div>';return;}
+  const card=filteredCards[currentIdx],isK=known.has(card.w),isU=unsure.has(card.w);
+  const sc=isK?'#1D9E75':isU?'#BA7517':'transparent';
+  let html=`<div class="flashcard" onclick="flipCard()" style="border-left:3px solid ${sc}"><span class="card-cat">${catLabel(card.cat)}</span><span class="card-num">${currentIdx+1} / ${filteredCards.length}</span>`;
+  if(!flipped){html+=`<div class="card-word">${card.w}</div><div class="card-pos">${card.pos}</div><div class="flip-hint">点击翻转查看释义</div>`;}
+  else{html+=`<div class="card-word" style="font-size:18px">${card.w}</div><div class="card-pos">${card.pos}</div><div class="card-back">${card.cn}</div><div class="card-synonyms">同义替换：${card.syn}</div>`;}
+  html+=`</div><div class="btn-row"><button class="btn-action btn-prev" onclick="prev()">← 上一张</button><button class="btn-action btn-know" onclick="markKnown()">✓ 已掌握</button><button class="btn-action btn-unsure" onclick="markUnsure()">? 待复习</button><button class="btn-action btn-next" onclick="next()">下一张 →</button></div>`;
+  area.innerHTML=html;
+}
+function renderQuiz(){
+  const area=document.getElementById('quiz-area');
+  if(!filteredCards.length){area.innerHTML='<div style="text-align:center;color:var(--text3);padding:2rem">该分类暂无单词</div>';return;}
+  const card=filteredCards[currentIdx];
+  if(!quizAnswered){const b=buildQuizOptions(card);quizOptions=b.opts;correctOpt=b.correct;}
+  let html=`<div class="flashcard" style="cursor:default;margin-bottom:0.5rem"><span class="card-cat">${catLabel(card.cat)}</span><span class="card-num">${currentIdx+1} / ${filteredCards.length}</span><div class="card-word">${card.w}</div><div class="card-pos">${card.pos}</div>${quizAnswered?`<div class="card-synonyms" style="margin-top:8px">同义替换：${card.syn}</div>`:''}</div><div class="quiz-opts">`;
+  quizOptions.forEach(opt=>{
+    let cls='quiz-opt';
+    if(quizAnswered) cls+=opt===correctOpt?' correct':' wrong';
+    html+=`<button class="${cls}" onclick="answerQuiz(this,'${opt.replace(/'/g,"\\'")}')">${opt}</button>`;
+  });
+  html+=`</div>`;
+  if(quizAnswered) html+=`<div class="btn-row"><button class="btn-action btn-next" onclick="next()">下一题 →</button></div>`;
+  area.innerHTML=html;
+}
+function answerQuiz(btn,opt){
+  if(quizAnswered)return;quizAnswered=true;
+  const card=filteredCards[currentIdx];
+  if(opt===correctOpt){known.add(card.w);unsure.delete(card.w);}
+  else{unsure.add(card.w);known.delete(card.w);document.getElementById('btn-unsure-cat').style.display='';}
+  render();
+}
+function renderList(){
+  const area=document.getElementById('list-area');
+  const q=(document.getElementById('search-input')||{value:''}).value.toLowerCase();
+  const cards=q?filteredCards.filter(c=>c.w.toLowerCase().includes(q)||c.cn.includes(q)||c.syn.toLowerCase().includes(q)):filteredCards;
+  if(!cards.length){area.innerHTML='<div style="text-align:center;color:var(--text3);padding:2rem">暂无结果</div>';return;}
+  let html=`<div class="review-title">${cards.length} 个单词</div><div class="review-grid">`;
+  cards.forEach(c=>{
+    const isK=known.has(c.w),isU=unsure.has(c.w);
+    html+=`<div class="review-card" onclick="jumpTo('${c.w}')"><div class="review-word">${c.w}</div><div class="review-cn">${c.cn}</div>${isK?'<div class="review-tag tag-known">✓ 已掌握</div>':isU?'<div class="review-tag tag-unsure">? 待复习</div>':''}</div>`;
+  });
+  html+=`</div>`;area.innerHTML=html;
+}
+function searchWords(){renderList();}
+function jumpTo(word){
+  const idx=filteredCards.findIndex(c=>c.w===word);
+  if(idx>=0){currentIdx=idx;flipped=false;setMode('flash');}
+}
+render();
+</script>
+</body>
+</html>
