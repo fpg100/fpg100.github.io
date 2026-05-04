@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2B</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#2563eb;--ok:#16a34a;--bad:#dc2626;--warn:#f97316}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#eef5ff 0,#f8fafc 260px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:22px}h1{margin:0 0 8px;font-size:28px}.sub,.note{color:var(--muted);line-height:1.6}
+.panel,.quiz,.stat{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 28px rgba(15,23,42,.08)}
+.panel{padding:14px;margin:14px 0}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button,select,input,textarea{font:inherit;border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px 13px}button{cursor:pointer}button:hover{border-color:#93c5fd}.primary{background:var(--brand);border-color:var(--brand);color:white;font-weight:800}.green{background:var(--ok);border-color:var(--ok);color:white;font-weight:800}.red{background:var(--bad);border-color:var(--bad);color:white;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0}.stat{padding:12px}.stat span{color:var(--muted);font-size:13px}.stat b{display:block;font-size:24px;margin-top:4px}
+.bar{height:12px;background:#e2e8f0;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--brand);transition:.25s}
+.quiz{padding:22px;margin:14px 0}.tag{display:inline-block;background:#eff6ff;color:#1d4ed8;padding:6px 10px;border-radius:999px;font-size:13px;margin-bottom:10px}
+.word{font-size:44px;font-weight:900;text-align:center;margin:18px 0 8px;word-break:break-word}.answer{text-align:center;color:var(--ok);font-size:22px;font-weight:800;min-height:32px;margin-bottom:16px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.opt{text-align:left;padding:15px;border-radius:16px;background:#f8fafc;border:2px solid var(--line);font-size:18px}.opt.correct{background:#dcfce7;border-color:#22c55e}.opt.wrong{background:#fee2e2;border-color:#ef4444}
+.flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px;max-height:360px;overflow:auto;padding-right:4px}.card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px}.en{font-weight:900}.zh{color:#334155;margin-top:4px}.small{font-size:12px;color:var(--muted);margin-top:6px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:999px;display:none}
+#importBox{display:none}textarea{width:100%;min-height:160px;margin-top:10px}@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.options{grid-template-columns:1fr}.word{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>📘 New Treasure Plus 2B Vocabulary 背诵系统｜完整版</h1>
+<div class="sub">英 → 中 四选一｜内置词汇 166 个｜每组20题｜支持错题本、分类筛选、搜索、导入导出、离线使用</div>
+
+<section class="panel">
+  <div class="toolbar">
+    <select id="unit"></select>
+    <select id="group"></select>
+    <select id="order"><option value="seq">顺序练习</option><option value="random">随机练习</option></select>
+    <input id="search" placeholder="搜索英文/中文/分类">
+    <button class="primary" id="startBtn">开始练习</button>
+    <button id="wrongBtn">只练错题</button>
+    <button id="showImport">导入词库</button>
+    <button id="exportBtn">导出词库</button>
+    <button id="toggleVocabBtn">显示词汇表</button>
+  </div>
+  <div id="importBox">
+    <div class="note">每行一个词：英文[TAB]中文[TAB]分类。也支持“英文 - 中文”。导入后会保存在本机浏览器。</div>
+    <textarea id="importText" placeholder="example\t例子\tUnit X"></textarea>
+    <div class="flex"><button class="green" id="importBtn">确认导入</button><button id="restoreBtn">恢复内置完整版</button></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><span>题库总数</span><b id="wordTotal">0</b></div>
+  <div class="stat"><span>本组进度</span><b id="progress">0/0</b></div>
+  <div class="stat"><span>正确</span><b id="right">0</b></div>
+  <div class="stat"><span>错误</span><b id="wrong">0</b></div>
+  <div class="stat"><span>正确率</span><b id="rate">0%</b></div>
+</section>
+<div class="bar"><i id="bar"></i></div>
+
+<section class="quiz">
+  <div class="tag" id="tag">准备开始</div>
+  <div class="word" id="word">点击“开始练习”</div>
+  <div class="answer" id="answer"></div>
+  <div class="options" id="options"></div>
+  <div class="flex">
+    <button id="toggleAnswer">显示/隐藏答案</button>
+    <button class="green" id="nextBtn">下一题</button>
+    <button id="restartBtn">重练本组</button>
+    <button class="red" id="resetWrongBtn">清空错题</button>
+  </div>
+</section>
+
+<section class="panel" id="vocabPanel" style="display:none;">
+  <b>词汇表 / 错题表</b>
+  <div class="note" id="listNote"></div>
+  <div class="list" id="wordList"></div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const BUILTIN = [{"id": 1, "en": "rhinoceros", "zh": "犀牛", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 2, "en": "shark", "zh": "鲨鱼", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 3, "en": "polar bear", "zh": "北极熊", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 4, "en": "seal", "zh": "海豹", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 5, "en": "crocodile", "zh": "鳄鱼", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 6, "en": "starfish", "zh": "海星", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 7, "en": "cheetah", "zh": "猎豹", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 8, "en": "Chinese alligator", "zh": "扬子鳄", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 9, "en": "Chinese White Dolphin", "zh": "中华白海豚", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 10, "en": "deer", "zh": "鹿", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 11, "en": "kangaroo", "zh": "袋鼠", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 12, "en": "red panda", "zh": "小熊猫", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 13, "en": "Beluga Whale", "zh": "白鲸", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 14, "en": "Black-faced Spoonbill", "zh": "黑脸琵鹭", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 15, "en": "Giant Panda", "zh": "大熊猫", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 16, "en": "Romer’s Tree Frog", "zh": "卢文氏树蛙", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 17, "en": "wild boar", "zh": "野猪", "tag": "Unit 5 Amazing wildlife｜Animals"}, {"id": 18, "en": "ant", "zh": "蚂蚁", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 19, "en": "bee", "zh": "蜜蜂", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 20, "en": "butterfly", "zh": "蝴蝶", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 21, "en": "caterpillar", "zh": "毛虫", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 22, "en": "dragonfly", "zh": "蜻蜓", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 23, "en": "grasshopper", "zh": "蚱蜢 / 蝗虫", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 24, "en": "ladybird", "zh": "瓢虫", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 25, "en": "moth", "zh": "飞蛾", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 26, "en": "praying mantis", "zh": "螳螂", "tag": "Unit 5 Amazing wildlife｜Insects"}, {"id": 27, "en": "animal shelter", "zh": "动物收容所", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 28, "en": "breed", "zh": "繁殖；品种", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 29, "en": "buzz", "zh": "嗡嗡声；发出嗡嗡声", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 30, "en": "cage", "zh": "笼子", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 31, "en": "chirp", "zh": "啁啾；吱喳叫", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 32, "en": "conservation", "zh": "保护；保育", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 33, "en": "crawl", "zh": "爬行", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 34, "en": "cub", "zh": "幼兽", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 35, "en": "ecology", "zh": "生态学；生态", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 36, "en": "endangered species", "zh": "濒危物种", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 37, "en": "extinct", "zh": "灭绝的", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 38, "en": "habitat", "zh": "栖息地", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 39, "en": "hive", "zh": "蜂巢", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 40, "en": "nature reserve", "zh": "自然保护区", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 41, "en": "nest", "zh": "巢", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 42, "en": "pigsty", "zh": "猪圈", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 43, "en": "pup", "zh": "幼崽", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 44, "en": "scaly", "zh": "有鳞的", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 45, "en": "sting", "zh": "叮；刺；蜇", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 46, "en": "threatened species", "zh": "受威胁物种", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 47, "en": "wetland", "zh": "湿地", "tag": "Unit 5 Amazing wildlife｜Related words"}, {"id": 48, "en": "adopt", "zh": "收养；采用", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 49, "en": "alone", "zh": "独自；单独的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 50, "en": "apologize", "zh": "道歉", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 51, "en": "argue", "zh": "争吵；争论", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 52, "en": "comfort", "zh": "安慰；舒适", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 53, "en": "feelings", "zh": "感情；感受", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 54, "en": "forgive", "zh": "原谅", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 55, "en": "grateful", "zh": "感激的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 56, "en": "hate", "zh": "憎恨；讨厌", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 57, "en": "housework", "zh": "家务", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 58, "en": "ignore", "zh": "忽视；不理睬", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 59, "en": "important", "zh": "重要的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 60, "en": "lonely", "zh": "孤独的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 61, "en": "love", "zh": "爱；喜爱", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 62, "en": "responsibility", "zh": "责任", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 63, "en": "rude", "zh": "粗鲁的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 64, "en": "secret", "zh": "秘密", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 65, "en": "share", "zh": "分享", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 66, "en": "special", "zh": "特别的", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 67, "en": "trust", "zh": "信任", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 68, "en": "tutor", "zh": "导师；家庭教师", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 69, "en": "working hours", "zh": "工作时间", "tag": "Unit 6 Home sweet home｜Family life"}, {"id": 70, "en": "alcoholic parent", "zh": "酗酒的父母", "tag": "Unit 6 Home sweet home｜Family problems"}, {"id": 71, "en": "divorce", "zh": "离婚", "tag": "Unit 6 Home sweet home｜Family problems"}, {"id": 72, "en": "lack of communication", "zh": "缺乏沟通", "tag": "Unit 6 Home sweet home｜Family problems"}, {"id": 73, "en": "money problem", "zh": "金钱问题", "tag": "Unit 6 Home sweet home｜Family problems"}, {"id": 74, "en": "unemployed parent", "zh": "失业的父母", "tag": "Unit 6 Home sweet home｜Family problems"}, {"id": 75, "en": "break up", "zh": "分手；破裂", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 76, "en": "get on with", "zh": "与……相处", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 77, "en": "get up", "zh": "起床", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 78, "en": "look after", "zh": "照顾", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 79, "en": "make up", "zh": "和好；编造；组成", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 80, "en": "run away", "zh": "逃跑；离家出走", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 81, "en": "split up", "zh": "分开；分手", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 82, "en": "tidy up", "zh": "整理；收拾", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 83, "en": "wash up", "zh": "洗餐具", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 84, "en": "write down", "zh": "写下", "tag": "Unit 6 Home sweet home｜Phrasal verbs"}, {"id": 85, "en": "curiosity", "zh": "好奇心", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 86, "en": "domestic violence", "zh": "家庭暴力", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 87, "en": "exam stress", "zh": "考试压力", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 88, "en": "loneliness", "zh": "孤独", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 89, "en": "parents’ divorce", "zh": "父母离婚", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 90, "en": "peer pressure", "zh": "同辈压力", "tag": "Unit 8 Anti-drug campaign｜Reasons for drug abuse"}, {"id": 91, "en": "battle", "zh": "战斗；斗争", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 92, "en": "beat", "zh": "打败；战胜", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 93, "en": "cannabis", "zh": "大麻", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 94, "en": "cocaine", "zh": "可卡因", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 95, "en": "control", "zh": "控制", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 96, "en": "crime", "zh": "罪行；犯罪", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 97, "en": "cure", "zh": "治愈；疗法", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 98, "en": "dope", "zh": "毒品", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 99, "en": "drug abuse", "zh": "滥用毒品", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 100, "en": "drug addict", "zh": "吸毒成瘾者", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 101, "en": "drug dealer", "zh": "毒贩", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 102, "en": "effect", "zh": "影响；效果", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 103, "en": "health problem", "zh": "健康问题", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 104, "en": "heroin", "zh": "海洛因", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 105, "en": "hooked", "zh": "上瘾的", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 106, "en": "insomnia", "zh": "失眠", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 107, "en": "puff", "zh": "吸一口；一口烟", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 108, "en": "recovery", "zh": "康复", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 109, "en": "rehabilitation centre", "zh": "戒毒康复中心", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 110, "en": "resist", "zh": "抵抗；抵制", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 111, "en": "social worker", "zh": "社工", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 112, "en": "soft drug", "zh": "软性毒品", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 113, "en": "support", "zh": "支持", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 114, "en": "tackle", "zh": "处理；应对", "tag": "Unit 8 Anti-drug campaign｜Addiction & rehab"}, {"id": 115, "en": "action", "zh": "行动", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 116, "en": "addiction", "zh": "上瘾；成瘾", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 117, "en": "advertisement", "zh": "广告", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 118, "en": "arrangement", "zh": "安排", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 119, "en": "attachment", "zh": "依恋；附件", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 120, "en": "celebration", "zh": "庆祝", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 121, "en": "determination", "zh": "决心", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 122, "en": "education", "zh": "教育", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 123, "en": "government", "zh": "政府", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 124, "en": "improvement", "zh": "改善；进步", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 125, "en": "organization", "zh": "组织", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 126, "en": "prevention", "zh": "预防", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 127, "en": "rehabilitation", "zh": "康复；戒毒治疗", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 128, "en": "treatment", "zh": "治疗；对待", "tag": "Unit 8 Anti-drug campaign｜Suffixes -ion/-ment"}, {"id": 129, "en": "alien", "zh": "外星人", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 130, "en": "dragon", "zh": "龙", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 131, "en": "ghost", "zh": "鬼；幽灵", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 132, "en": "vampire", "zh": "吸血鬼", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 133, "en": "werewolf", "zh": "狼人", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 134, "en": "witch", "zh": "女巫", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 135, "en": "wizard", "zh": "男巫；魔法师", "tag": "Unit 7 Believe it or not｜Unusual powers"}, {"id": 136, "en": "castle", "zh": "城堡", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 137, "en": "dungeon", "zh": "地牢", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 138, "en": "forest", "zh": "森林", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 139, "en": "graveyard", "zh": "墓地", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 140, "en": "haunted house", "zh": "鬼屋", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 141, "en": "heaven", "zh": "天堂", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 142, "en": "prison", "zh": "监狱", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 143, "en": "spaceship", "zh": "宇宙飞船", "tag": "Unit 7 Believe it or not｜Mysterious settings"}, {"id": 144, "en": "ability", "zh": "能力", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 145, "en": "afraid", "zh": "害怕的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 146, "en": "blood", "zh": "血", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 147, "en": "broomstick", "zh": "扫帚柄；魔法扫帚", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 148, "en": "bury", "zh": "埋葬", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 149, "en": "cold", "zh": "寒冷的；冷的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 150, "en": "creature", "zh": "生物；怪物", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 151, "en": "dark", "zh": "黑暗的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 152, "en": "dead", "zh": "死的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 153, "en": "footsteps", "zh": "脚步声", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 154, "en": "fortune-teller", "zh": "算命先生", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 155, "en": "howl", "zh": "嚎叫", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 156, "en": "legendary", "zh": "传奇的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 157, "en": "magic", "zh": "魔法；魔术", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 158, "en": "scare", "zh": "使害怕；惊吓", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 159, "en": "shake", "zh": "摇动；颤抖", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 160, "en": "shiver", "zh": "发抖", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 161, "en": "sign", "zh": "标志；迹象", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 162, "en": "spirit", "zh": "灵魂；精神", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 163, "en": "strange", "zh": "奇怪的", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 164, "en": "supernatural powers", "zh": "超自然力量", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 165, "en": "symbol", "zh": "象征；符号", "tag": "Unit 7 Believe it or not｜Mysterious stories"}, {"id": 166, "en": "whisper", "zh": "低声说；耳语", "tag": "Unit 7 Believe it or not｜Mysterious stories"}];
+const STORE = "ntp2b_words_full_v1";
+const WRONG = "ntp2b_wrong_full_v1";
+let words = JSON.parse(localStorage.getItem(STORE) || "null") || BUILTIN.slice();
+let wrongIds = JSON.parse(localStorage.getItem(WRONG) || "[]");
+let pool = [], index = 0, answered = false, selected = null, score = {right:0, wrong:0}, current = null, showAns=false;
+const GROUP_SIZE = 20;
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a };
+function toast(msg){ $("toast").textContent=msg; $("toast").style.display="block"; setTimeout(()=>$("toast").style.display="none",1700) }
+function units(){ return [...new Set(words.map(w => (w.tag||"未分类").split("｜")[0]))]; }
+function refreshFilters(){
+  const uSel=$("unit"), gSel=$("group");
+  const oldU=uSel.value, oldG=gSel.value;
+  uSel.innerHTML = '<option value="all">全部单元</option>' + units().map(u=>`<option value="${esc(u)}">${esc(u)}</option>`).join("");
+  if([...uSel.options].some(o=>o.value===oldU)) uSel.value=oldU;
+  const arr = uSel.value==="all" ? words : words.filter(w=>(w.tag||"").startsWith(uSel.value));
+  const groups = Math.max(1, Math.ceil(arr.length/GROUP_SIZE));
+  gSel.innerHTML = '<option value="all">全部</option>' + Array.from({length:groups},(_,i)=>`<option value="${i}">第${i+1}组（${i*GROUP_SIZE+1}-${Math.min((i+1)*GROUP_SIZE, arr.length)}）</option>`).join("");
+  if([...gSel.options].some(o=>o.value===oldG)) gSel.value=oldG;
+}
+function filteredBase(){
+  let arr = words.slice();
+  const u=$("unit").value, s=$("search").value.trim().toLowerCase();
+  if(u!=="all") arr=arr.filter(w=>(w.tag||"").startsWith(u));
+  if(s) arr=arr.filter(w=>w.en.toLowerCase().includes(s)||w.zh.includes(s)||(w.tag||"").toLowerCase().includes(s));
+  if($("order").value==="random") arr=shuffle(arr);
+  const g=$("group").value;
+  if(g!=="all" && !s) arr=arr.slice(Number(g)*GROUP_SIZE, Number(g)*GROUP_SIZE+GROUP_SIZE);
+  return arr;
+}
+function makeOptions(item){
+  let choices=[item.zh];
+  for(const m of shuffle(words.filter(w=>w.zh!==item.zh).map(w=>w.zh).filter((v,i,a)=>a.indexOf(v)===i))){ if(choices.length>=4) break; choices.push(m); }
+  return shuffle(choices);
+}
+function start(arr=filteredBase()){ 
+  pool = arr.length>=4 ? arr : words.slice(0, Math.min(GROUP_SIZE, words.length));
+  index=0; answered=false; selected=null; score={right:0,wrong:0}; showAns=false; render();
+}
+function render(){
+  $("wordTotal").textContent=words.length;
+  $("progress").textContent=pool.length?`${index+1}/${pool.length}`:"0/0";
+  $("right").textContent=score.right; $("wrong").textContent=score.wrong;
+  const done=score.right+score.wrong; $("rate").textContent=done?Math.round(score.right/done*100)+"%":"0%";
+  $("bar").style.width=pool.length?Math.min(100,(done/pool.length)*100)+"%":"0%";
+  current=pool[index];
+  $("options").innerHTML="";
+  if(!current){ $("word").textContent="没有题目"; $("tag").textContent=""; $("answer").textContent=""; renderList(); return; }
+  $("tag").textContent=current.tag||"";
+  $("word").textContent=current.en;
+  $("answer").textContent=showAns ? "答案：" + current.zh : "";
+  makeOptions(current).forEach((o,i)=>{
+    const b=document.createElement("button");
+    b.className="opt";
+    if(answered && o===current.zh) b.classList.add("correct");
+    if(answered && selected===o && o!==current.zh) b.classList.add("wrong");
+    b.innerHTML=`<b>${String.fromCharCode(65+i)}.</b> ${esc(o)}`;
+    b.onclick=()=>choose(o);
+    $("options").appendChild(b);
+  });
+  renderList();
+}
+function choose(o){
+  if(answered) return;
+  answered=true; selected=o; showAns=true;
+  if(o===current.zh) score.right++; else { score.wrong++; if(!wrongIds.includes(current.id)) wrongIds.push(current.id); localStorage.setItem(WRONG, JSON.stringify(wrongIds)); }
+  render();
+}
+function next(){
+  if(!pool.length) return;
+  if(index < pool.length-1){ index++; answered=false; selected=null; showAns=false; render(); }
+  else toast("本组完成！");
+}
+function renderList(){
+  const wrongSet=new Set(wrongIds), showing=pool.length?pool:words;
+  $("listNote").textContent=`当前显示 ${showing.length} 个；错题 ${wrongIds.length} 个`;
+  $("wordList").innerHTML=showing.map(w=>`<div class="card"><div class="en">${esc(w.en)} ${wrongSet.has(w.id)?"⭐":""}</div><div class="zh">${esc(w.zh)}</div><div class="small">${esc(w.tag||"")}</div></div>`).join("");
+}
+function parse(text){
+  return text.split(/\n+/).map((line,i)=>{
+    const p=line.split(/\t|\s+-\s+|\s+—\s+|,|，/).map(x=>x.trim()).filter(Boolean);
+    return p.length>=2?{id:i+1,en:p[0],zh:p[1],tag:p[2]||"导入词库"}:null;
+  }).filter(Boolean);
+}
+$("startBtn").onclick=()=>start();
+$("nextBtn").onclick=next;
+$("toggleAnswer").onclick=()=>{showAns=!showAns;render()};
+$("restartBtn").onclick=()=>start(pool.length?pool:filteredBase());
+$("wrongBtn").onclick=()=>{ const arr=words.filter(w=>wrongIds.includes(w.id)); if(arr.length<1) return toast("还没有错题"); start(arr.length>=4?arr:arr.concat(words.filter(w=>!wrongIds.includes(w.id)).slice(0,4-arr.length))); };
+$("resetWrongBtn").onclick=()=>{wrongIds=[];localStorage.removeItem(WRONG);render();toast("错题已清空")};
+$("unit").onchange=()=>{refreshFilters();};
+$("showImport").onclick=()=>{$("importBox").style.display=$("importBox").style.display==="block"?"none":"block"};
+$("importBtn").onclick=()=>{const p=parse($("importText").value); if(p.length<4) return toast("至少需要4个词"); words=p; wrongIds=[]; localStorage.setItem(STORE,JSON.stringify(words)); localStorage.removeItem(WRONG); refreshFilters(); start(words.slice(0,GROUP_SIZE));};
+$("restoreBtn").onclick=()=>{words=BUILTIN.slice(); wrongIds=[]; localStorage.removeItem(STORE); localStorage.removeItem(WRONG); refreshFilters(); start(words.slice(0,GROUP_SIZE));};
+$("exportBtn").onclick=()=>{const txt=words.map(w=>`${w.en}\t${w.zh}\t${w.tag||""}`).join("\n"); const blob=new Blob([txt],{type:"text/plain;charset=utf-8"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="New_Treasure_Plus_2B_vocabulary.tsv"; a.click(); URL.revokeObjectURL(a.href);};
+refreshFilters(); start(words.slice(0,GROUP_SIZE));
+</script>
+</body>
+</html>
