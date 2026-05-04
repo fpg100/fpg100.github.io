@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>508v4</title>
+<title>雅思阅读考点词｜主词显示·对应词隐藏·四选一</title>
 <style>
 :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#ea580c;--blue:#2563eb;--ok:#16a34a;--bad:#dc2626;--main:#7c3aed;--rep:#0891b2;--soft:#fff7ed}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff7ed 0,#f8fafc 280px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}
@@ -40,6 +40,12 @@ const COUNTS={"main1":20,"main2":100,"main3":256,"repl1":87,"repl2":176,"repl3":
 let pool=[], idx=0, answered=false, current=null, score={right:0,wrong:0}, counterpartVisible=false;
 const KEY='ieltsVocabGroupedWrong_v2'; let wrongIds=JSON.parse(localStorage.getItem(KEY)||'[]');
 const $=id=>document.getElementById(id);
+const VALID_DATA=DATA.filter(x=>{
+  const w=(x.word||'').trim();
+  const m=(x.meaning||'').trim();
+  const p=(x.parent||'').trim();
+  return w && m && w!=='没有题目' && w!=='undefined' && w!=='null' && !/^[-—–,，;；。.\s]+$/.test(w) && p;
+});
 const CAT_MAX={'第1类':20,'第2类':100,'第3类':256};
 function groupNo(item){return Math.floor((item.rank-1)/5)+1}
 function groupLabel(item){const s=(groupNo(item)-1)*5+1, e=Math.min(groupNo(item)*5,CAT_MAX[item.cat]); return `${item.cat} 第${groupNo(item)}组（考点词${s}-${e}）`}
@@ -54,7 +60,7 @@ function fillGroups(){
   $('groupNote').textContent='分组依据：只按“考点词”每 5 个一组；它的真题替换词归入同一个小组。';
 }
 function buildPool(){
-  let arr=DATA.slice(); const cat=$('cat').value, kind=$('kind').value, g=$('group').value;
+  let arr=VALID_DATA.slice(); const cat=$('cat').value, kind=$('kind').value, g=$('group').value;
   if(cat==='wrong') arr=arr.filter(x=>wrongIds.includes(x.id)); else if(cat!=='all') arr=arr.filter(x=>x.cat===cat);
   if(kind!=='all') arr=arr.filter(x=>x.kind===kind);
   if(g!=='all'){const [gc,gn]=g.split('|'); arr=arr.filter(x=>x.cat===gc && groupNo(x)==Number(gn));}
@@ -64,8 +70,8 @@ function buildPool(){
 }
 function optionSet(item){
   const answer=item.meaning;
-  let candidates=unique(DATA.filter(x=>x.meaning!==answer && !sameGroup(x,item)).map(x=>x.meaning));
-  if(candidates.length<3) candidates=unique(DATA.filter(x=>x.meaning!==answer).map(x=>x.meaning));
+  let candidates=unique(VALID_DATA.filter(x=>x.meaning!==answer && !sameGroup(x,item)).map(x=>x.meaning));
+  if(candidates.length<3) candidates=unique(VALID_DATA.filter(x=>x.meaning!==answer).map(x=>x.meaning));
   return shuffle([answer,...shuffle(candidates).slice(0,3)]);
 }
 function counterpartText(item){
@@ -80,7 +86,14 @@ function setCounterpartVisible(on){
 }
 function render(){
   current=pool[idx]; answered=false; $('feedback').textContent=''; $('options').innerHTML='';
-  if(!current){$('word').textContent='没有题目'; $('meta').textContent='请更换范围或清空筛选条件'; $('rank').textContent=''; $('pos').textContent='0/0'; $('total').textContent='0'; $('bar').style.width='0%'; return;}
+  if(!current){
+    const cat=$('cat').value;
+    $('word').textContent=cat==='wrong'?'错题本为空':'当前范围暂无题目';
+    $('meta').textContent=cat==='wrong'?'先做题并点“加入错题”，这里才会出现题目。':'已自动过滤空词条；请选择“全部分组”或其他范围。';
+    $('rank').textContent=''; $('counterpart').textContent=''; $('counterpartLabel').textContent='对应词';
+    $('pos').textContent='0/0'; $('total').textContent='0'; $('bar').style.width='0%'; return;
+  }
+  if(!String(current.word||'').trim()) { pool.splice(idx,1); if(idx>=pool.length) idx=Math.max(0,pool.length-1); render(); return; }
   $('badge').textContent=current.kind; $('badge').className='badge '+(current.kind==='考点词'?'main':'rep');
   $('word').textContent=current.word;
   $('meta').textContent=groupLabel(current); $('rank').textContent=`主词序号：${current.rank}`;
@@ -106,7 +119,7 @@ function updateStats(){
 function next(){if(idx<pool.length-1){idx++; render();} else {$('feedback').innerHTML=`本组完成：正确 ${score.right}，错误 ${score.wrong}。`; $('bar').style.width='100%';}}
 function showAnswer(){if(!current)return; $('feedback').innerHTML=`正确答案：<span class="ok">${current.meaning}</span>`; setCounterpartVisible(true); [...document.querySelectorAll('.opt')].forEach(b=>{if(b.textContent.includes(current.meaning)) b.classList.add('correct')})}
 function renderWrong(){
- const box=$('wrongList'); box.innerHTML=''; const list=DATA.filter(x=>wrongIds.includes(x.id));
+ const box=$('wrongList'); box.innerHTML=''; const list=VALID_DATA.filter(x=>wrongIds.includes(x.id));
  if(!list.length){box.innerHTML='<div class="note">暂无错题。</div>'; return;}
  list.slice(0,80).forEach(x=>{const d=document.createElement('div'); d.className='mini'; d.innerHTML=`<b>${x.word}</b> <span class="badge ${x.kind==='考点词'?'main':'rep'}">${x.kind}</span><p>${x.meaning}</p><p class="note">${x.kind==='考点词'?'对应真题替换词：'+counterpartText(x):'对应考点词：'+counterpartText(x)}</p>`; box.appendChild(d);});
 }
