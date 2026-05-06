@@ -47,8 +47,14 @@ const VALID_DATA=DATA.filter(x=>{
   return w && m && w!=='没有题目' && w!=='undefined' && w!=='null' && !/^[-—–,，;；。.\s]+$/.test(w) && p;
 });
 const CAT_MAX={'第1类':20,'第2类':100,'第3类':256};
-function groupNo(item){return Math.floor((item.rank-1)/5)+1}
-function groupLabel(item){const s=(groupNo(item)-1)*5+1, e=Math.min(groupNo(item)*5,CAT_MAX[item.cat]); return `${item.cat} 第${groupNo(item)}组（考点词${s}-${e}）`}
+const CAT_OFFSET={'第1类':0,'第2类':20,'第3类':0};
+function localRank(item){
+  const r=Number(item.rank)||0;
+  const off=CAT_OFFSET[item.cat]||0;
+  return Math.max(1,r-off);
+}
+function groupNo(item){return Math.floor((localRank(item)-1)/5)+1}
+function groupLabel(item){const g=groupNo(item), s=(g-1)*5+1, e=Math.min(g*5,CAT_MAX[item.cat]); return `${item.cat} 第${g}组（${s}-${e}）`}
 function unique(arr){return [...new Set(arr.filter(Boolean))]}
 function shuffle(a){a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a}
 function sameGroup(a,b){return a.cat===b.cat && groupNo(a)===groupNo(b)}
@@ -57,7 +63,7 @@ function fillGroups(){
   let cats=cat==='all'||cat==='wrong'?['第1类','第2类','第3类']:[cat];
   cats.forEach(c=>{for(let g=1; g<=Math.ceil(CAT_MAX[c]/5); g++){const s=(g-1)*5+1,e=Math.min(g*5,CAT_MAX[c]); const op=document.createElement('option'); op.value=`${c}|${g}`; op.textContent=`${c} 第${g}组（${s}-${e}）`; sel.appendChild(op)}});
   if([...sel.options].some(o=>o.value===old)) sel.value=old;
-  $('groupNote').textContent='分组依据：只按“考点词”每 5 个一组；它的真题替换词归入同一个小组。';
+  $('groupNote').textContent='分组依据：每一类内部按“考点词”每 5 个一组；对应真题替换词归入同一小组。';
 }
 function buildPool(){
   let arr=VALID_DATA.slice(); const cat=$('cat').value, kind=$('kind').value, g=$('group').value;
@@ -96,7 +102,7 @@ function render(){
   if(!String(current.word||'').trim()) { pool.splice(idx,1); if(idx>=pool.length) idx=Math.max(0,pool.length-1); render(); return; }
   $('badge').textContent=current.kind; $('badge').className='badge '+(current.kind==='考点词'?'main':'rep');
   $('word').textContent=current.word;
-  $('meta').textContent=groupLabel(current); $('rank').textContent=`主词序号：${current.rank}`;
+  $('meta').textContent=groupLabel(current); $('rank').textContent=`本类序号：${localRank(current)}（原表序号：${current.rank}）`;
   $('counterpartLabel').textContent=current.kind==='考点词'?'对应真题替换词':'对应考点词';
   $('counterpart').textContent=counterpartText(current);
   setCounterpartVisible(false);
