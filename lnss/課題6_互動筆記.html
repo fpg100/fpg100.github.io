@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>課題6 歐洲國家的殖民擴張｜互動筆記</title>
+<style>
+  :root {
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --hidden-bg: #2c2c2a;
+    --hidden-text: #2c2c2a;
+    --accent: #c0392b;
+    --border: #e0e0e0;
+    --card-bg: #fff;
+    --page-bg: #f5f4f0;
+    --text: #1a1a1a;
+    --muted: #666;
+    --heading: #1a1a1a;
+    --box-bg: #f9f8f5;
+    --highlight-hidden: #2c2c2a;
+    --highlight-show: #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .topbar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-title {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: #ccc;
+  }
+
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #a93226; }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .school-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+
+  .school-name {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .subject-line {
+    font-size: 18px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .topic-title {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 6px;
+    margin: 32px 0 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: var(--heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .subsection-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    color: #333;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+  }
+
+  .subsubsection {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 14px 0 8px;
+    color: #555;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  p { margin: 8px 0; }
+
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  .info-box {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 14px 0;
+  }
+
+  .flow-item {
+    flex: 1;
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: #999;
+    font-size: 20px;
+  }
+
+  .objectives {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin: 16px 0;
+  }
+
+  .objectives h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .objectives li { font-size: 14px; }
+
+  .timeline-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .tl-item {
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  .tl-item .tl-period {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: var(--heading);
+  }
+
+  .region-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .region-card {
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .region-card h4 {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .impact-card {
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .impact-card .ic-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 28px 0;
+  }
+
+  /* ===== KEY TERM (red word) ===== */
+  .kw {
+    display: inline;
+    background: var(--highlight-show);
+    color: var(--accent);
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 0 3px;
+    cursor: pointer;
+    border-bottom: 2px solid var(--accent);
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+  }
+
+  .kw:hover {
+    background: #f5c6c2;
+  }
+
+  .kw.hidden {
+    background: var(--hidden-bg);
+    color: var(--hidden-bg);
+    border-bottom-color: #555;
+  }
+
+  .kw.hidden:hover {
+    background: #444;
+    color: #444;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 20px;
+    padding: 8px 14px;
+    background: #fffbe6;
+    border: 1px solid #f0d060;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hint::before { content: '💡'; }
+
+  @media (max-width: 600px) {
+    .timeline-box { grid-template-columns: 1fr; }
+    .region-grid { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">課題6 · 歐洲國家的殖民擴張</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有關鍵詞</button>
+</div>
+
+<div class="container">
+
+  <div class="school-header">
+    <div class="school-name">嶺南中學</div>
+    <div class="subject-line">中二級 · 歷史科</div>
+  </div>
+
+  <div class="hint">點擊紅色關鍵詞可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏／顯示。</div>
+
+  <div class="topic-title">課題 6　歐洲國家的殖民擴張</div>
+
+  <div class="objectives">
+    <h4>學習重點</h4>
+    <ul>
+      <li>歐洲國家殖民擴張的原因</li>
+      <li>歐洲國家殖民政策的形成及其在美洲、非洲及亞洲等地的殖民擴張與影響</li>
+    </ul>
+    <h4 style="margin-top:10px">本主題學習目標</h4>
+    <ul>
+      <li>歸納和推論分析原因、結果與影響</li>
+      <li>理解對歷史事件的不同詮釋</li>
+    </ul>
+  </div>
+
+  <!-- SECTION I -->
+  <div class="section-title">I. 歐洲國家擴張的原因</div>
+
+  <p>15 世紀中期開始，歐洲出現了一股航海探險熱潮，被稱為「<span class="kw" onclick="toggleKw(this)">地理大發現</span>」。西歐各國的航海家開闢了<span class="kw" onclick="toggleKw(this)">東方</span>與<span class="kw" onclick="toggleKw(this)">西方</span>之間的新航路。</p>
+
+  <p>在 16 至 19 世紀，歐洲先有<span class="kw" onclick="toggleKw(this)">葡萄牙</span>和<span class="kw" onclick="toggleKw(this)">西班牙</span>稱霸，繼而有荷蘭、英國、法國等國家崛起。</p>
+
+  <div class="subsection-title">A. 經濟因素</div>
+
+  <div class="subsubsection">i. 東西通道受阻</div>
+  <div class="flow-row">
+    <div class="flow-item">歐洲人對亞洲的<span class="kw" onclick="toggleKw(this)">絲綢</span>、瓷器、<span class="kw" onclick="toggleKw(this)">香料</span>等商品需求很大。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">自14世紀起，東西方通道被<span class="kw" onclick="toggleKw(this)">穆斯林</span>（阿拉伯人、土耳其人）及<span class="kw" onclick="toggleKw(this)">意大利</span>商人所掌控。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">西歐各國渴望開闢通往<span class="kw" onclick="toggleKw(this)">印度</span>、<span class="kw" onclick="toggleKw(this)">中國</span>的新航路，打破<span class="kw" onclick="toggleKw(this)">壟斷</span>。</div>
+  </div>
+
+  <div class="subsubsection">ii. 18 世紀工業革命帶來的經濟轉變</div>
+  <p><strong>1. 渴求海外市場</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">工業革命前，歐洲貿易集中於向<span class="kw" onclick="toggleKw(this)">亞洲</span>和<span class="kw" onclick="toggleKw(this)">非洲</span>等地購入香料、蔗糖等商品。</div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-item"><span class="kw" onclick="toggleKw(this)">機器</span>的運用使生產大幅提升，<span class="kw" onclick="toggleKw(this)">歐洲市場</span>未能消化龐大工業品，急須開拓<span class="kw" onclick="toggleKw(this)">海外市場</span>。</div>
+    <div class="flow-arrow">▼</div>
+    <div class="flow-item">歐洲國家從<span class="kw" onclick="toggleKw(this)">買家</span>變為<span class="kw" onclick="toggleKw(this)">賣家</span>，建立<span class="kw" onclick="toggleKw(this)">殖民地</span>可確保工業品能到海外<span class="kw" onclick="toggleKw(this)">傾銷</span>。</div>
+  </div>
+  <p class="info-box">📌 在 19 世紀中葉，英國的棉布出口有<span class="kw" onclick="toggleKw(this)">四分之一</span>銷往其殖民地印度。</p>
+
+  <p><strong>2. 對原料和食物的需求增加</strong></p>
+  <p>歐洲國家工業化後，對<span class="kw" onclick="toggleKw(this)">棉花</span>、<span class="kw" onclick="toggleKw(this)">羊毛</span>、錫等原料的需求大增；工業城市<span class="kw" onclick="toggleKw(this)">人口</span>膨脹，亦需進口更多<span class="kw" onclick="toggleKw(this)">食物</span>。因此希望透過建立<span class="kw" onclick="toggleKw(this)">殖民地</span>獲取<span class="kw" onclick="toggleKw(this)">廉價</span>原料和食物。</p>
+
+  <div class="region-grid" style="margin-top:16px">
+    <div class="region-card">
+      <h4>B. 政治因素</h4>
+      <p>在 15 世紀，<span class="kw" onclick="toggleKw(this)">西班牙</span>、<span class="kw" onclick="toggleKw(this)">葡萄牙</span>國力蒸蒸日上，君主及貴族希望擴展王室的<span class="kw" onclick="toggleKw(this)">新領土</span>，積極支持航海事業。</p>
+    </div>
+    <div class="region-card">
+      <h4>C. 宗教因素</h4>
+      <p>中古時代，羅馬<span class="kw" onclick="toggleKw(this)">天主教</span>會鼓勵傳教士到<span class="kw" onclick="toggleKw(this)">東方</span>傳教。16世紀宗教改革後，各個<span class="kw" onclick="toggleKw(this)">基督新教</span>宗派也派遣傳教士到<span class="kw" onclick="toggleKw(this)">海外</span>傳教。</p>
+    </div>
+  </div>
+
+  <div class="subsection-title">D. 思想因素</div>
+  <div class="subsubsection">i. 航海家發揚探險精神</div>
+  <div class="flow-row">
+    <div class="flow-item">自文藝復興開展以來，個人奮鬥和<span class="kw" onclick="toggleKw(this)">探險</span>的精神大受發揚。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">一些航海家相信古希臘的<span class="kw" onclick="toggleKw(this)">地圓說</span>，希望一直向西航行以達東方。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">另一些人從<span class="kw" onclick="toggleKw(this)">馬可波羅</span>遊記獲知印度、中國「遍地黃金財富」，希望通過探險<span class="kw" onclick="toggleKw(this)">尋寶</span>致富。</div>
+  </div>
+
+  <div class="subsubsection">ii.「白人的負擔」思想</div>
+  <div class="flow-row">
+    <div class="flow-item">19世紀，西方流行「<span class="kw" onclick="toggleKw(this)">白人的負擔</span>」思想。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">歐洲人認為<span class="kw" onclick="toggleKw(this)">白人</span>有義務去統治<span class="kw" onclick="toggleKw(this)">有色人種</span>，傳授優越文化。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">歐洲人極力在<span class="kw" onclick="toggleKw(this)">亞洲</span>擴張勢力，向亞洲人灌輸<span class="kw" onclick="toggleKw(this)">西方</span>文化。</div>
+  </div>
+
+  <div class="subsubsection">iii. 民族主義的影響</div>
+  <div class="flow-row">
+    <div class="flow-item">1789年<span class="kw" onclick="toggleKw(this)">法國大革命</span>為歐洲帶來民族主義浪潮。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">19世紀末，極端民族主義者鼓吹國民絕對效忠國家，支持<span class="kw" onclick="toggleKw(this)">對外擴張</span>，提升威望。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">歐洲國家競爭激烈，爭相在海外建立<span class="kw" onclick="toggleKw(this)">勢力範圍</span>和<span class="kw" onclick="toggleKw(this)">殖民地</span>追求國家<span class="kw" onclick="toggleKw(this)">光榮</span>。</div>
+  </div>
+
+  <div class="subsection-title">E. 科技因素</div>
+  <div class="subsubsection">i. 航海技術改進有利遠航</div>
+  <p>15世紀以來，<span class="kw" onclick="toggleKw(this)">羅盤</span>、<span class="kw" onclick="toggleKw(this)">航海圖</span>等在遠洋航行中普遍運用；輕快多桅<span class="kw" onclick="toggleKw(this)">帆船</span>的製造為歐洲人向東方航行提供了較佳的技術條件。</p>
+
+  <hr class="divider">
+
+  <!-- SECTION II -->
+  <div class="section-title">II. 歐洲國家殖民政策的形成及其在美洲、非洲及亞洲等地的殖民擴張與影響</div>
+
+  <div class="subsection-title">A. 歐洲國家殖民政策的形成</div>
+  <div class="subsubsection">i. 帝國主義在歐洲國家的興起</div>
+  <ul>
+    <li>隨着<span class="kw" onclick="toggleKw(this)">新航路</span>的發現，歐洲人開始在各地<span class="kw" onclick="toggleKw(this)">拓展貿易</span>，獲取廉價工業原料，並把工業品<span class="kw" onclick="toggleKw(this)">傾銷</span>各地。</li>
+    <li>19世紀，<span class="kw" onclick="toggleKw(this)">帝國主義思想</span>在歐洲興起，主張通過殖民和武力，擴張政治勢力，獲取<span class="kw" onclick="toggleKw(this)">天然資源</span>，壟斷商業。</li>
+    <li>歐洲國家逐漸發展<span class="kw" onclick="toggleKw(this)">殖民政策</span>，相繼向非洲、美洲及亞洲殖民。</li>
+  </ul>
+
+  <div class="subsubsection">ii. 歐洲列強殖民擴張的概況</div>
+  <div class="timeline-box">
+    <div class="tl-item">
+      <div class="tl-period">17世紀</div>
+      <span class="kw" onclick="toggleKw(this)">葡萄牙</span>和<span class="kw" onclick="toggleKw(this)">西班牙</span>最先尋找新航道，但到17世紀，殖民帝國地位被荷蘭、英國和法國等國取代。
+    </div>
+    <div class="tl-item">
+      <div class="tl-period">19世紀下半葉</div>
+      新成立的<span class="kw" onclick="toggleKw(this)">意大利</span>、<span class="kw" onclick="toggleKw(this)">德國</span>也加入殖民地爭奪的行列。
+    </div>
+    <div class="tl-item">
+      <div class="tl-period">20世紀初</div>
+      世界<span class="kw" onclick="toggleKw(this)">五分之一</span>的土地和十分之一的人口均受到歐洲列強的控制。
+    </div>
+  </div>
+
+  <div class="subsubsection">各地殖民概況</div>
+  <div class="region-grid">
+    <div class="region-card">
+      <h4>1 非洲</h4>
+      <p>地理大發現後，歐洲國家主要在非洲沿岸建立<span class="kw" onclick="toggleKw(this)">據點</span>，作為補給站和貿易中轉站。至19世紀末，因發現豐富<span class="kw" onclick="toggleKw(this)">礦產</span>，列強侵佔了<span class="kw" onclick="toggleKw(this)">九成半</span>的非洲土地，只有阿比西尼亞和利比里亞維持獨立。</p>
+    </div>
+    <div class="region-card">
+      <h4>2 美洲</h4>
+      <p><span class="kw" onclick="toggleKw(this)">西班牙</span>和葡萄牙佔領了<span class="kw" onclick="toggleKw(this)">中、南美洲</span>，透過開採金礦、銀礦獲豐厚財富，吸引英國和法國佔領北美洲。大量原住民<span class="kw" onclick="toggleKw(this)">印第安人</span>被歐洲殖民者<span class="kw" onclick="toggleKw(this)">虐殺</span>，種植園遍立。</p>
+    </div>
+  </div>
+  <div class="region-card" style="margin-top:12px">
+    <h4>3 亞洲</h4>
+    <p>19世紀末，亞洲大部分國家都淪為殖民地。荷蘭佔有<span class="kw" onclick="toggleKw(this)">爪哇</span>等印度尼西亞諸島；英國佔有印度、錫蘭、<span class="kw" onclick="toggleKw(this)">緬甸</span>、<span class="kw" onclick="toggleKw(this)">馬來亞</span>；法國佔有<span class="kw" onclick="toggleKw(this)">安南</span>、老撾、柬埔寨等。只有<span class="kw" onclick="toggleKw(this)">暹羅</span>、阿富汗等得以保持形式上的獨立。東亞的<span class="kw" onclick="toggleKw(this)">中國</span>、<span class="kw" onclick="toggleKw(this)">日本</span>也遭列強入侵，兩國以改革或革命回應，中國仍能維持<span class="kw" onclick="toggleKw(this)">獨立國家</span>的地位，而日本則成為資本主義列強之一。</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="subsection-title">B. 歐洲國家的殖民擴張方式</div>
+  <div class="subsubsection">i. 掠奪資源</div>
+  <p><strong>1 掠奪黃金、白銀及礦產</strong></p>
+  <ul>
+    <li>葡萄牙在非洲<span class="kw" onclick="toggleKw(this)">黃金海岸</span>建立據點，開發<span class="kw" onclick="toggleKw(this)">金礦</span>和進行<span class="kw" onclick="toggleKw(this)">黃金貿易</span>。</li>
+    <li>西班牙征服了<span class="kw" onclick="toggleKw(this)">墨西哥</span>、秘魯等地，把大量<span class="kw" onclick="toggleKw(this)">黃金</span>和<span class="kw" onclick="toggleKw(this)">白銀</span>運返本國。</li>
+  </ul>
+  <p><strong>2 建立種植園</strong></p>
+  <p>歐洲國家在殖民地建立大規模的<span class="kw" onclick="toggleKw(this)">種植園</span>。如英國人在北美洲種植<span class="kw" onclick="toggleKw(this)">煙草</span>和<span class="kw" onclick="toggleKw(this)">棉花</span>；荷蘭在印度尼西亞種植<span class="kw" onclick="toggleKw(this)">咖啡</span>和甘蔗。</p>
+  <p><strong>3 販賣黑奴</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">歐洲國家在中、南美洲採礦並建立種植園，需要龐大<span class="kw" onclick="toggleKw(this)">勞動力</span>。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">歐洲商人把非洲大量<span class="kw" onclick="toggleKw(this)">黑人</span>販賣到美洲當<span class="kw" onclick="toggleKw(this)">奴隸</span>。</div>
+  </div>
+
+  <div class="subsubsection">ii. 侵佔土地</div>
+  <p><strong>1 建立據點</strong></p>
+  <p>歐洲列強向擴張時，會先佔有<span class="kw" onclick="toggleKw(this)">交通要地</span>，作為航行、貿易的中轉站及進一步侵略的據點。例如：(1) 葡萄牙佔據中國的<span class="kw" onclick="toggleKw(this)">澳門</span>；(2) 荷蘭佔領<span class="kw" onclick="toggleKw(this)">馬六甲</span>。</p>
+
+  <p><strong>2 設置特許經營公司</strong></p>
+  <p>由16世紀起，歐洲各國出現專門對<span class="kw" onclick="toggleKw(this)">東方貿易</span>的商業公司，例如荷屬東印度公司和英屬東印度公司，獲政府授予<span class="kw" onclick="toggleKw(this)">特許經營權</span>，壟斷對東方的貿易。</p>
+  <div class="info-box" style="font-size:14px">
+    特許經營公司的權力：(1) 簽署<span class="kw" onclick="toggleKw(this)">條約</span>；(2) 發行貨幣；(3) 組織<span class="kw" onclick="toggleKw(this)">軍隊</span>
+  </div>
+
+  <p><strong>3 建立勢力範圍</strong></p>
+  <p>列強建立侵略據點及貿易組織後，逐步擴大其<span class="kw" onclick="toggleKw(this)">勢力範圍</span>，以<span class="kw" onclick="toggleKw(this)">壟斷</span>範圍內的貿易活動。例如：(1) 荷蘭據有荷屬東印度；(2) 英國以印度為勢力範圍；(3) 歐洲列強爭相在中國劃分勢力範圍。</p>
+
+  <p><strong>4 直接建立殖民地</strong></p>
+  <p>歐洲列強直接佔領各國，使其成為自己的殖民地，從本國派遣<span class="kw" onclick="toggleKw(this)">官員</span>進駐，成立政府以進行<span class="kw" onclick="toggleKw(this)">管治</span>。</p>
+
+  <div class="subsubsection">iii. 以炮艦為後盾</div>
+  <div class="flow-row">
+    <div class="flow-item">歐洲列強擴張勢力時，如遇阻力，往往訴諸<span class="kw" onclick="toggleKw(this)">武力</span>，奉行<span class="kw" onclick="toggleKw(this)">炮艦外交</span>。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">透過發動<span class="kw" onclick="toggleKw(this)">戰爭</span>，直接吞併土地，或強迫當地政權簽訂<span class="kw" onclick="toggleKw(this)">條約</span>，使之成為附庸。</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="subsection-title">C. 歐洲國家殖民擴張的影響</div>
+
+  <div class="subsubsection">i. 建立以歐洲為中心的世界經濟體系</div>
+  <div class="flow-row">
+    <div class="flow-item">歐洲國家以<span class="kw" onclick="toggleKw(this)">廉價</span>從殖民地購入原料，把工業製品大量<span class="kw" onclick="toggleKw(this)">輸出</span>，賺取暴利。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item"><span class="kw" onclick="toggleKw(this)">黃金</span>、<span class="kw" onclick="toggleKw(this)">白銀</span>等貴金屬從殖民地流入歐洲，加快歐洲的經濟發展和工業化進程。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">一個以歐洲為中心的<span class="kw" onclick="toggleKw(this)">世界經濟體系</span>逐漸建立，並持續多個世紀。</div>
+  </div>
+
+  <div class="subsubsection">ii. 建立殖民帝國</div>
+  <p>大部分亞洲國家成為外國殖民地，被納入列強<span class="kw" onclick="toggleKw(this)">殖民帝國體系</span>。如大英帝國的<span class="kw" onclick="toggleKw(this)">亞洲領地</span>、法屬印度支那及荷屬東印度等。</p>
+
+  <div class="subsubsection">iii. 劃定現代東南亞國家的版圖</div>
+  <p>西方各國在東南亞建立殖民地時，為方便管治和避免土地糾紛，重新劃定各國的<span class="kw" onclick="toggleKw(this)">邊界</span>，奠下了今日東南亞各國的<span class="kw" onclick="toggleKw(this)">版圖</span>。</p>
+
+  <div class="subsubsection">iv. 對各地原居民造成苦難</div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="ic-num">1</div>
+      <p><strong>奴隸貿易</strong></p>
+      <p>歐洲國家透過販賣<span class="kw" onclick="toggleKw(this)">非洲黑奴</span>來獲取廉價勞動力。不少奴隸在運送途中染病死亡，其餘奴隸抵達後亦受到<span class="kw" onclick="toggleKw(this)">剝削</span>和虐待。</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">2</div>
+      <p><strong>疫症傳播</strong></p>
+      <p>新航線的發現使歐洲傳染病（如<span class="kw" onclick="toggleKw(this)">天花</span>、<span class="kw" onclick="toggleKw(this)">霍亂</span>）傳播至美洲；當地原住民對歐洲傳染病沒有<span class="kw" onclick="toggleKw(this)">抗體</span>，爆發大規模疫症，導致大量<span class="kw" onclick="toggleKw(this)">人口死亡</span>。</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">3</div>
+      <p><strong>美洲古文明消失</strong></p>
+      <p><span class="kw" onclick="toggleKw(this)">阿茲特克帝國</span>和<span class="kw" onclick="toggleKw(this)">印加帝國</span>兩個古文明因歐洲殖民擴張而消亡。自<span class="kw" onclick="toggleKw(this)">哥倫布</span>發現美洲後，西班牙在16世紀征服了這兩個古老帝國。</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">4</div>
+      <p><strong>改變傳統經濟模式</strong></p>
+      <p>許多農地被改建為<span class="kw" onclick="toggleKw(this)">種植園</span>，導致糧食生產大幅減少，甚至造成<span class="kw" onclick="toggleKw(this)">饑荒</span>。西方又大量輸出工業製品至殖民地，打擊當地的<span class="kw" onclick="toggleKw(this)">傳統手工業</span>。</p>
+    </div>
+    <div class="impact-card">
+      <div class="ic-num">5</div>
+      <p><strong>激發反侵略鬥爭</strong></p>
+      <p>在歐洲人<span class="kw" onclick="toggleKw(this)">武力入侵</span>及各種<span class="kw" onclick="toggleKw(this)">不平等條約</span>的束縛下，美洲、非洲、亞洲各國人民引致一系列的<span class="kw" onclick="toggleKw(this)">反侵略鬥爭</span>。</p>
+    </div>
+  </div>
+
+  <div class="subsubsection">v. 促進部分地區的現代化發展</div>
+  <p>歐洲國家改善殖民地的<span class="kw" onclick="toggleKw(this)">交通設施</span>，例如修築<span class="kw" onclick="toggleKw(this)">道路</span>和鐵路、興建<span class="kw" onclick="toggleKw(this)">港口</span>和碼頭等，為殖民地日後的現代化發展奠下基礎。</p>
+
+  <div class="subsubsection">vi. 文化和物產的交流</div>
+  <ul>
+    <li>歐洲人把<span class="kw" onclick="toggleKw(this)">基督宗教</span>和文化傳播到世界各地；非洲、美洲成為重要傳播地區，傳教士亦把<span class="kw" onclick="toggleKw(this)">宗教</span>和<span class="kw" onclick="toggleKw(this)">西學</span>傳到中國等亞洲各國。</li>
+    <li>歐洲人把<span class="kw" onclick="toggleKw(this)">牛</span>、羊、<span class="kw" onclick="toggleKw(this)">馬</span>、豬等牲畜引入美洲；各地本土物產通過貿易引進到歐洲，例如美洲的<span class="kw" onclick="toggleKw(this)">煙草</span>和馬鈴薯、非洲的<span class="kw" onclick="toggleKw(this)">咖啡</span>、墨西哥的可可等。</li>
+  </ul>
+
+</div>
+
+<script>
+function toggleKw(el) {
+  el.classList.toggle('hidden');
+  updateBtn();
+}
+
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => {
+    if (anyVisible) k.classList.add('hidden');
+    else k.classList.remove('hidden');
+  });
+  updateBtn();
+}
+
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有關鍵詞' : '顯示所有關鍵詞';
+}
+</script>
+</body>
+</html>
