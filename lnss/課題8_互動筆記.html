@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>課題8 香港直至19世紀末的成長與發展｜互動筆記</title>
+<style>
+  :root {
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --accent: #c0392b;
+    --border: #e0e0e0;
+    --page-bg: #f5f4f0;
+    --text: #1a1a1a;
+    --muted: #666;
+    --heading: #1a1a1a;
+    --box-bg: #f9f8f5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .topbar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-title { font-size: 14px; letter-spacing: 0.05em; color: #ccc; }
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #a93226; }
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .school-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .school-name { font-size: 26px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .subject-line { font-size: 18px; color: var(--muted); letter-spacing: 0.05em; }
+  .topic-title {
+    font-size: 22px; font-weight: 700;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 6px; margin: 32px 0 16px;
+  }
+  .section-title {
+    font-size: 18px; font-weight: 700;
+    margin: 28px 0 12px; color: var(--heading);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before {
+    content: ''; display: inline-block;
+    width: 4px; height: 18px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .subsection-title {
+    font-size: 16px; font-weight: 700;
+    margin: 20px 0 10px; color: #333;
+    border-left: 3px solid #ccc; padding-left: 10px;
+  }
+  .subsubsection {
+    font-size: 15px; font-weight: 700;
+    margin: 14px 0 8px; color: #555;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  .info-box {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px; margin: 12px 0;
+  }
+  .flow-row {
+    display: flex; align-items: stretch; gap: 0; margin: 14px 0;
+  }
+  .flow-item {
+    flex: 1; background: #f0eeea;
+    border: 1px solid #ddd; border-radius: 6px;
+    padding: 12px 14px; font-size: 14px; line-height: 1.6;
+  }
+  .flow-arrow {
+    display: flex; align-items: center;
+    padding: 0 6px; color: #999; font-size: 20px;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .col-card {
+    background: #f0eeea; border: 1px solid #ddd;
+    border-radius: 6px; padding: 14px 16px;
+    font-size: 14px; line-height: 1.7;
+  }
+  .col-card h4 {
+    font-weight: 700; font-size: 15px; margin-bottom: 8px;
+    border-bottom: 1px solid #ccc; padding-bottom: 4px;
+  }
+  .stage-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 14px 0; }
+  .stage-card {
+    background: #f0eeea; border: 1px solid #ddd;
+    border-radius: 6px; padding: 12px 14px;
+    font-size: 13.5px; line-height: 1.65;
+  }
+  .stage-card .stage-label {
+    font-weight: 700; font-size: 15px; margin-bottom: 6px;
+  }
+  .gov-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .gov-table td { border: 1px solid #ddd; padding: 10px 14px; vertical-align: top; line-height: 1.7; }
+  .gov-table td:first-child { background: #f0eeea; font-weight: 700; white-space: nowrap; width: 160px; }
+  .transport-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .transport-table td, .transport-table th {
+    border: 1px solid #ddd; padding: 9px 14px; line-height: 1.65;
+  }
+  .transport-table th { background: #1a1a1a; color: #fff; font-weight: 700; width: 80px; }
+  .transport-table tr:nth-child(even) td { background: #f9f8f5; }
+  .security-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .security-table td { border: 1px solid #ddd; padding: 9px 14px; line-height: 1.65; vertical-align: top; }
+  .security-table td:first-child { background: #f0eeea; font-weight: 700; white-space: nowrap; width: 110px; }
+  .leader-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .leader-table td { border: 1px solid #ddd; padding: 9px 14px; line-height: 1.7; vertical-align: top; }
+  .leader-table td:first-child { background: #f0eeea; font-weight: 700; white-space: nowrap; width: 150px; }
+  .divider { border: none; border-top: 1px solid #ddd; margin: 28px 0; }
+  .objectives {
+    background: var(--box-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 20px; margin: 16px 0;
+  }
+  .objectives h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--muted); }
+  .objectives li { font-size: 14px; }
+  .hint {
+    font-size: 12px; color: var(--muted); margin: 0 0 20px;
+    padding: 8px 14px; background: #fffbe6;
+    border: 1px solid #f0d060; border-radius: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hint::before { content: '💡'; }
+  /* KEY TERM */
+  .kw {
+    display: inline;
+    background: #fdecea; color: var(--accent);
+    font-weight: 700; border-radius: 3px; padding: 0 3px;
+    cursor: pointer; border-bottom: 2px solid var(--accent);
+    transition: background 0.15s, color 0.15s; user-select: none;
+  }
+  .kw:hover { background: #f5c6c2; }
+  .kw.hidden { background: #2c2c2a; color: #2c2c2a; border-bottom-color: #555; }
+  .kw.hidden:hover { background: #444; color: #444; }
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .stage-grid { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">課題8 · 香港直至19世紀末的成長與發展</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有關鍵詞</button>
+</div>
+
+<div class="container">
+
+  <div class="school-header">
+    <div class="school-name">嶺南中學</div>
+    <div class="subject-line">中二級 · 歷史科</div>
+  </div>
+
+  <div class="hint">點擊紅色關鍵詞可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏／顯示。</div>
+
+  <div class="topic-title">課題 8　香港直至 19 世紀末的成長與發展</div>
+
+  <div class="objectives">
+    <h4>學習重點</h4>
+    <ul>
+      <li>早期英國對香港的管治措施，維護國家主權、領土完整的重要性</li>
+      <li>香港直至 19 世紀末的經濟及社會發展狀況</li>
+      <li>本地華人團體對香港的貢獻及在香港發展歷程中所擔當的角色</li>
+    </ul>
+    <h4 style="margin-top:10px">本主題學習目標</h4>
+    <ul>
+      <li>分析原因、結果與影響</li>
+      <li>分析歷史的轉捩點</li>
+      <li>分析歷史人物的重要性</li>
+    </ul>
+  </div>
+
+  <!-- SECTION I -->
+  <div class="section-title">I. 英國殖民管治的建立</div>
+
+  <div class="subsection-title">A. 英國佔領香港地區的過程</div>
+
+  <div class="stage-grid">
+    <div class="stage-card">
+      <div class="stage-label">第一階段：奪取香港島</div>
+      1840–1842 年：中、英爆發<span class="kw" onclick="toggleKw(this)">鴉片戰爭</span>。中國戰敗後被迫簽訂不平等的<span class="kw" onclick="toggleKw(this)">《南京條約》</span>，將香港島正式<span class="kw" onclick="toggleKw(this)">割讓</span>給英國。<span class="kw" onclick="toggleKw(this)">砵甸乍</span>被委任為第一任香港總督。
+    </div>
+    <div class="stage-card">
+      <div class="stage-label">第二階段：奪取九龍半島南部</div>
+      1856–1860 年，發生<span class="kw" onclick="toggleKw(this)">英法聯軍之役</span>，中國再次戰敗。1860 年 10 月，中國被迫簽訂<span class="kw" onclick="toggleKw(this)">《北京條約》</span>，將<span class="kw" onclick="toggleKw(this)">九龍</span>（包括昂船洲在內）割讓給英國。
+    </div>
+    <div class="stage-card">
+      <div class="stage-label">第三階段：租借新界</div>
+      1898 年 6 月：英國透過<span class="kw" onclick="toggleKw(this)">《展拓香港界址專條》</span>的簽訂，強行從中國租借深圳河以<span class="kw" onclick="toggleKw(this)">南</span>、<span class="kw" onclick="toggleKw(this)">界限街以北</span>的區域及附近二百三十多個島嶼，合稱「新界」，租期<span class="kw" onclick="toggleKw(this)">九十九</span>年，至 1997 年 6 月 30 日止。
+    </div>
+  </div>
+
+  <div class="subsection-title">B. 政府結構及典章制度的確立</div>
+
+  <p>早期香港殖民政府的結構，是根據英國所頒布<span class="kw" onclick="toggleKw(this)">《英王制誥》</span>和<span class="kw" onclick="toggleKw(this)">《王室訓令》</span>的有關規定來組織的。</p>
+
+  <div class="subsubsection">i. 港督與主要官員</div>
+  <div class="info-box" style="font-size:14px">
+    <strong>港督</strong>：英王委派的殖民政府<span class="kw" onclick="toggleKw(this)">最高首長</span><br>
+    ↓ 統領<br>
+    <span class="kw" onclick="toggleKw(this)">輔政司</span>（後改稱「布政司」）· <span class="kw" onclick="toggleKw(this)">庫務司</span>（後改稱「財政司」）· <span class="kw" onclick="toggleKw(this)">律政司</span><br>
+    ↓ 輔政司署統領各個部門及全體公務員
+  </div>
+
+  <div class="subsubsection">ii. 議政局（後稱行政局）及定例局（後稱立法局）</div>
+  <div class="two-col">
+    <div class="col-card">
+      <h4>議政局（後稱行政局）</h4>
+      <p>協助港督制訂<span class="kw" onclick="toggleKw(this)">政策</span>和<span class="kw" onclick="toggleKw(this)">執行</span>法律</p>
+    </div>
+    <div class="col-card">
+      <h4>定例局（後稱立法局）</h4>
+      <p>制訂<span class="kw" onclick="toggleKw(this)">法律</span>和審議<span class="kw" onclick="toggleKw(this)">稅項</span></p>
+    </div>
+  </div>
+  <div class="info-box" style="font-size:14px">
+    <strong>兩局共通點：</strong>成員全由<span class="kw" onclick="toggleKw(this)">港督</span>委任；分為「<span class="kw" onclick="toggleKw(this)">官守議員</span>」與「<span class="kw" onclick="toggleKw(this)">非官守議員</span>」兩種。
+  </div>
+
+  <div class="subsubsection">iii. 地區行政</div>
+  <p>政府於 1883 年設立<span class="kw" onclick="toggleKw(this)">潔淨局</span>：<span class="kw" onclick="toggleKw(this)">半官方</span>的區域諮詢組織，專責處理香港島和九龍的<span class="kw" onclick="toggleKw(this)">公共衞生</span>工作和各種<span class="kw" onclick="toggleKw(this)">地區事務</span>。</p>
+
+  <div class="subsubsection">iv. 司法獨立</div>
+  <ul>
+    <li>香港的司法機關享有獨立的地位；首長為<span class="kw" onclick="toggleKw(this)">正按察司</span>（後改稱「首席大法官」），由英國指派。</li>
+    <li>港督通常尊重<span class="kw" onclick="toggleKw(this)">司法獨立</span>的傳統，不會干預法院的運作。</li>
+    <li>正按察司亦不會擔任行政、立法兩局的官守議員。</li>
+  </ul>
+
+  <div class="subsection-title">C. 早期殖民管治的主要特色</div>
+
+  <div class="gov-table" style="margin:14px 0">
+    <table class="gov-table">
+      <tr>
+        <td>i.<br>英國直接指示決策</td>
+        <td>港督一切重要決定均須向<span class="kw" onclick="toggleKw(this)">殖民地事務部</span>請示及報告；英國委任港督及香港政府的主要官員。</td>
+      </tr>
+      <tr>
+        <td>ii.<br>港督擁有極大權力</td>
+        <td>
+          <ul>
+            <li>港督擁有管治香港的<span class="kw" onclick="toggleKw(this)">最高權力</span>，所有官員和平民必須<span class="kw" onclick="toggleKw(this)">服從</span>他的命令。</li>
+            <li>港督是<span class="kw" onclick="toggleKw(this)">行政、立法兩局</span>的當然主席，一人<span class="kw" onclick="toggleKw(this)">獨攬立法和行政大權</span>。</li>
+            <li>港督在立法局會議上擁有<span class="kw" onclick="toggleKw(this)">否決權</span>；<span class="kw" onclick="toggleKw(this)">任何條例</span>也須經他的批准才能成為法律。</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>iii.<br>英國人壟斷管治</td>
+        <td>
+          <ul>
+            <li>19 世紀下半葉，香港的<span class="kw" onclick="toggleKw(this)">管治階層</span>幾乎全由英國人組成。</li>
+            <li>港督和主要官員一律為<span class="kw" onclick="toggleKw(this)">英國人</span>；兩局的非官守議員亦以在港的<span class="kw" onclick="toggleKw(this)">英籍商人</span>為主。</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>iv.<br>避免介入華人事務</td>
+        <td>政府盡量不干預華人社會的生活、傳統、習慣及宗教。政府設立<span class="kw" onclick="toggleKw(this)">總登記官</span>（即後來的<span class="kw" onclick="toggleKw(this)">華民政務司</span>），由通曉中文的外籍官員擔任，代表港督與華人社團聯絡溝通。</td>
+      </tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION II -->
+  <div class="section-title">II. 經濟與社會民生狀況</div>
+
+  <div class="subsection-title">A. 19 世紀下半葉香港的經濟發展</div>
+
+  <div class="subsubsection">i. 自由港政策的確立</div>
+  <ul>
+    <li>香港地理優良，位於亞洲太平洋地區的中心點，擁有水深港闊的<span class="kw" onclick="toggleKw(this)">維多利亞港</span>。</li>
+    <li>英國在 1841 年宣布香港為<span class="kw" onclick="toggleKw(this)">自由港</span>，允許各國船隻自由進出，貨物免徵<span class="kw" onclick="toggleKw(this)">港口稅</span>和<span class="kw" onclick="toggleKw(this)">關稅</span>。</li>
+  </ul>
+
+  <div class="subsubsection">ii. 轉口貿易成為經濟支柱</div>
+  <ul>
+    <li>轉口貿易蓬勃，吸引英資財團來港，當中以<span class="kw" onclick="toggleKw(this)">怡和洋行</span>和<span class="kw" onclick="toggleKw(this)">太古洋行</span>為代表。</li>
+    <li>華商方面，<span class="kw" onclick="toggleKw(this)">南北行</span>的業務亦十分興旺。</li>
+    <li>19 世紀末，香港已成為亞洲重要的<span class="kw" onclick="toggleKw(this)">轉口港</span>。當時中國內地的<span class="kw" onclick="toggleKw(this)">對外貿易</span>，有一半是通過香港進行的。</li>
+  </ul>
+
+  <div class="subsubsection">iii. 轉口貿易帶動相關行業發展</div>
+
+  <div class="gov-table">
+    <table class="gov-table">
+      <tr>
+        <td>輪船運輸業</td>
+        <td>香港成為國際知名轉口港，<span class="kw" onclick="toggleKw(this)">輪船運輸業</span>高速發展。19 世紀末香港已成為<span class="kw" onclick="toggleKw(this)">國際航運中心</span>，航線遍佈世界各大洲。</td>
+      </tr>
+      <tr>
+        <td>銀行業</td>
+        <td>1865 年由英國人創辦的<span class="kw" onclick="toggleKw(this)">香港上海匯豐銀行</span>尤其重要，19 世紀末發展為全亞洲最大的英資銀行。</td>
+      </tr>
+      <tr>
+        <td>重工業</td>
+        <td>1863 年，英資商人創立<span class="kw" onclick="toggleKw(this)">黃埔船塢</span>，使香港成為 19 世紀下半葉華南地區最大的<span class="kw" onclick="toggleKw(this)">船隻製造及維修中心</span>。</td>
+      </tr>
+      <tr>
+        <td>輕工業</td>
+        <td>19 世紀末，<span class="kw" onclick="toggleKw(this)">輕工業</span>加速發展。<span class="kw" onclick="toggleKw(this)">製糖</span>、食品、火柴、水泥、<span class="kw" onclick="toggleKw(this)">藤器</span>、<span class="kw" onclick="toggleKw(this)">紡織</span>等工廠漸漸建立起來。</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="subsubsection">iv. 都市化出現</div>
+  <p>香港的都市化首先於<span class="kw" onclick="toggleKw(this)">香港島</span>展開。早於 1843 年，政府已將香港島北部命名為「<span class="kw" onclick="toggleKw(this)">維多利亞城</span>」，其範圍稱為「四環」，包括<span class="kw" onclick="toggleKw(this)">下環</span>、中環、上環及西環，是香港的行政及商業中心。</p>
+
+  <p><strong>填海工程</strong>：在 19 世紀下半葉，政府展開數次<span class="kw" onclick="toggleKw(this)">填海工程</span>，以拓展<span class="kw" onclick="toggleKw(this)">市區</span>的土地，加快<span class="kw" onclick="toggleKw(this)">市區建設</span>。</p>
+  <div class="stage-grid" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="stage-card">
+      <div class="stage-label">1850年代</div>
+      香港於<span class="kw" onclick="toggleKw(this)">上環</span>開始第一次填海工程
+    </div>
+    <div class="stage-card">
+      <div class="stage-label">1870年代</div>
+      政府在<span class="kw" onclick="toggleKw(this)">西區</span>展開填海工程，今日的<span class="kw" onclick="toggleKw(this)">堅尼地城</span>一帶增加大量土地
+    </div>
+    <div class="stage-card">
+      <div class="stage-label">1890–1904年</div>
+      中區展開<span class="kw" onclick="toggleKw(this)">填海工程</span>，增闢了今日<span class="kw" onclick="toggleKw(this)">遮打道</span>、<span class="kw" onclick="toggleKw(this)">干諾道</span>和德輔道一帶的土地
+    </div>
+  </div>
+
+  <p><strong>交通網絡</strong>：為了配合<span class="kw" onclick="toggleKw(this)">經濟發展</span>的需要，政府非常重視<span class="kw" onclick="toggleKw(this)">公共交通</span>的規劃。</p>
+  <table class="transport-table">
+    <tr><th>渡輪</th><td>1860 年代，香港島與九龍間開始有<span class="kw" onclick="toggleKw(this)">渡輪服務</span>。1898 年，<span class="kw" onclick="toggleKw(this)">天星小輪</span>投入經營。</td></tr>
+    <tr><th>纜車</th><td>1888 年，行駛於山頂及中區間的<span class="kw" onclick="toggleKw(this)">纜車</span>啟用。</td></tr>
+    <tr><th>電車</th><td>1904 年，港島線的<span class="kw" onclick="toggleKw(this)">有軌電車</span>投入服務。</td></tr>
+    <tr><th>火車</th><td>1910 年，<span class="kw" onclick="toggleKw(this)">九廣鐵路</span>尖沙咀至羅湖段通車。</td></tr>
+    <tr><th>巴士</th><td><span class="kw" onclick="toggleKw(this)">中華巴士</span>及<span class="kw" onclick="toggleKw(this)">九龍巴士</span>分別於 1924 年及 1933 年投入服務。</td></tr>
+    <tr><th>飛機</th><td>1936 年，香港<span class="kw" onclick="toggleKw(this)">啟德機場</span>正式啟用。</td></tr>
+  </table>
+
+  <div class="subsection-title">B. 19 世紀下半葉香港的社會發展</div>
+
+  <div class="subsubsection">i. 人口的增長</div>
+  <div class="flow-row">
+    <div class="flow-item">英國剛佔領香港島時，全島只有<span class="kw" onclick="toggleKw(this)">七千多人</span>。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">中國<span class="kw" onclick="toggleKw(this)">內地政局</span>不穩，內地居民紛紛來港。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">1901 年更增至約<span class="kw" onclick="toggleKw(this)">二十八萬</span>。</div>
+  </div>
+
+  <div class="subsubsection">ii. 政府對華人的管治政策</div>
+
+  <p><strong>1 歧視和排斥華人</strong></p>
+  <div class="two-col">
+    <div class="col-card">
+      <h4>對華人的限制</h4>
+      <ul>
+        <li>長期受到<span class="kw" onclick="toggleKw(this)">歧視</span>和<span class="kw" onclick="toggleKw(this)">排斥</span></li>
+        <li>只能擔任公務員內的<span class="kw" onclick="toggleKw(this)">低級職務</span></li>
+        <li>19 世紀下半葉只能居住於<span class="kw" onclick="toggleKw(this)">太平山之下</span></li>
+        <li>1904 年，政府通過<span class="kw" onclick="toggleKw(this)">《山頂及保育條例》</span></li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <h4>英國人的特權</h4>
+      <ul>
+        <li>港督及政府主要官員全由<span class="kw" onclick="toggleKw(this)">英國人</span>出任</li>
+        <li><span class="kw" onclick="toggleKw(this)">英文</span>是當時香港的唯一法定語文</li>
+        <li>1888 年，政府制定《歐洲人區域保留條例》</li>
+        <li>半山區或更高地方劃為「<span class="kw" onclick="toggleKw(this)">歐洲人區域</span>」，只能興建<span class="kw" onclick="toggleKw(this)">西式</span>房屋</li>
+      </ul>
+    </div>
+  </div>
+
+  <p><strong>2 尊重華人傳統</strong></p>
+  <ul>
+    <li>政府容許華人保留自己的<span class="kw" onclick="toggleKw(this)">傳統</span>及<span class="kw" onclick="toggleKw(this)">風俗</span>，避免直接干預華人社會。</li>
+    <li>華人在上環所興建的<span class="kw" onclick="toggleKw(this)">文武廟</span>，充當<span class="kw" onclick="toggleKw(this)">仲裁糾紛</span>的角色。</li>
+    <li>政府亦<span class="kw" onclick="toggleKw(this)">保留</span>部分中國傳統法律：香港男士可以<span class="kw" onclick="toggleKw(this)">蓄婢</span>和<span class="kw" onclick="toggleKw(this)">納妾</span>；婦女<span class="kw" onclick="toggleKw(this)">不能繼承</span>土地財產。</li>
+    <li>對於燃放<span class="kw" onclick="toggleKw(this)">爆竹</span>、在祭祀時<span class="kw" onclick="toggleKw(this)">燃燒香燭</span>及冥鏹等華人傳統，政府亦予以容忍。</li>
+  </ul>
+
+  <div class="subsubsection">iii. 華人領袖的出現</div>
+  <table class="leader-table">
+    <tr>
+      <td><span class="kw" onclick="toggleKw(this)">伍才（即伍廷芳）</span></td>
+      <td>1880 年被委任為立法局<span class="kw" onclick="toggleKw(this)">首位華人非官守議員</span></td>
+    </tr>
+    <tr>
+      <td><span class="kw" onclick="toggleKw(this)">何啟</span></td>
+      <td>1886 年成為<span class="kw" onclick="toggleKw(this)">潔淨局</span>首批華人非官守議員；1896 年被委任為<span class="kw" onclick="toggleKw(this)">立法局</span>非官守議員</td>
+    </tr>
+    <tr>
+      <td><span class="kw" onclick="toggleKw(this)">韋玉（即韋寶珊）</span></td>
+      <td>1896 年被委任為<span class="kw" onclick="toggleKw(this)">立法局</span>非官守議員</td>
+    </tr>
+    <tr>
+      <td><span class="kw" onclick="toggleKw(this)">黃勝</span></td>
+      <td>1886 年成為<span class="kw" onclick="toggleKw(this)">潔淨局</span>首批華人非官守議員</td>
+    </tr>
+    <tr>
+      <td><span class="kw" onclick="toggleKw(this)">周壽臣</span></td>
+      <td>1926 年獲委任為<span class="kw" onclick="toggleKw(this)">行政局</span>首位華人非官守議員</td>
+    </tr>
+  </table>
+  <p class="info-box" style="font-size:14px">行政、立法兩局及潔淨局的華人非官守議員在比例上<span class="kw" onclick="toggleKw(this)">只佔少數</span>，<span class="kw" onclick="toggleKw(this)">政治影響力</span>有限。→ 華人地位有所上升</p>
+
+  <div class="subsubsection">iv. 衞生及治安問題</div>
+
+  <p><strong>1 衞生情況惡劣</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">人口激增帶來居住擁擠、衞生惡劣等社會問題；香港房屋奇缺，<span class="kw" onclick="toggleKw(this)">人畜共住</span>一室的情況普遍；社區亦沒有地下<span class="kw" onclick="toggleKw(this)">排水設施</span>，疾病流行。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">1894 年，香港爆發了一次大<span class="kw" onclick="toggleKw(this)">鼠疫</span>，造成約<span class="kw" onclick="toggleKw(this)">二千五百人</span>喪生。此後政府決心改革衞生政策，定期清潔和消毒華人房屋，並開始修建<span class="kw" onclick="toggleKw(this)">排污系統</span>。</div>
+  </div>
+
+  <p><strong>2 治安不穩</strong></p>
+  <p>在英國管治初期，治安問題甚多：沿海<span class="kw" onclick="toggleKw(this)">海盜</span>橫行；<span class="kw" onclick="toggleKw(this)">人口拐帶</span>、吸食<span class="kw" onclick="toggleKw(this)">鴉片</span>、聚賭、走私等問題嚴重；妓院氾濫。</p>
+  <table class="security-table">
+    <tr><td>1842 年</td><td>頒布<span class="kw" onclick="toggleKw(this)">宵禁令</span>，規定華人晚上十一時後沒有手持通行證不得外出，直至 1897 年才撤銷。</td></tr>
+    <tr><td>1844 年</td><td>成立<span class="kw" onclick="toggleKw(this)">警隊</span>。最初只由英國人和印度人組成，其後開始招募少數華人。</td></tr>
+    <tr><td>1849–1850 年</td><td>英國派遣<span class="kw" onclick="toggleKw(this)">軍艦</span>到香港，負責沿海巡邏及剿滅<span class="kw" onclick="toggleKw(this)">海盜</span>。</td></tr>
+    <tr><td>1867 年</td><td>規定妓院必須持有政府發出的<span class="kw" onclick="toggleKw(this)">牌照</span>，才能營業。</td></tr>
+    <tr><td>1872 年</td><td>實施<span class="kw" onclick="toggleKw(this)">禁賭</span>。</td></tr>
+  </table>
+
+  <div class="subsubsection">v. 公立教育制度的起步</div>
+  <div class="flow-row">
+    <div class="flow-item">英治初期，香港僅有幾所由<span class="kw" onclick="toggleKw(this)">教會</span>興辦的<span class="kw" onclick="toggleKw(this)">西式學校</span>，如：<span class="kw" onclick="toggleKw(this)">英華書院</span>、<span class="kw" onclick="toggleKw(this)">聖保羅書院</span>。華人子弟仍多接受<span class="kw" onclick="toggleKw(this)">傳統私塾</span>教育。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">自 1850 年代起，政府興辦<span class="kw" onclick="toggleKw(this)">官立學校</span>，提供<span class="kw" onclick="toggleKw(this)">西式教育</span>。當中以 1862 年成立的<span class="kw" onclick="toggleKw(this)">中央書院</span>（今皇仁書院）為代表。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">1878 年，港府規定官立學校須教授<span class="kw" onclick="toggleKw(this)">英文</span>。<span class="kw" onclick="toggleKw(this)">英文教學</span>逐漸普及。</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION III -->
+  <div class="section-title">III. 不同民間團體對香港的貢獻</div>
+
+  <div class="subsection-title">A. 本地華人團體</div>
+
+  <div class="subsubsection">i. 東華三院</div>
+
+  <p><strong>1 創辦背景</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">19 世紀中期香港的衞生環境很差，但醫院規模卻很小。低下層華人若病重，大多會被送往<span class="kw" onclick="toggleKw(this)">廟宇</span>等待死亡。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">在政府資助下，香港一批富有<span class="kw" onclick="toggleKw(this)">華商</span>於<span class="kw" onclick="toggleKw(this)">1872</span> 年，在香港島合力籌建了一所由華人管理的醫院，名為「<span class="kw" onclick="toggleKw(this)">東華醫院</span>」。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">後來東華醫院與<span class="kw" onclick="toggleKw(this)">東華東院</span>及<span class="kw" onclick="toggleKw(this)">廣華醫院</span>合併，組成「<span class="kw" onclick="toggleKw(this)">東華三院</span>」。</div>
+  </div>
+
+  <p><strong>2 早期的慈善事業</strong></p>
+  <div class="gov-table">
+    <table class="gov-table">
+      <tr>
+        <td>2.1 贈醫施藥</td>
+        <td>東華三院為貧民提供免費<span class="kw" onclick="toggleKw(this)">中醫藥</span>服務，吸引大量抗拒西醫的華人求助。在 1894 年的鼠疫後，東華三院開始引入<span class="kw" onclick="toggleKw(this)">西醫</span>服務，成為香港首間同時提供<span class="kw" onclick="toggleKw(this)">中醫及西醫</span>診治的機構。</td>
+      </tr>
+      <tr>
+        <td>2.2 提供殮葬服務</td>
+        <td><span class="kw" onclick="toggleKw(this)">東華義莊</span>為在海外逝世的華人提供遺體寄放服務，以待日後運回中國內地下葬；亦會安葬無人認領的屍體。</td>
+      </tr>
+      <tr>
+        <td>2.3 救濟災民</td>
+        <td>每遇嚴重<span class="kw" onclick="toggleKw(this)">天災</span>，東華三院都會援助受影響的<span class="kw" onclick="toggleKw(this)">災民</span>。例子：為受 1874 年颱風影響的災民提供<span class="kw" onclick="toggleKw(this)">食物</span>和<span class="kw" onclick="toggleKw(this)">住宿</span>、安葬罹難者的屍體。</td>
+      </tr>
+      <tr>
+        <td>2.4 辦學</td>
+        <td>東華三院興辦多所<span class="kw" onclick="toggleKw(this)">義學</span>，讓貧苦階層子弟有接受<span class="kw" onclick="toggleKw(this)">基礎教育</span>的機會。</td>
+      </tr>
+    </table>
+  </div>
+
+  <p><strong>3 政治角色</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">東華三院成立後，逐漸取代<span class="kw" onclick="toggleKw(this)">文武廟</span>，成為華人的<span class="kw" onclick="toggleKw(this)">仲裁機構</span>。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">東華三院代表華人向政府<span class="kw" onclick="toggleKw(this)">爭取權益</span>，同時亦向政府反映華人的意見。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">成為華人精英參與政治的重要途徑：先擔任東華三院<span class="kw" onclick="toggleKw(this)">總理</span>，後獲任為<span class="kw" onclick="toggleKw(this)">太平紳士</span>或<span class="kw" onclick="toggleKw(this)">潔淨局議員</span>，最後成為<span class="kw" onclick="toggleKw(this)">立法局非官守議員</span>。</div>
+  </div>
+
+  <div class="subsubsection">ii. 保良局</div>
+
+  <p><strong>1 創辦背景</strong></p>
+  <div class="flow-row">
+    <div class="flow-item">19 世紀後期，香港<span class="kw" onclick="toggleKw(this)">人口販賣</span>、<span class="kw" onclick="toggleKw(this)">拐帶婦孺</span>的情況盛行。很多年青女子遭拐騙，淪為「<span class="kw" onclick="toggleKw(this)">妹仔</span>」（婢女）或<span class="kw" onclick="toggleKw(this)">娼妓</span>。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">1878 年，一群富有<span class="kw" onclick="toggleKw(this)">華商</span>倡議成立「<span class="kw" onclick="toggleKw(this)">保良局</span>」，以「<span class="kw" onclick="toggleKw(this)">保赤安良</span>」為宗旨。</div>
+  </div>
+
+  <p><strong>2 早期的慈善事業</strong></p>
+  <div class="two-col">
+    <div class="col-card">
+      <h4>2.1 保護婦孺</h4>
+      <p>保良局致力遏止誘拐婦孺，協助政府<span class="kw" onclick="toggleKw(this)">緝捕拐匪</span>。為尋回的婦女和兒童提供<span class="kw" onclick="toggleKw(this)">庇護</span>，先安置在收容所，然後聯絡親人領回。</p>
+    </div>
+    <div class="col-card">
+      <h4>2.2 提供婚配</h4>
+      <p>若收容的婦女無依無靠，保良局會為她們安排<span class="kw" onclick="toggleKw(this)">擇偶配婚</span>。婦女有權選擇結婚對象，摒棄以往中國「<span class="kw" onclick="toggleKw(this)">盲婚啞嫁</span>」的習俗。</p>
+    </div>
+  </div>
+
+  <p><strong>3 政治角色</strong></p>
+  <ul>
+    <li>保良局團結了當時<span class="kw" onclick="toggleKw(this)">華人精英</span>的力量，在華人與政府之間發揮<span class="kw" onclick="toggleKw(this)">溝通</span>作用。</li>
+    <li>政府規定保良局董事局必須經<span class="kw" onclick="toggleKw(this)">港督</span>提名，而立法局的華人非官守議員是當然成員。</li>
+  </ul>
+
+</div>
+
+<script>
+function toggleKw(el) { el.classList.toggle('hidden'); updateBtn(); }
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => { if (anyVisible) k.classList.add('hidden'); else k.classList.remove('hidden'); });
+  updateBtn();
+}
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有關鍵詞' : '顯示所有關鍵詞';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>課題7 美國的成立及發展｜互動筆記</title>
+<style>
+  :root {
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --accent: #c0392b;
+    --border: #e0e0e0;
+    --card-bg: #fff;
+    --page-bg: #f5f4f0;
+    --text: #1a1a1a;
+    --muted: #666;
+    --heading: #1a1a1a;
+    --box-bg: #f9f8f5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .topbar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-title { font-size: 14px; letter-spacing: 0.05em; color: #ccc; }
+
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #a93226; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .school-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .school-name { font-size: 26px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .subject-line { font-size: 18px; color: var(--muted); letter-spacing: 0.05em; }
+
+  .topic-title {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 6px;
+    margin: 32px 0 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: var(--heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .subsection-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    color: #333;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+  }
+
+  .subsubsection {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 14px 0 8px;
+    color: #555;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  .info-box {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 14px 0;
+  }
+  .flow-item {
+    flex: 1;
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: #999;
+    font-size: 20px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .col-card {
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .col-card h4 {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+  }
+
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .result-table td {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  .result-table td:first-child {
+    background: #f0eeea;
+    font-weight: 700;
+    white-space: nowrap;
+    width: 130px;
+  }
+
+  .impact-list {
+    margin: 14px 0;
+  }
+  .impact-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    background: #f0eeea;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .impact-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .divider { border: none; border-top: 1px solid #ddd; margin: 28px 0; }
+
+  .objectives {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 20px;
+    margin: 16px 0;
+  }
+  .objectives h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--muted); letter-spacing: 0.05em; }
+  .objectives li { font-size: 14px; }
+
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 20px;
+    padding: 8px 14px;
+    background: #fffbe6;
+    border: 1px solid #f0d060;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hint::before { content: '💡'; }
+
+  /* ===== KEY TERM ===== */
+  .kw {
+    display: inline;
+    background: #fdecea;
+    color: var(--accent);
+    font-weight: 700;
+    border-radius: 3px;
+    padding: 0 3px;
+    cursor: pointer;
+    border-bottom: 2px solid var(--accent);
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+  }
+  .kw:hover { background: #f5c6c2; }
+  .kw.hidden {
+    background: #2c2c2a;
+    color: #2c2c2a;
+    border-bottom-color: #555;
+  }
+  .kw.hidden:hover { background: #444; color: #444; }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">課題7 · 美國的成立及發展</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有關鍵詞</button>
+</div>
+
+<div class="container">
+
+  <div class="school-header">
+    <div class="school-name">嶺南中學</div>
+    <div class="subject-line">中二級 · 歷史科</div>
+  </div>
+
+  <div class="hint">點擊紅色關鍵詞可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏／顯示。</div>
+
+  <div class="topic-title">課題 7　美國的成立及發展</div>
+
+  <div class="objectives">
+    <h4>學習重點</h4>
+    <ul>
+      <li>美國革命的內外因素、經過及結果</li>
+      <li>美國革命在歷史上的重要性</li>
+      <li>美國發展的重要歷史事件：南北戰爭</li>
+    </ul>
+    <h4 style="margin-top:10px">本主題學習目標</h4>
+    <ul>
+      <li>歸納和推論分析原因、結果與影響</li>
+      <li>理解對歷史事件的不同詮釋</li>
+    </ul>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section-title">A. 美國革命的內外因素</div>
+
+  <div class="subsection-title">(I) 內在因素</div>
+
+  <div class="subsubsection">i. 英國殖民政策引起不滿</div>
+
+  <p><strong>1. 英國北美殖民地的形成</strong></p>
+  <p>自從 1492 年 <span class="kw" onclick="toggleKw(this)">哥倫布</span> 發現美洲新大陸後，歐洲人逐漸移民到南、北美洲。到 1730 年代，英國已沿北美 <span class="kw" onclick="toggleKw(this)">東岸</span> 建立 <span class="kw" onclick="toggleKw(this)">十三個</span> 殖民地。</p>
+
+  <p><strong>2. 英國在北美的殖民政策</strong></p>
+  <p><u>政治方面</u></p>
+  <p>北美東岸的十三個殖民地，都由宗主國英國委任 <span class="kw" onclick="toggleKw(this)">總督</span> 管治。表面上各殖民地都設有自己的 <span class="kw" onclick="toggleKw(this)">議會</span>，但議會通過的法律必須由 <span class="kw" onclick="toggleKw(this)">英國國會</span> 審批才能正式生效，令當地居民深感不滿。</p>
+  <p>18 世紀中葉，英、法兩國爆發 <span class="kw" onclick="toggleKw(this)">「七年戰爭」</span>（1756–1763 年），法國戰敗並把北美的一些殖民地讓給英國。其後英國增派軍隊駐守北美，激發了與殖民地人民的衝突。</p>
+
+  <p><u>經濟方面</u></p>
+  <p>英國制定許多不利殖民地經濟發展的政策。殖民地出產的 <span class="kw" onclick="toggleKw(this)">煙草</span>、<span class="kw" onclick="toggleKw(this)">砂糖</span>、<span class="kw" onclick="toggleKw(this)">棉花</span> 只能輸往宗主國；殖民地亦不得製造與宗主國同類的貨品，引起北美人民極大不滿。</p>
+
+  <p><strong>3. 重稅加速殖民地反抗</strong></p>
+  <p>七年戰爭結束後，英國在北美加緊 <span class="kw" onclick="toggleKw(this)">徵稅</span> 以補助戰爭開支。北美人民認為在 <span class="kw" onclick="toggleKw(this)">英國國會</span> 中沒有自己的代表，根本無權向他們徵稅，英國與北美殖民地的關係更趨惡劣。</p>
+
+  <div class="subsubsection">ii. 追求自由的傳統</div>
+  <p>由 17 世紀初開始，不少歐洲國家的移民遷至美洲，就是為了逃避各種 <span class="kw" onclick="toggleKw(this)">宗教</span> 或 <span class="kw" onclick="toggleKw(this)">政治</span> 逼害，追求自由。到了 18 世紀下半葉，北美人民對英國的剝削與壓迫忍無可忍，終於挺身反抗。</p>
+
+  <div class="subsection-title">(II) 外在因素</div>
+
+  <div class="subsubsection">i. 歐洲革命的啟發</div>
+
+  <div class="two-col">
+    <div class="col-card">
+      <h4>1. 荷蘭獨立戰爭</h4>
+      <p>1648 年，持續了八十年的荷蘭獨立戰爭結束，荷蘭成功脫離 <span class="kw" onclick="toggleKw(this)">西班牙</span> 獨立，對後來的美國革命起了示範作用。</p>
+    </div>
+    <div class="col-card">
+      <h4>2. 英國光榮革命</h4>
+      <p>1688 年，英國國會推翻專制的國王詹姆士二世，稱為「光榮革命」。翌年通過 <span class="kw" onclick="toggleKw(this)">《權利法案》</span>，確立了 <span class="kw" onclick="toggleKw(this)">君主立憲</span> 政體，是日後《美國憲法》的先聲。</p>
+    </div>
+  </div>
+
+  <div class="subsubsection">ii. 歐洲啟蒙運動的影響</div>
+  <p>在 18 世紀，<span class="kw" onclick="toggleKw(this)">啟蒙思想</span> 已在北美廣泛流傳。北美陸續湧現爭取自由、獨立的思想家，如約翰亞當斯、潘恩、湯瑪斯傑佛遜等，促使北美人民反抗英國統治。</p>
+
+  <hr class="divider">
+
+  <!-- SECTION B -->
+  <div class="section-title">B. 美國革命的經過</div>
+
+  <div class="info-box" style="font-size:14px; line-height:2">
+    <strong>時序一覽</strong><br>
+    <strong>1765 年</strong> — 英國國會向北美人民加徵稅收<br>
+    <strong>1773 年</strong> — <span class="kw" onclick="toggleKw(this)">波士頓傾茶事件</span><br>
+    <strong>1774 年</strong> — 第一次大陸會議<br>
+    <strong>1775 年</strong> — 列克星頓戰役 · 第二次大陸會議<br>
+    <strong>1776 年</strong> — 通過 <span class="kw" onclick="toggleKw(this)">《獨立宣言》</span>，成立美利堅合眾國<br>
+    <strong>1781 年</strong> — <span class="kw" onclick="toggleKw(this)">約克鎮戰役</span><br>
+    <strong>1783 年</strong> — 簽署 <span class="kw" onclick="toggleKw(this)">《巴黎和約》</span>，英國承認美國獨立
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION C -->
+  <div class="section-title">C. 美國革命的結果</div>
+
+  <table class="result-table">
+    <tr>
+      <td>1<br>美利堅合眾國的誕生</td>
+      <td>
+        1776 年 <span class="kw" onclick="toggleKw(this)">《獨立宣言》</span> 通過，美利堅合眾國正式創建。<br>
+        《獨立宣言》通過的日子（7 月 4 日），後來就成了美國的 <span class="kw" onclick="toggleKw(this)">國慶日</span>。
+      </td>
+    </tr>
+    <tr>
+      <td>2<br>共和政體的創建</td>
+      <td>
+        <strong>(i) 《美國憲法》通過</strong><br>
+        1787 年 9 月，十三州代表通過了 <span class="kw" onclick="toggleKw(this)">《美國憲法》</span>。根據憲法，美國成為一個 <span class="kw" onclick="toggleKw(this)">聯邦共和國</span>。聯邦政府處理全國事務（國防、外交、對外貿易、徵稅、發行貨幣等），但各州仍保留一定的獨立性。<br><br>
+        《美國憲法》於 1788 年生效。1789 年，<span class="kw" onclick="toggleKw(this)">喬治．華盛頓</span> 當選為第一任總統。<br><br>
+        <strong>(ii) 聯邦政府架構（三權分立）</strong>
+        <div class="flow-row" style="margin-top:10px">
+          <div class="flow-item" style="text-align:center">
+            <strong>立法權</strong><br>
+            <span class="kw" onclick="toggleKw(this)">立法權</span><br>
+            <small>國會（參議院＋眾議院）</small>
+          </div>
+          <div class="flow-arrow">｜</div>
+          <div class="flow-item" style="text-align:center">
+            <strong>行政權</strong><br>
+            <span class="kw" onclick="toggleKw(this)">行政權</span><br>
+            <small>總統</small>
+          </div>
+          <div class="flow-arrow">｜</div>
+          <div class="flow-item" style="text-align:center">
+            <strong>司法權</strong><br>
+            <span class="kw" onclick="toggleKw(this)">司法權</span><br>
+            <small>最高法院</small>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <hr class="divider">
+
+  <!-- SECTION D -->
+  <div class="section-title">D. 美國革命在歷史上的重要性</div>
+
+  <div class="subsubsection">1. 對美國的影響：奠定國家富強的基礎</div>
+  <ul>
+    <li>美國獨立後實行三權分立下的共和政體，立法及司法部門可以<span class="kw" onclick="toggleKw(this)">制衡</span>總統的權力，防止權力過度集中在一人身上。</li>
+    <li>在長期穩定的<span class="kw" onclick="toggleKw(this)">民主政制</span>下，美國逐漸發展成世界強國。</li>
+  </ul>
+
+  <div class="subsubsection">2. 對歐洲以至世界的影響</div>
+  <div class="impact-list">
+    <div class="impact-item">
+      <span class="impact-label">a</span>
+      <div><strong>《獨立宣言》體現歐洲啟蒙思想：</strong>第一次把<span class="kw" onclick="toggleKw(this)">自由平等</span>、<span class="kw" onclick="toggleKw(this)">天賦人權</span>明確寫入政治文件，有助啟蒙思想的傳播。</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-label">b</span>
+      <div><strong>推動法國大革命：</strong>不少法國人親身經歷美國革命，把自由、平等的思想帶回法國，促使 1789 年<span class="kw" onclick="toggleKw(this)">法國大革命</span>的爆發。</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-label">c</span>
+      <div><strong>推動拉丁美洲獨立運動：</strong>美國的成功經驗促使<span class="kw" onclick="toggleKw(this)">拉丁美洲</span>人民掀起爭取獨立的革命。在 19 世紀初，拉丁美洲大部分殖民地已相繼獲得獨立。</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-label">d</span>
+      <div><strong>英國改變殖民政策：</strong>美國革命後，英國開始重視其他殖民地的人民自主，改變其殖民政策，例如在 1867 年准許<span class="kw" onclick="toggleKw(this)">加拿大</span>自治。</div>
+    </div>
+    <div class="impact-item">
+      <span class="impact-label">e</span>
+      <div><strong>樹立自由民主象徵：</strong>建國二百多年來，美國由革命作為起點，發展為當今世界上最強盛的國家之一。為紀念美國革命勝利而塑造的「<span class="kw" onclick="toggleKw(this)">自由女神像</span>」，成為自由、民主、獨立精神的象徵。</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION E -->
+  <div class="section-title">E. 美國發展的重要歷史事件：南北戰爭</div>
+
+  <div class="subsubsection">1. 南北戰爭的「背景」</div>
+  <ul>
+    <li>1860 年，反對奴隸制度的 <span class="kw" onclick="toggleKw(this)">林肯</span> 當選總統。</li>
+    <li>1861 年，南方七州（南卡羅萊納、佛羅里達、密西西比、阿拉巴馬、喬治亞、路易斯安那、德克薩斯）先後宣布獨立。</li>
+    <li>它們於 1861 年 2 月組成 <span class="kw" onclick="toggleKw(this)">美利堅邦聯國（邦聯）</span>，與北方的 <span class="kw" onclick="toggleKw(this)">美利堅合眾國（聯邦）</span> 形成對峙。</li>
+    <li>美國南方和北方正式分裂。</li>
+  </ul>
+
+  <div class="subsubsection">2. 內戰爆發</div>
+  <div class="flow-row">
+    <div class="flow-item">1861 年 3 月，<span class="kw" onclick="toggleKw(this)">林肯</span>就職總統，譴責邦聯（南方）的脫離非法。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">同年 4 月，邦聯軍隊向聯邦（北方）軍隊開火，<span class="kw" onclick="toggleKw(this)">南北戰爭</span>正式爆發。</div>
+    <div class="flow-arrow">▶</div>
+    <div class="flow-item">1865 年 4 月，邦聯（南方）軍隊投降，南北戰爭以<span class="kw" onclick="toggleKw(this)">聯邦（北方）</span>勝利、美國復歸統一告終。</div>
+  </div>
+
+  <div class="subsubsection">3. 南北戰爭的影響</div>
+
+  <table class="result-table">
+    <tr>
+      <td>(i)<br>奴隸制度的終結</td>
+      <td>
+        <ul>
+          <li><span class="kw" onclick="toggleKw(this)">林肯</span>於 1863 年發表 <span class="kw" onclick="toggleKw(this)">《解放奴隸宣言》</span>，宣布南方邦聯內所有黑奴恢復自由身。</li>
+          <li>臨近內戰結束，國會於 1865 年 1 月通過憲法 <span class="kw" onclick="toggleKw(this)">《第十三條修正案》</span>，正式廢除奴隸制度。</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>(ii)<br>南方的重建</td>
+      <td>
+        <ul>
+          <li>南方各州逐一回歸聯邦，大多數前邦聯重要官員得到赦免。</li>
+          <li>1865 年，聯邦政府成立 <span class="kw" onclick="toggleKw(this)">自由人局</span>，協助南方各州被解放的黑人適應自由生活，盡快融入社會。</li>
+          <li>《第十四條修正案》和《第十五條修正案》先後於 1868 年和 1870 年獲通過，確保黑人的 <span class="kw" onclick="toggleKw(this)">公民權</span>。</li>
+          <li>聯邦政府建立美國史上首個公立學校體系，提高黑人接受 <span class="kw" onclick="toggleKw(this)">教育</span> 的機會。</li>
+          <li>聯邦政府在南方重建受戰爭破壞的道路和橋樑，又資助鐵路的興建。</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>(iii)<br>促進西進運動</td>
+      <td>南北戰爭結束後，大量恢復平民生活的士兵帶同家人移居西部，被解放的黑奴也陸續到西部定居，助長了 <span class="kw" onclick="toggleKw(this)">西進運動</span> 的進一步發展。</td>
+    </tr>
+    <tr>
+      <td>(iv)<br>高速工業化</td>
+      <td>
+        <ul>
+          <li>南北戰爭後，北方以 <span class="kw" onclick="toggleKw(this)">工業</span> 發展為主的模式在美國各地形成風潮。</li>
+          <li>美國鐵路建設進入高峰期，帶動鋼鐵工業及各種商機，使美國迅速工業化。到了 19 世紀末，美國已成為世界第一的 <span class="kw" onclick="toggleKw(this)">工業大國</span>。</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+<script>
+function toggleKw(el) {
+  el.classList.toggle('hidden');
+  updateBtn();
+}
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => {
+    if (anyVisible) k.classList.add('hidden');
+    else k.classList.remove('hidden');
+  });
+  updateBtn();
+}
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有關鍵詞' : '顯示所有關鍵詞';
+}
+</script>
+</body>
+</html>
