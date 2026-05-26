@@ -36,3 +36,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4.0.0
+
+        run: echo "The value is ${{ steps.deployment.outputs.page_url }}"
