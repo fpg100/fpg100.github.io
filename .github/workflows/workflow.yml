@@ -18,6 +18,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: 'lnss'      # upload generated folder
+
+        run: echo "The value is ${{ steps.deployment.outputs.page_url }}"
+
   
   deploy:
     needs: pages-directory-listing
@@ -37,4 +40,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4.0.0
 
-        run: echo "The value is ${{ steps.deployment.outputs.page_url }}"
