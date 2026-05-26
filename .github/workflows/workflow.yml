@@ -19,6 +19,7 @@ jobs:
         with:
           path: 'lnss'      # upload generated folder
 
+      - name: debug
         run: echo "The value is ${{ steps.deployment.outputs.page_url }}"
 
   
