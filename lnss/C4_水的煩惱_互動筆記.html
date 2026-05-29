@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C4 水的煩惱—太多與太少｜互動筆記</title>
+<style>
+  :root {
+    --accent: #1a6eb5;
+    --accent-light: #e8f2fc;
+    --border: #d0e4f5;
+    --page-bg: #f2f7fc;
+    --text: #1a1a1a;
+    --muted: #555;
+    --box-bg: #f8fbff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .topbar {
+    background: #0d3d6e;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-title { font-size: 14px; letter-spacing: 0.05em; color: #b0cce8; }
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #155a9a; }
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .school-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #0d3d6e;
+  }
+  .school-name { font-size: 24px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 4px; color: #0d3d6e; }
+  .subject-line { font-size: 15px; color: var(--muted); }
+  .unit-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .section-title {
+    font-size: 18px; font-weight: 700;
+    margin: 28px 0 12px; color: #0d3d6e;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 18px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .subsection-title {
+    font-size: 15px; font-weight: 700;
+    margin: 18px 0 8px; color: #333;
+    border-left: 3px solid #90b8d8; padding-left: 10px;
+  }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  .info-box {
+    background: var(--box-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px; margin: 12px 0;
+  }
+  .flow-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .flow-item {
+    flex: 1; background: #eaf3fc;
+    border: 1px solid #c0d8ee; border-radius: 6px;
+    padding: 12px 14px; font-size: 14px; line-height: 1.6;
+  }
+  .flow-arrow { display: flex; align-items: center; padding: 0 6px; color: #90b8d8; font-size: 20px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .col-card {
+    background: #eaf3fc; border: 1px solid #c0d8ee;
+    border-radius: 6px; padding: 14px 16px;
+    font-size: 14px; line-height: 1.7;
+  }
+  .col-card h4 {
+    font-weight: 700; font-size: 15px; margin-bottom: 8px;
+    border-bottom: 1px solid #b0cce8; padding-bottom: 4px; color: #0d3d6e;
+  }
+  .data-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .data-table th { background: #0d3d6e; color: #fff; padding: 9px 14px; text-align: left; }
+  .data-table td { border: 1px solid #c0d8ee; padding: 9px 14px; line-height: 1.65; vertical-align: top; }
+  .data-table tr:nth-child(even) td { background: #f0f7fe; }
+  .cause-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  .cause-table th { background: #0d3d6e; color: #fff; padding: 9px 14px; }
+  .cause-table td { border: 1px solid #c0d8ee; padding: 9px 14px; vertical-align: top; line-height: 1.65; }
+  .cause-table td:first-child { background: #eaf3fc; font-weight: 700; width: 160px; }
+  .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .impact-card {
+    background: #eaf3fc; border: 1px solid #c0d8ee;
+    border-radius: 6px; padding: 12px 14px;
+    font-size: 14px; line-height: 1.65;
+  }
+  .impact-card h4 { font-weight: 700; color: #0d3d6e; margin-bottom: 6px; }
+  .divider { border: none; border-top: 1px solid #c0d8ee; margin: 28px 0; }
+  .hint {
+    font-size: 12px; color: var(--muted); margin: 0 0 20px;
+    padding: 8px 14px; background: #fffbe6;
+    border: 1px solid #f0d060; border-radius: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hint::before { content: '💡'; }
+  .kw {
+    display: inline;
+    background: #d8ecf8; color: #1a5f9e;
+    font-weight: 700; border-radius: 3px; padding: 0 3px;
+    cursor: pointer; border-bottom: 2px solid #1a6eb5;
+    transition: background 0.15s, color 0.15s; user-select: none;
+  }
+  .kw:hover { background: #b0d5f0; }
+  .kw.hidden { background: #2c2c2a; color: #2c2c2a; border-bottom-color: #555; }
+  .kw.hidden:hover { background: #444; color: #444; }
+  .topic-title {
+    font-size: 22px; font-weight: 700;
+    border-bottom: 3px solid #0d3d6e;
+    padding-bottom: 6px; margin: 16px 0 20px;
+    color: #0d3d6e;
+  }
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .flow-row { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">互動地理（第二版）· C4 水的煩惱—太多與太少</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有關鍵詞</button>
+</div>
+
+<div class="container">
+
+  <div class="school-header">
+    <div class="school-name">互動地理（第二版）</div>
+    <div class="subject-line">© 2022 雅集出版社有限公司</div>
+  </div>
+
+  <div class="hint">點擊藍色關鍵詞可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏／顯示。</div>
+
+  <div class="topic-title">C4　水的煩惱—太多與太少</div>
+
+  <div class="section-title"><span class="unit-badge">單元1</span>水循環及全球的水資源</div>
+  <div class="subsection-title">1.1　水從哪裏來？</div>
+  <p><strong>甚麼是水循環？</strong></p>
+  <p>受<span class="kw" onclick="toggleKw(this)">太陽的能量</span>推動，水在<span class="kw" onclick="toggleKw(this)">海洋</span>、<span class="kw" onclick="toggleKw(this)">大氣</span>及<span class="kw" onclick="toggleKw(this)">陸地</span>之間不斷轉換形態，循環不息，形成水循環。</p>
+  <p><strong>水循環的過程：</strong></p>
+  <table class="data-table">
+    <tr><th>過程</th><th>描述</th></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">蒸發</span></td><td>海洋、江河及湖泊的水受熱成水汽</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">蒸騰</span></td><td>植物的水分變成水汽</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">凝結</span></td><td>水汽在上升過程中逐漸冷卻成小水滴，再積聚成雲</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">降水</span></td><td>當水滴過重時，以雨或雪等不同形式降落到地面</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">截留</span></td><td>降水到達地面前，部分會被植被攔截</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">地表徑流</span></td><td>部分降水沿地面流動</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">下滲</span></td><td>部分降水滲入土壤中，成為地下水</td></tr>
+  </table>
+
+  <div class="subsection-title">1.2　全球水資源的分布形態</div>
+  <p><span class="kw" onclick="toggleKw(this)">水資源</span>泛指地球上可供人類使用的<span class="kw" onclick="toggleKw(this)">淡水</span>。</p>
+  <div class="flow-row">
+    <div class="flow-item" style="text-align:center"><strong>水的種類</strong><br><br><span class="kw" onclick="toggleKw(this)">鹹水</span>：97%<br>淡水：3%</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item" style="text-align:center"><strong>淡水種類</strong><br><br><span class="kw" onclick="toggleKw(this)">冰冠和冰川</span> · <span class="kw" onclick="toggleKw(this)">地下水</span> · 地表水 · 其他<br><small>（地表水包括：湖泊、沼澤、<span class="kw" onclick="toggleKw(this)">河流</span>）</small></div>
+  </div>
+  <ul>
+    <li>全球的水資源<span class="kw" onclick="toggleKw(this)">稀少</span>且分布<span class="kw" onclick="toggleKw(this)">不平均</span>。</li>
+    <li>人口稠密地區的用水需求<span class="kw" onclick="toggleKw(this)">較大</span>，其人均可用水資源相對<span class="kw" onclick="toggleKw(this)">較少</span>。</li>
+    <li>每人每年需要 <span class="kw" onclick="toggleKw(this)">1 700 立方米</span> 飲用水維生。</li>
+  </ul>
+
+  <hr class="divider">
+
+  <div class="section-title"><span class="unit-badge">單元2</span>中國的水資源</div>
+  <div class="subsection-title">2.1　中國主要有哪些水資源？</div>
+  <table class="cause-table">
+    <tr><td>地表水<br>a. <span class="kw" onclick="toggleKw(this)">河流</span></td><td><ul><li>中國河流密集，廣泛分布在全國各地</li><li><span class="kw" onclick="toggleKw(this)">長江</span>、<span class="kw" onclick="toggleKw(this)">黃河</span>及<span class="kw" onclick="toggleKw(this)">珠江</span>是三條最重要的河流</li><li>中國<span class="kw" onclick="toggleKw(this)">西部</span>高山地區的<span class="kw" onclick="toggleKw(this)">冰川</span>儲存大量淡水資源</li><li>每逢春季，大量<span class="kw" onclick="toggleKw(this)">融解水</span>匯入主要河流</li></ul></td></tr>
+    <tr><td>地表水<br>b. <span class="kw" onclick="toggleKw(this)">湖泊</span></td><td><ul><li>主要分布在<span class="kw" onclick="toggleKw(this)">東部</span>地區</li><li>全國三大淡水湖泊—<span class="kw" onclick="toggleKw(this)">鄱陽湖</span>、<span class="kw" onclick="toggleKw(this)">洞庭湖</span>和<span class="kw" onclick="toggleKw(this)">太湖</span>均位於長江中下游一帶</li></ul></td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">地下水</span></td><td><ul><li>指在<span class="kw" onclick="toggleKw(this)">蓄水層</span>中流動或停滯的水資源，可透過開挖<span class="kw" onclick="toggleKw(this)">水井</span>或使用抽水機抽取</li><li>中國的地下水蘊藏豐富，是<span class="kw" onclick="toggleKw(this)">北部</span>城市的主要用水來源</li></ul></td></tr>
+  </table>
+
+  <div class="subsection-title">2.2　中國水資源的分布形態</div>
+  <div class="two-col">
+    <div class="col-card"><h4>水資源分布</h4><ul><li>分布<span class="kw" onclick="toggleKw(this)">不平均</span>，呈「<span class="kw" onclick="toggleKw(this)">北少南多</span>」的形態</li><li>南方河流的河盆面積<span class="kw" onclick="toggleKw(this)">較大</span>，流量亦<span class="kw" onclick="toggleKw(this)">較高</span>，水資源相對<span class="kw" onclick="toggleKw(this)">充沛</span></li></ul></div>
+    <div class="col-card"><h4>人均水資源</h4><ul><li>由於人口<span class="kw" onclick="toggleKw(this)">龐大</span>，中國的人均水資源遠低於世界人均值</li><li>尤以<span class="kw" onclick="toggleKw(this)">華東</span>地區的水資源最為匱乏</li></ul></div>
+  </div>
+
+  <div class="subsection-title">2.3　哪些因素影響中國水資源的分布？</div>
+  <p>中國的水資源分布主要受<span class="kw" onclick="toggleKw(this)">降雨</span>影響。</p>
+  <table class="cause-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">季風系統</span></td><td>因<span class="kw" onclick="toggleKw(this)">陸地</span>和<span class="kw" onclick="toggleKw(this)">海洋</span>的受熱程度不同，形成隨<span class="kw" onclick="toggleKw(this)">季節</span>交替而改變方向的風，稱為季風。季風區（<span class="kw" onclick="toggleKw(this)">中國東部及南部</span>）降雨量<span class="kw" onclick="toggleKw(this)">較高</span>，氣候<span class="kw" onclick="toggleKw(this)">潮濕</span>；非季風區（<span class="kw" onclick="toggleKw(this)">中國西北部</span>）降雨量<span class="kw" onclick="toggleKw(this)">較低</span>，氣候<span class="kw" onclick="toggleKw(this)">乾旱</span>。</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">離海距離</span></td><td>陸地離海距離越<span class="kw" onclick="toggleKw(this)">近</span>，降雨量越多。沿海地區氣候<span class="kw" onclick="toggleKw(this)">潮濕</span>；內陸地區氣候<span class="kw" onclick="toggleKw(this)">乾旱</span>。</td></tr>
+    <tr><td>3. <span class="kw" onclick="toggleKw(this)">地勢</span></td><td>來自<span class="kw" onclick="toggleKw(this)">印度洋</span>的濕潤向岸風被高聳的<span class="kw" onclick="toggleKw(this)">喜馬拉雅山脈</span>阻擋，到達中國西北部時變得<span class="kw" onclick="toggleKw(this)">乾燥</span>，導致該區乾旱少雨。</td></tr>
+  </table>
+  <p class="info-box" style="font-size:14px">📍 四大乾濕地區：<span class="kw" onclick="toggleKw(this)">乾旱地區</span>① · <span class="kw" onclick="toggleKw(this)">半乾旱地區</span>② · <span class="kw" onclick="toggleKw(this)">半濕潤地區</span>③ · <span class="kw" onclick="toggleKw(this)">濕潤地區</span>④</p>
+
+  <hr class="divider">
+
+  <div class="section-title"><span class="unit-badge">單元3</span>中國的氾濫問題</div>
+  <div class="subsection-title">3.1　甚麼是氾濫？它對中國造成甚麼影響？</div>
+  <p>當河流<span class="kw" onclick="toggleKw(this)">流量</span>突然增加，並超出河道<span class="kw" onclick="toggleKw(this)">容量</span>時，河水便會<span class="kw" onclick="toggleKw(this)">溢出</span>河道，淹沒兩岸，便會造成氾濫。</p>
+  <p>中國的氾濫大多在<span class="kw" onclick="toggleKw(this)">東部</span>和<span class="kw" onclick="toggleKw(this)">南部</span>發生，尤其是主要河流的<span class="kw" onclick="toggleKw(this)">中下游</span>地區。</p>
+  <div class="impact-grid">
+    <div class="impact-card"><h4>社會影響</h4><ul><li>洪水沖毀房屋，人們喪失家園</li><li>道路及橋樑等基建損毀，降低災區的<span class="kw" onclick="toggleKw(this)">可達度</span>並延誤救援</li><li>水資源受<span class="kw" onclick="toggleKw(this)">污染</span>，增加疾病傳播的風險</li><li>氾濫造成<span class="kw" onclick="toggleKw(this)">人命傷亡</span></li></ul></div>
+    <div class="impact-card"><h4>經濟影響</h4><ul><li>工商業活動被迫暫停</li><li>救災及災區重建等工作增加政府支出</li><li>洪水造成<span class="kw" onclick="toggleKw(this)">財物損失</span></li><li>農地被<span class="kw" onclick="toggleKw(this)">淹沒</span>，導致農作物失收，糧食產量下降</li></ul></div>
+  </div>
+
+  <div class="subsection-title">3.2　中國氾濫的成因</div>
+  <p><strong>自然因素</strong></p>
+  <table class="cause-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">持續降雨及暴雨</span></td><td>中國東部和南部受夏季季風及<span class="kw" onclick="toggleKw(this)">颱風</span>吹襲；連天暴雨導致<span class="kw" onclick="toggleKw(this)">河流流量</span>急增；颱風亦會引發<span class="kw" onclick="toggleKw(this)">風暴潮</span>，淹沒沿海低窪地區。</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">融雪</span></td><td>每年<span class="kw" onclick="toggleKw(this)">春季</span>溫度回升時，中國西部高山的積雪融化，大量<span class="kw" onclick="toggleKw(this)">融解水</span>匯入河道。</td></tr>
+    <tr><td>3. <span class="kw" onclick="toggleKw(this)">氣候變化</span></td><td>全球氣候變化引致更多<span class="kw" onclick="toggleKw(this)">極端降雨</span>事件及加快<span class="kw" onclick="toggleKw(this)">冰川</span>融化。</td></tr>
+    <tr><td>4. <span class="kw" onclick="toggleKw(this)">地勢低平</span></td><td>中國主要河流的下游均集中在<span class="kw" onclick="toggleKw(this)">東部</span>；下游河段地勢<span class="kw" onclick="toggleKw(this)">平坦</span>，有利沙泥<span class="kw" onclick="toggleKw(this)">沉積</span>，令河床變淺。</td></tr>
+  </table>
+  <p><strong>人文因素</strong></p>
+  <table class="cause-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">濫伐林木</span></td><td>大規模砍伐森林，植被覆蓋大幅<span class="kw" onclick="toggleKw(this)">減少</span>，加劇<span class="kw" onclick="toggleKw(this)">土壤侵蝕</span>，使河床變淺。</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">填平湖泊</span></td><td>湖泊具有<span class="kw" onclick="toggleKw(this)">儲水</span>功能，透過<span class="kw" onclick="toggleKw(this)">調節</span>河流流量降低氾濫風險。人們填平湖泊，使湖泊面積不斷<span class="kw" onclick="toggleKw(this)">縮小</span>。</td></tr>
+    <tr><td>3. <span class="kw" onclick="toggleKw(this)">市區不透水地表增加</span></td><td>市區地表多被不透水的<span class="kw" onclick="toggleKw(this)">混凝土</span>覆蓋；暴雨時，雨水難以下滲，<span class="kw" onclick="toggleKw(this)">地表徑流</span>迅速增加，容易造成氾濫。</td></tr>
+    <tr><td>4. <span class="kw" onclick="toggleKw(this)">防洪基建日久失修</span></td><td><span class="kw" onclick="toggleKw(this)">水壩</span>及<span class="kw" onclick="toggleKw(this)">人工堤</span>等防洪基建有助保護城鎮，但部分設施缺乏定期維修，在雨季時隨時會被洪水<span class="kw" onclick="toggleKw(this)">沖垮</span>。</td></tr>
+  </table>
+
+  <div class="subsection-title">3.3　中國採取甚麼措施應付氾濫？</div>
+  <p><strong>預防措施</strong></p>
+  <table class="data-table">
+    <tr><th colspan="2">1. <span class="kw" onclick="toggleKw(this)">河道改善工程</span></th></tr>
+    <tr><td>興建<span class="kw" onclick="toggleKw(this)">水壩</span></td><td>調節中下游的河流流量</td></tr>
+    <tr><td>興建<span class="kw" onclick="toggleKw(this)">水庫</span></td><td>在暴雨時儲起雨水</td></tr>
+    <tr><td>興建<span class="kw" onclick="toggleKw(this)">人工堤</span></td><td>增加河道容量，阻擋洪水溢出</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">拉直</span>河道</td><td>加快河流流速、減少沙泥淤積及迅速排走雨水</td></tr>
+    <tr><td>擴闊和<span class="kw" onclick="toggleKw(this)">加深</span>河道</td><td>有助提升河道容量，避免洪水外溢</td></tr>
+    <tr><td>河道定期<span class="kw" onclick="toggleKw(this)">清淤</span></td><td>挖走河床淤泥來保持河道容量</td></tr>
+    <tr><th colspan="2">2. <span class="kw" onclick="toggleKw(this)">土地利用規劃</span></th></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">增加林地面積</span></td><td>在長江沿岸大規模<span class="kw" onclick="toggleKw(this)">植林</span>；推行「<span class="kw" onclick="toggleKw(this)">退耕還林</span>」計劃</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">保護及復原湖泊</span></td><td>禁止人民非法填平湖泊；實施「<span class="kw" onclick="toggleKw(this)">退耕還湖</span>」政策</td></tr>
+    <tr><td><span class="kw" onclick="toggleKw(this)">土地利用分區</span></td><td>按氾濫風險來規劃發展<span class="kw" onclick="toggleKw(this)">密度</span>和土地用途</td></tr>
+    <tr><th colspan="2">3. <span class="kw" onclick="toggleKw(this)">洪水警告系統</span></th></tr>
+    <tr><td colspan="2">利用科技<span class="kw" onclick="toggleKw(this)">監測</span>降雨，根據河流<span class="kw" onclick="toggleKw(this)">水位</span>制定洪水警告信號，讓市民做好<span class="kw" onclick="toggleKw(this)">防洪措施</span>。</td></tr>
+  </table>
+  <p><strong>補救措施</strong></p>
+  <div class="two-col">
+    <div class="col-card"><h4>1. <span class="kw" onclick="toggleKw(this)">緊急救援</span></h4><ul><li>派出<span class="kw" onclick="toggleKw(this)">救援人員</span>拯救災民</li><li>提供<span class="kw" onclick="toggleKw(this)">食物</span>及<span class="kw" onclick="toggleKw(this)">食水</span>等物資</li></ul></div>
+    <div class="col-card"><h4>2. <span class="kw" onclick="toggleKw(this)">清理災區</span></h4><ul><li>清理街道上的淤泥與<span class="kw" onclick="toggleKw(this)">積水</span></li><li><span class="kw" onclick="toggleKw(this)">維修</span>鐵路、橋樑和電纜等基礎設施</li><li>儘快恢復社會運作</li></ul></div>
+  </div>
+
+  <div class="subsection-title">專題研究：「三峽工程」</div>
+  <table class="cause-table">
+    <tr><td>位置</td><td>在<span class="kw" onclick="toggleKw(this)">湖北</span>省宜昌市興建三峽大壩及後方水庫</td></tr>
+    <tr><td>功能</td><td><span class="kw" onclick="toggleKw(this)">多功能</span>水利工程，以蓄水防洪最為重要；具備<span class="kw" onclick="toggleKw(this)">發電</span>、航運及<span class="kw" onclick="toggleKw(this)">抗旱</span>的功能</td></tr>
+  </table>
+  <div class="two-col">
+    <div class="col-card"><h4>正面影響</h4><ul><li>【社會】為移民提供較佳的<span class="kw" onclick="toggleKw(this)">居住環境</span></li><li>【經濟】促進工業和農業發展；改善<span class="kw" onclick="toggleKw(this)">航運</span>，帶動<span class="kw" onclick="toggleKw(this)">旅遊業</span>發展</li><li>【環境】水力發電有助改善<span class="kw" onclick="toggleKw(this)">空氣質素</span></li></ul></div>
+    <div class="col-card"><h4>負面影響</h4><ul><li>【社會】居民原有的<span class="kw" onclick="toggleKw(this)">社區網絡</span>被破壞</li><li>【經濟】水力發電供應<span class="kw" onclick="toggleKw(this)">不穩</span>；下游農田失去<span class="kw" onclick="toggleKw(this)">養分</span>補充；<span class="kw" onclick="toggleKw(this)">旱季</span>時航運受阻</li><li>【環境】破壞上游河谷的<span class="kw" onclick="toggleKw(this)">生境</span>；可能誘發水庫<span class="kw" onclick="toggleKw(this)">地震</span></li><li>【文化】引致<span class="kw" onclick="toggleKw(this)">文化遺失</span></li></ul></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-title"><span class="unit-badge">單元5</span>中國的水污染問題</div>
+  <div class="subsection-title">5.1　甚麼是水污染？它帶來甚麼影響？</div>
+  <p>水污染是指大量<span class="kw" onclick="toggleKw(this)">有害物質</span>被排放到河流和湖泊等<span class="kw" onclick="toggleKw(this)">水體</span>中，導致水質下降，不適合飲用或作其他用途。</p>
+  <p>中國<span class="kw" onclick="toggleKw(this)">北部</span>河流的污染程度普遍較<span class="kw" onclick="toggleKw(this)">南部</span>河流嚴重，地下水、湖泊和水庫的污染情況亦趨向<span class="kw" onclick="toggleKw(this)">惡化</span>。</p>
+  <div class="two-col">
+    <div class="col-card"><h4>自然環境影響</h4><ul><li>水生生物死亡，<span class="kw" onclick="toggleKw(this)">生物多樣性</span>下降</li><li>地下水<span class="kw" onclick="toggleKw(this)">水質</span>惡化</li><li>農地<span class="kw" onclick="toggleKw(this)">退化</span>，不再適合耕種</li></ul></div>
+    <div class="col-card"><h4>社會及經濟影響</h4><ul><li>人們<span class="kw" onclick="toggleKw(this)">健康</span>受損，增加患病風險</li><li>魚類大量死亡，漁民生計受損</li><li>不利工業生產，拖慢地區<span class="kw" onclick="toggleKw(this)">經濟發展</span></li></ul></div>
+  </div>
+
+  <div class="subsection-title">5.2　水污染的成因及應付措施</div>
+  <p><strong>成因</strong></p>
+  <table class="cause-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">污水排放增加</span></td><td>大量<span class="kw" onclick="toggleKw(this)">生活</span>和<span class="kw" onclick="toggleKw(this)">工業</span>污水被直接排入水體中；農民過度使用<span class="kw" onclick="toggleKw(this)">農業化學品</span>，殘餘農藥污染地下水資源。</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">污水處理欠佳</span></td><td>中國的污水處理設施不足，尤其在農村等經濟落後的地區；大量污水未經處理便被排放到河流中。</td></tr>
+    <tr><td>3. <span class="kw" onclick="toggleKw(this)">氣候變化</span></td><td>全球氣候變化帶來更多<span class="kw" onclick="toggleKw(this)">極端天氣事件</span>；遇上持續乾旱時，河流流量減少，令水中污染物難以被<span class="kw" onclick="toggleKw(this)">稀釋</span>。</td></tr>
+  </table>
+  <p><strong>應付措施</strong></p>
+  <table class="cause-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">減少污水排放</span></td><td>立法禁止排放未經處理的污水；監察和執法檢控違法排放污水的企業；向廠商徵收<span class="kw" onclick="toggleKw(this)">環境保護稅</span>；教育市民珍惜水資源。</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">改善污水處理</span></td><td>增建<span class="kw" onclick="toggleKw(this)">污水處理設施</span>，減少直接排入河流的污染物；科技應用提升處理效率和水質。</td></tr>
+  </table>
+
+  <div class="subsection-title">專題研究：英國和孟加拉的個案</div>
+  <table class="data-table">
+    <tr><th>　</th><th>英國</th><th>孟加拉</th></tr>
+    <tr><td>經濟發展水平</td><td><span class="kw" onclick="toggleKw(this)">較高</span></td><td><span class="kw" onclick="toggleKw(this)">較低</span></td></tr>
+    <tr><td>資金及人才供應</td><td><span class="kw" onclick="toggleKw(this)">充足</span></td><td><span class="kw" onclick="toggleKw(this)">缺乏</span></td></tr>
+    <tr><td>教育水平</td><td><span class="kw" onclick="toggleKw(this)">較高</span></td><td><span class="kw" onclick="toggleKw(this)">較低</span></td></tr>
+    <tr><td>推行措施的難度</td><td><span class="kw" onclick="toggleKw(this)">較易</span></td><td><span class="kw" onclick="toggleKw(this)">較難</span></td></tr>
+    <tr><td>氾濫</td><td>進行氾濫<span class="kw" onclick="toggleKw(this)">風險評估</span>、興建及定期維修防洪設施、可動用<span class="kw" onclick="toggleKw(this)">保險賠償</span>重建災區</td><td>設立<span class="kw" onclick="toggleKw(this)">氾濫緩衝區</span>、興建河堤、缺乏資金購買保險</td></tr>
+    <tr><td>旱災</td><td>興建水塘及<span class="kw" onclick="toggleKw(this)">海水化淡廠</span>、教育和宣傳</td><td>只有一座水庫、改良<span class="kw" onclick="toggleKw(this)">灌溉</span>設施</td></tr>
+    <tr><td>水污染</td><td>立法管制<span class="kw" onclick="toggleKw(this)">污水排放</span>、興建污水處理設施、教育農民</td><td>非政府組織協助設置簡單的<span class="kw" onclick="toggleKw(this)">過濾器</span></td></tr>
+  </table>
+
+  <hr class="divider">
+
+  <div class="section-title"><span class="unit-badge">單元6</span>可持續的水資源管理</div>
+  <div class="subsection-title">6.1　中國的水循環發生了甚麼變化？</div>
+  <table class="data-table">
+    <tr><th>水循環</th><th>轉變</th><th>原因</th></tr>
+    <tr><td>蒸發</td><td><span class="kw" onclick="toggleKw(this)">較少</span></td><td><span class="kw" onclick="toggleKw(this)">填平湖泊</span>令城市的水體減少</td></tr>
+    <tr><td>蒸騰</td><td><span class="kw" onclick="toggleKw(this)">較少</span></td><td>大面積砍伐<span class="kw" onclick="toggleKw(this)">森林</span>使植被覆蓋縮減</td></tr>
+    <tr><td>截留</td><td><span class="kw" onclick="toggleKw(this)">較少</span></td><td><span class="kw" onclick="toggleKw(this)">植被</span>減少，較少雨水被樹幹和樹葉攔截</td></tr>
+    <tr><td>下滲</td><td><span class="kw" onclick="toggleKw(this)">較少</span></td><td>城市地表多被<span class="kw" onclick="toggleKw(this)">不透水</span>的混凝土覆蓋</td></tr>
+    <tr><td>地表徑流</td><td><span class="kw" onclick="toggleKw(this)">較多</span></td><td>暴雨時，不透水的地表令水分下滲減少</td></tr>
+    <tr><td>地下水</td><td><span class="kw" onclick="toggleKw(this)">較少</span></td><td>下滲減少令地下水得不到補充</td></tr>
+  </table>
+
+  <div class="subsection-title">6.2　如何達致可持續的水資源管理？</div>
+  <table class="cause-table">
+    <tr><td>說明</td><td>透過<span class="kw" onclick="toggleKw(this)">模仿</span>自然生態系統的過程及功能，將自然元素與城市中各項應付水問題的傳統設施互相<span class="kw" onclick="toggleKw(this)">融合</span>。</td></tr>
+    <tr><td>好處</td><td><ul><li><span class="kw" onclick="toggleKw(this)">降低</span>城市的氾濫和旱災風險</li><li>確保水資源<span class="kw" onclick="toggleKw(this)">安全</span>及供應穩定</li><li>長遠為社會、經濟和環境帶來裨益</li></ul></td></tr>
+    <tr><td>城市設計</td><td>興建<span class="kw" onclick="toggleKw(this)">排水繞道</span>、設立自然保護區、<span class="kw" onclick="toggleKw(this)">植樹</span>、保育湖泊、以<span class="kw" onclick="toggleKw(this)">透水</span>物料鋪設地面、設置雨水收集設施、<span class="kw" onclick="toggleKw(this)">綠化天台</span>及保育<span class="kw" onclick="toggleKw(this)">紅樹林</span>和濕地</td></tr>
+    <tr><td>中國的「<span class="kw" onclick="toggleKw(this)">海綿城市</span>」</td><td><ul><li>雨季時<span class="kw" onclick="toggleKw(this)">吸收和儲存</span>雨水，旱季時則<span class="kw" onclick="toggleKw(this)">釋出</span>水資源供人們使用</li><li>2016 年起，全國共有 30 個「海綿城市」試點，包括<span class="kw" onclick="toggleKw(this)">北京</span>、<span class="kw" onclick="toggleKw(this)">上海</span>和武漢等</li><li>例子：金華燕尾洲公園兼具<span class="kw" onclick="toggleKw(this)">防洪</span>、<span class="kw" onclick="toggleKw(this)">抗旱</span>、淨化水質和<span class="kw" onclick="toggleKw(this)">休憩</span>等功能</li></ul></td></tr>
+  </table>
+
+  <div class="subsection-title">專題研究：新加坡如何利用新科技增加水資源供應？</div>
+  <table class="data-table">
+    <tr><td>1. <span class="kw" onclick="toggleKw(this)">水塘收集雨水</span></td><td><span class="kw" onclick="toggleKw(this)">雨水收集網絡</span>廣闊，收集並輸送雨水到水塘儲存</td></tr>
+    <tr><td>2. <span class="kw" onclick="toggleKw(this)">進口水</span></td><td>新加坡從<span class="kw" onclick="toggleKw(this)">馬來西亞</span>進口淡水，供水合約將於 2061 年到期，屆時將達致水資源<span class="kw" onclick="toggleKw(this)">自給自足</span></td></tr>
+    <tr><td>3. <span class="kw" onclick="toggleKw(this)">新生水</span></td><td>將污水淨化成高品質且價格<span class="kw" onclick="toggleKw(this)">便宜</span>的新生水；主要提供<span class="kw" onclick="toggleKw(this)">工業</span>及<span class="kw" onclick="toggleKw(this)">商業</span>用水，部分也會供市民飲用</td></tr>
+    <tr><td>4. <span class="kw" onclick="toggleKw(this)">海水化淡</span></td><td>利用海水化淡技術去除海水的鹽分和雜質，以提供<span class="kw" onclick="toggleKw(this)">淡水</span>資源</td></tr>
+  </table>
+
+</div>
+
+<script>
+function toggleKw(el) { el.classList.toggle('hidden'); updateBtn(); }
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => { if (anyVisible) k.classList.add('hidden'); else k.classList.remove('hidden'); });
+  updateBtn();
+}
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有關鍵詞' : '顯示所有關鍵詞';
+}
+</script>
+</body>
+</html>
