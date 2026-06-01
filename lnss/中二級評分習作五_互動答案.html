@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二級評分習作（五）互動答案</title>
+<style>
+  :root {
+    --accent: #1a6eb5;
+    --border: #d0e4f5;
+    --page-bg: #f2f7fc;
+    --text: #1a1a1a;
+    --muted: #555;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .topbar {
+    background: #0d3d6e;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-title { font-size: 14px; letter-spacing: 0.05em; color: #b0cce8; }
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #155a9a; }
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .page-title {
+    font-size: 22px; font-weight: 700;
+    border-bottom: 3px solid #0d3d6e;
+    padding-bottom: 8px; margin-bottom: 32px;
+    color: #0d3d6e;
+  }
+  .q-block { margin-bottom: 32px; }
+  .q-label { font-size: 15px; font-weight: 700; color: #0d3d6e; margin-bottom: 10px; }
+  .ans-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    line-height: 1.9;
+  }
+  .ans-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .ans-table td { border: 1px solid var(--border); padding: 9px 14px; vertical-align: top; line-height: 1.75; }
+  .ans-table td:first-child { background: #eaf3fc; font-weight: 700; white-space: nowrap; width: 110px; }
+  .cause-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .cause-table th { background: #0d3d6e; color: #fff; padding: 9px 14px; text-align: left; }
+  .cause-table td { border: 1px solid var(--border); padding: 10px 14px; vertical-align: top; line-height: 1.75; }
+  .cause-table td:first-child { background: #eaf3fc; font-weight: 700; width: 180px; }
+  ul { padding-left: 20px; margin: 4px 0; }
+  li { margin: 3px 0; }
+  .hint {
+    font-size: 12px; color: var(--muted); margin: 0 0 24px;
+    padding: 8px 14px; background: #fffbe6;
+    border: 1px solid #f0d060; border-radius: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hint::before { content: '💡'; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  .kw {
+    display: inline;
+    background: #d8ecf8; color: #1a5f9e;
+    font-weight: 700; border-radius: 3px; padding: 0 3px;
+    cursor: pointer; border-bottom: 2px solid #1a6eb5;
+    transition: background 0.15s, color 0.15s; user-select: none;
+  }
+  .kw:hover { background: #b0d5f0; }
+  .kw.hidden { background: #2c2c2a; color: #2c2c2a; border-bottom-color: #555; }
+  .kw.hidden:hover { background: #444; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">互動地理（第二版）· 中二級評分習作（五）答案</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有答案</button>
+</div>
+
+<div class="container">
+
+  <div class="page-title">考核概念對應表　——　互動答案</div>
+
+  <div class="hint">點擊藍色答案詞語可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏，適合默書練習。</div>
+
+  <div class="q-block">
+    <div class="q-label">1.　甚麼是水污染？</div>
+    <div class="ans-box">
+      水污染是指大量<span class="kw" onclick="toggleKw(this)">有害物質</span>被排放到河流和湖泊等<span class="kw" onclick="toggleKw(this)">水體</span>中，導致水質下降，不適合飲用或作其他用途。
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">2.　中國的水污染主要分布在哪裏？</div>
+    <div class="ans-box">
+      中國<span class="kw" onclick="toggleKw(this)">北部</span>河流的污染程度普遍較<span class="kw" onclick="toggleKw(this)">南部</span>河流嚴重，地下水、湖泊和水庫的污染情況亦趨向<span class="kw" onclick="toggleKw(this)">惡化</span>。
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">3.　水污染為中國帶來甚麼影響？</div>
+    <div class="ans-box">
+      <table class="ans-table">
+        <tr>
+          <td>自然環境</td>
+          <td>
+            <ul>
+              <li>水生生物死亡，<span class="kw" onclick="toggleKw(this)">生物多樣性</span>下降</li>
+              <li>地下水<span class="kw" onclick="toggleKw(this)">水質</span>惡化</li>
+              <li>農地<span class="kw" onclick="toggleKw(this)">退化</span>，不再適合耕種</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>社會及經濟</td>
+          <td>
+            <ul>
+              <li>人們<span class="kw" onclick="toggleKw(this)">健康</span>受損，增加患病風險</li>
+              <li>魚類大量死亡，漁民生計受損</li>
+              <li>不利工業生產，拖慢地區<span class="kw" onclick="toggleKw(this)">經濟發展</span></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">4–6.　中國水污染的成因</div>
+    <div class="ans-box">
+      <table class="cause-table">
+        <tr><th>成因</th><th>描述</th></tr>
+        <tr>
+          <td>4. <span class="kw" onclick="toggleKw(this)">污水排放增加</span></td>
+          <td>
+            <ul>
+              <li>中國東部和南部大量<span class="kw" onclick="toggleKw(this)">生活</span>和<span class="kw" onclick="toggleKw(this)">工業</span>污水被直接排入水體中，水質變差</li>
+              <li>農民過度使用<span class="kw" onclick="toggleKw(this)">農業化學品</span>，殘餘農藥隨雨水滲入地下，污染地下水資源</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>5. <span class="kw" onclick="toggleKw(this)">污水處理欠佳</span></td>
+          <td>
+            <ul>
+              <li>中國的<span class="kw" onclick="toggleKw(this)">污水處理設施</span>不足，尤其在農村等經濟落後的地區</li>
+              <li>大量污水<span class="kw" onclick="toggleKw(this)">未經處理</span>便被排放到河流中，造成污染</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>6. <span class="kw" onclick="toggleKw(this)">氣候變化</span></td>
+          <td>
+            <ul>
+              <li>全球氣候變化帶來更多<span class="kw" onclick="toggleKw(this)">極端天氣事件</span></li>
+              <li>一旦遇上持續乾旱的天氣，河流流量便會減少，令水中污染物難以被<span class="kw" onclick="toggleKw(this)">稀釋</span></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleKw(el) { el.classList.toggle('hidden'); updateBtn(); }
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => { if (anyVisible) k.classList.add('hidden'); else k.classList.remove('hidden'); });
+  updateBtn();
+}
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有答案' : '顯示所有答案';
+}
+</script>
+</body>
+</html>

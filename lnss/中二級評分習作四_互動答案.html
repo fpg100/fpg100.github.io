@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二級評分習作（四）互動答案</title>
+<style>
+  :root {
+    --accent: #1a6eb5;
+    --border: #d0e4f5;
+    --page-bg: #f2f7fc;
+    --text: #1a1a1a;
+    --muted: #555;
+    --box-bg: #f8fbff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Serif TC', 'Source Han Serif TC', Georgia, serif;
+    background: var(--page-bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .topbar {
+    background: #0d3d6e;
+    color: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-title { font-size: 14px; letter-spacing: 0.05em; color: #b0cce8; }
+  .toggle-all-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-all-btn:hover { background: #155a9a; }
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .page-title {
+    font-size: 22px; font-weight: 700;
+    border-bottom: 3px solid #0d3d6e;
+    padding-bottom: 8px; margin-bottom: 32px;
+    color: #0d3d6e;
+  }
+  .q-block { margin-bottom: 32px; }
+  .q-label { font-size: 15px; font-weight: 700; color: #0d3d6e; margin-bottom: 10px; }
+  .ans-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    line-height: 1.9;
+  }
+  .ans-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .ans-table td { border: 1px solid var(--border); padding: 9px 14px; vertical-align: top; line-height: 1.75; }
+  .ans-table td:first-child { background: #eaf3fc; font-weight: 700; white-space: nowrap; width: 80px; }
+  .measures-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .measures-table td { border: 1px solid var(--border); padding: 10px 14px; vertical-align: top; line-height: 1.75; }
+  .measures-table td:first-child { background: #eaf3fc; font-weight: 700; width: 180px; }
+  ul { padding-left: 20px; margin: 4px 0; }
+  li { margin: 3px 0; }
+  .hint {
+    font-size: 12px; color: var(--muted); margin: 0 0 24px;
+    padding: 8px 14px; background: #fffbe6;
+    border: 1px solid #f0d060; border-radius: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hint::before { content: '💡'; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  .kw {
+    display: inline;
+    background: #d8ecf8; color: #1a5f9e;
+    font-weight: 700; border-radius: 3px; padding: 0 3px;
+    cursor: pointer; border-bottom: 2px solid #1a6eb5;
+    transition: background 0.15s, color 0.15s; user-select: none;
+  }
+  .kw:hover { background: #b0d5f0; }
+  .kw.hidden { background: #2c2c2a; color: #2c2c2a; border-bottom-color: #555; }
+  .kw.hidden:hover { background: #444; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">互動地理（第二版）· 中二級評分習作（四）答案</span>
+  <button class="toggle-all-btn" onclick="toggleAll()" id="mainBtn">隱藏所有答案</button>
+</div>
+
+<div class="container">
+
+  <div class="page-title">考核概念對應表　——　互動答案</div>
+
+  <div class="hint">點擊藍色答案詞語可逐個隱藏／顯示；右上角按鈕可一次過全部隱藏，適合默書練習。</div>
+
+  <div class="q-block">
+    <div class="q-label">1.　甚麼是氾濫？</div>
+    <div class="ans-box">
+      當河流<span class="kw" onclick="toggleKw(this)">流量</span>突然增加，並超出河道<span class="kw" onclick="toggleKw(this)">容量</span>時，河水便會<span class="kw" onclick="toggleKw(this)">溢出</span>河道，淹沒兩岸，便會造成氾濫。
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">2.　中國的氾濫主要在哪裏發生？</div>
+    <div class="ans-box">
+      中國的氾濫大多在<span class="kw" onclick="toggleKw(this)">東部</span>和<span class="kw" onclick="toggleKw(this)">南部</span>發生，尤其是主要河流的<span class="kw" onclick="toggleKw(this)">中下游</span>地區。
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">3.　氾濫為中國帶來甚麼影響？</div>
+    <div class="ans-box">
+      <table class="ans-table">
+        <tr>
+          <td>社會</td>
+          <td>
+            <ul>
+              <li>洪水沖毀房屋，人們<span class="kw" onclick="toggleKw(this)">喪失家園</span></li>
+              <li>道路及橋樑等基建損毀，降低災區的<span class="kw" onclick="toggleKw(this)">可達度</span>並延誤救援</li>
+              <li>水資源受<span class="kw" onclick="toggleKw(this)">污染</span>，增加疾病傳播的風險</li>
+              <li>氾濫造成<span class="kw" onclick="toggleKw(this)">人命傷亡</span></li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>經濟</td>
+          <td>
+            <ul>
+              <li>工商業活動被迫<span class="kw" onclick="toggleKw(this)">暫停</span></li>
+              <li>救災及災區重建等工作增加<span class="kw" onclick="toggleKw(this)">政府支出</span></li>
+              <li>洪水造成<span class="kw" onclick="toggleKw(this)">財物損失</span></li>
+              <li>農地被<span class="kw" onclick="toggleKw(this)">淹沒</span>，導致農作物失收，糧食產量下降</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="q-block">
+    <div class="q-label">4.　中國採取甚麼措施應付氾濫？</div>
+    <div class="ans-box">
+      <table class="measures-table">
+        <tr>
+          <td>a. 興建<span class="kw" onclick="toggleKw(this)">水壩</span></td>
+          <td>調節<span class="kw" onclick="toggleKw(this)">中下游</span>的河流流量</td>
+        </tr>
+        <tr>
+          <td>b. 興建<span class="kw" onclick="toggleKw(this)">人工堤</span></td>
+          <td>增加河道容量，阻擋洪水<span class="kw" onclick="toggleKw(this)">溢出</span></td>
+        </tr>
+        <tr>
+          <td>c. <span class="kw" onclick="toggleKw(this)">拉直</span>河道</td>
+          <td>加快河流<span class="kw" onclick="toggleKw(this)">流速</span>、減少沙泥淤積及迅速排走雨水</td>
+        </tr>
+        <tr>
+          <td>d. 擴闊和<span class="kw" onclick="toggleKw(this)">加深</span>河道</td>
+          <td>有助提升河道<span class="kw" onclick="toggleKw(this)">容量</span>，避免洪水外溢</td>
+        </tr>
+        <tr>
+          <td>e. 河道定期<span class="kw" onclick="toggleKw(this)">清淤</span></td>
+          <td>挖走河床<span class="kw" onclick="toggleKw(this)">淤泥</span>來保持河道容量</td>
+        </tr>
+        <tr>
+          <td><span class="kw" onclick="toggleKw(this)">增加林地面積</span></td>
+          <td>
+            <ul>
+              <li>在長江沿岸大規模<span class="kw" onclick="toggleKw(this)">植林</span></li>
+              <li>推行「<span class="kw" onclick="toggleKw(this)">退耕還林</span>」計劃，在收回的耕地上種植樹木</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="kw" onclick="toggleKw(this)">保護及復原湖泊</span></td>
+          <td>
+            <ul>
+              <li>禁止人民非法<span class="kw" onclick="toggleKw(this)">填平湖泊</span></li>
+              <li>實施「<span class="kw" onclick="toggleKw(this)">退耕還湖</span>」政策，提高湖泊<span class="kw" onclick="toggleKw(this)">蓄水防洪</span>的能力</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="kw" onclick="toggleKw(this)">洪水警告系統</span></td>
+          <td>
+            <ul>
+              <li>利用科技<span class="kw" onclick="toggleKw(this)">監測</span>降雨，並根據河流<span class="kw" onclick="toggleKw(this)">水位</span>制定洪水警告信號</li>
+              <li>當河流水位達到某一水平時，發出警告信號，讓市民及相關部門做好<span class="kw" onclick="toggleKw(this)">防洪措施</span></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleKw(el) { el.classList.toggle('hidden'); updateBtn(); }
+function toggleAll() {
+  const all = document.querySelectorAll('.kw');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  all.forEach(k => { if (anyVisible) k.classList.add('hidden'); else k.classList.remove('hidden'); });
+  updateBtn();
+}
+function updateBtn() {
+  const all = document.querySelectorAll('.kw');
+  const btn = document.getElementById('mainBtn');
+  const anyVisible = [...all].some(k => !k.classList.contains('hidden'));
+  btn.textContent = anyVisible ? '隱藏所有答案' : '顯示所有答案';
+}
+</script>
+</body>
+</html>
