@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二歷史 單元七 課題二｜外力衝擊與內憂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@400;600;700&family=Noto+Sans+HK:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f9f7f3;
+  --bg2:       #ffffff;
+  --bg3:       #f2ede5;
+  --text:      #1c1a16;
+  --text2:     #5a5650;
+  --text3:     #9a9288;
+  --border:    #e2dbd0;
+  --border2:   #c8bfb0;
+  --gold:      #a07820;
+  --gold-bg:   #fdf8ec;
+  --gold-bd:   #e0c870;
+  --red:       #8b2020;
+  --red-bg:    #fdf2f2;
+  --red-bd:    #dca0a0;
+  --blue:      #1a4a7a;
+  --blue-bg:   #f0f5fb;
+  --blue-bd:   #9ab8dc;
+  --teal:      #1a5a50;
+  --teal-bg:   #f0f8f5;
+  --teal-bd:   #90c8b8;
+  --ink:       #1c1a16;
+  --reveal-bg:   #fffbea;
+  --reveal-bd:   #d4a800;
+  --reveal-txt:  #6b4800;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans HK', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.8; }
+
+/* ── Sticky bar ── */
+.sticky-bar { position: sticky; top: 0; z-index: 200; background: var(--bg); padding: 0.65rem 0 0; }
+.page-header {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.8rem 1.25rem; margin-bottom: 0.6rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+.page-header h1 { font-family: 'Noto Serif HK', serif; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.unit-badge { font-size: 11px; font-weight: 500; font-family: 'Noto Sans HK', sans-serif; background: var(--red-bg); color: var(--red); border: 1px solid var(--red-bd); padding: 1px 8px; border-radius: 4px; }
+.page-header p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 7px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text2); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn:hover { background: var(--bg3); }
+.btn.active { background: var(--reveal-bg); color: var(--reveal-txt); border-color: var(--reveal-bd); }
+.btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.status-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--bg3); color: var(--text3); border: 1px solid var(--border); }
+
+/* ── TOC ── */
+.toc { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.6rem; }
+.toc a { font-size: 12px; padding: 3px 11px; border-radius: 20px; border: 1px solid var(--border); color: var(--text2); text-decoration: none; background: var(--bg2); transition: all 0.15s; }
+.toc a:hover { background: var(--bg3); border-color: var(--border2); }
+
+/* ── Layout ── */
+.page-wrap { max-width: 920px; margin: 0 auto; padding: 0 1.4rem 4rem; }
+.content-area { padding-top: 1rem; }
+.section { margin-bottom: 2rem; scroll-margin-top: 130px; }
+.section-title { font-family: 'Noto Serif HK', serif; font-size: 15px; font-weight: 700; padding: 8px 14px; margin-bottom: 12px; border-left: 4px solid var(--red); background: linear-gradient(90deg, var(--red-bg) 0%, transparent 100%); border-radius: 0 8px 8px 0; display: flex; align-items: center; gap: 8px; }
+.section-num { font-size: 11px; font-family: 'Noto Sans HK', sans-serif; font-weight: 700; background: var(--red); color: white; padding: 1px 7px; border-radius: 4px; }
+.subsection { font-size: 12px; font-weight: 700; color: var(--text3); margin: 12px 0 7px; letter-spacing: 0.06em; text-transform: uppercase; padding-left: 4px; }
+
+/* ── Cards ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.card.red-t   { border-top: 3px solid var(--red); }
+.card.blue-t  { border-top: 3px solid var(--blue); }
+.card.teal-t  { border-top: 3px solid var(--teal); }
+.card.gold-t  { border-top: 3px solid var(--gold); }
+.card-title { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 7px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+.card p, .card li { font-size: 13px; line-height: 1.8; color: var(--text); }
+.card ul { padding-left: 16px; }
+.card ul li { margin-bottom: 3px; }
+.card .note { font-size: 11px; color: var(--text3); margin-top: 5px; }
+
+/* ── Person cards ── */
+.person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.person-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; border-top: 3px solid var(--gold); }
+.person-name { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 2px; }
+.person-role { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+.person-card p { font-size: 12px; line-height: 1.75; }
+
+/* ── Timeline ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 6px 0; }
+.tl-item { display: flex; gap: 0; align-items: flex-start; border-left: 2px solid var(--red-bd); margin-left: 20px; padding: 0 0 10px 16px; position: relative; }
+.tl-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--red); border: 2px solid var(--bg); }
+.tl-item:last-child { border-left: 2px solid transparent; }
+.tl-year { font-size: 11px; font-weight: 700; background: var(--red-bg); color: var(--red); border: 1px solid var(--red-bd); padding: 2px 8px; border-radius: 5px; white-space: nowrap; height: fit-content; margin-right: 10px; margin-top: 3px; flex-shrink: 0; }
+.tl-text { font-size: 13px; color: var(--text); padding-top: 3px; line-height: 1.75; }
+
+/* ── Treaty comparison table ── */
+.treaty-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 13px; }
+.treaty-table th { background: var(--bg3); font-size: 12px; font-weight: 700; padding: 7px 12px; border: 1px solid var(--border); color: var(--text2); text-align: center; }
+.treaty-table td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; line-height: 1.75; }
+.treaty-table td:first-child { font-weight: 700; text-align: center; background: var(--bg3); color: var(--red); width: 70px; }
+.treaty-table td.nj { background: #fdf6f6; }
+.treaty-table td.bj { background: #f6f6fd; }
+
+/* ── Impact boxes ── */
+.impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.impact-box { border-radius: 10px; padding: 11px 13px; }
+.impact-box.pol { background: var(--red-bg); border: 1px solid var(--red-bd); }
+.impact-box.eco { background: var(--gold-bg); border: 1px solid var(--gold-bd); }
+.impact-box.dip { background: var(--blue-bg); border: 1px solid var(--blue-bd); }
+.impact-box .ib-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+.impact-box.pol .ib-title { color: var(--red); }
+.impact-box.eco .ib-title { color: var(--gold); }
+.impact-box.dip .ib-title { color: var(--blue); }
+.impact-box p, .impact-box li { font-size: 12px; line-height: 1.8; }
+.impact-box ul { padding-left: 14px; }
+
+/* ── Tag pills ── */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.tag { font-size: 12px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); }
+
+/* ── Flow ── */
+.flow { display: flex; flex-wrap: wrap; gap: 0; align-items: center; margin: 8px 0; }
+.flow-step { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; text-align: center; flex: 1; min-width: 90px; }
+.flow-arrow { font-size: 16px; color: var(--red); padding: 0 4px; flex-shrink: 0; }
+
+/* ── Keywords ── */
+.kw { border-bottom: 2px solid var(--red); cursor: pointer; padding: 0 1px; border-radius: 2px; transition: background 0.1s; color: var(--text); }
+.kw:hover { background: var(--red-bg); }
+.kw.hidden { background: var(--ink); color: var(--ink); border-bottom: none; border-radius: 3px; padding: 1px 4px; cursor: pointer; min-width: 1.8em; display: inline-block; text-align: center; }
+.kw.hidden:hover { background: #3a3835; color: #3a3835; }
+
+/* ── Divider ── */
+.divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+/* ── Footer ── */
+.note-footer { text-align: center; font-size: 11px; color: var(--text3); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+@media (max-width: 580px) {
+  .cards, .person-grid, .impact-grid { grid-template-columns: 1fr; }
+  .flow { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ══ STICKY BAR ══ -->
+<div class="sticky-bar">
+  <div class="page-header">
+    <div>
+      <h1><span class="unit-badge">單元七 課題二</span>外力衝擊與內憂</h1>
+      <p>活學中國歷史 ｜ 中二級 ｜ 課堂探究筆記</p>
+    </div>
+    <div class="header-right">
+      <span class="status-pill" id="statusPill">關鍵詞已隱藏</span>
+      <button class="btn" id="masterBtn" onclick="toggleAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        顯示全部答案
+      </button>
+    </div>
+  </div>
+  <nav class="toc">
+    <a href="#s0">人物檔案</a>
+    <a href="#s1">西力東漸</a>
+    <a href="#s2">第一次鴉片戰爭</a>
+    <a href="#s3">《南京條約》</a>
+    <a href="#s4">第二次鴉片戰爭</a>
+    <a href="#s5">《天津》《北京》條約</a>
+    <a href="#s6">太平天國</a>
+    <a href="#s7">甲午戰爭</a>
+    <a href="#s8">八國聯軍</a>
+    <a href="#s9">香港與條約</a>
+  </nav>
+</div>
+
+<div class="content-area">
+
+<!-- ══ 人物檔案 ══ -->
+<div id="s0" class="section">
+  <div class="section-title"><span class="section-num">人物</span>人物檔案</div>
+  <div class="person-grid">
+    <div class="person-card">
+      <div class="person-name">馬甘尼</div>
+      <div class="person-role">外國使者（英）</div>
+      <p>藉向清帝賀壽名義，代表英國來華，意圖改善對華貿易條件，但因覲見<span class="kw hidden" onclick="toggleKw(this)">禮儀</span>問題而被<span class="kw hidden" onclick="toggleKw(this)">乾隆帝</span>拒絕。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">阿美士德</div>
+      <div class="person-role">外國使者（英）</div>
+      <p>率領英國代表使團訪華，欲改善對華貿易，但未能面見<span class="kw hidden" onclick="toggleKw(this)">嘉慶帝</span>，更被逐，交涉無果。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">道光帝</div>
+      <div class="person-role">君主</div>
+      <p>命<span class="kw hidden" onclick="toggleKw(this)">林則徐</span>南下禁煙，後因第一次鴉片戰爭清廷戰敗，簽署了《<span class="kw hidden" onclick="toggleKw(this)">南京條約</span>》。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">林則徐</div>
+      <div class="person-role">官員</div>
+      <p>力主禁煙，被道光帝命為<span class="kw hidden" onclick="toggleKw(this)">欽差大臣</span>，到廣州查禁鴉片，並在<span class="kw hidden" onclick="toggleKw(this)">虎門</span>銷毀。後因戰爭爆發被撤職。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">義律</div>
+      <div class="person-role">外國商務代表（英）</div>
+      <p>是英國商務總監及政府全權代表。林則徐禁煙後，他要求英國<span class="kw hidden" onclick="toggleKw(this)">對華出兵</span>。鴉片戰爭初期擔任英軍<span class="kw hidden" onclick="toggleKw(this)">駐華總司令</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">葉名琛</div>
+      <div class="person-role">官員（兩廣總督）</div>
+      <p>因處理廣州入城問題和<span class="kw hidden" onclick="toggleKw(this)">亞羅號</span>事件而與英方發生衝突，及後第二次鴉片戰爭爆發。廣州失陷後被俘，被押往<span class="kw hidden" onclick="toggleKw(this)">印度</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">洪秀全</div>
+      <div class="person-role">民變領袖</div>
+      <p>多次科舉落第，後附會<span class="kw hidden" onclick="toggleKw(this)">基督教</span>教義，和馮雲山一起創立<span class="kw hidden" onclick="toggleKw(this)">拜上帝會</span>，在廣西起事，建號太平天國，自稱「<span class="kw hidden" onclick="toggleKw(this)">天王</span>」。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">曾國藩</div>
+      <div class="person-role">官員</div>
+      <p>在湖南組建民兵，稱為「<span class="kw hidden" onclick="toggleKw(this)">湘軍</span>」，聯同李鴻章的「淮軍」等平定太平軍，獲清廷封為<span class="kw hidden" onclick="toggleKw(this)">兩江總督</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">李鴻章</div>
+      <div class="person-role">官員</div>
+      <p>仿「湘軍」編制組織「<span class="kw hidden" onclick="toggleKw(this)">淮軍</span>」，平定太平天國有功。<span class="kw hidden" onclick="toggleKw(this)">甲午戰爭</span>和八國聯軍侵華時，代表清廷與列強談判，分別簽訂《<span class="kw hidden" onclick="toggleKw(this)">馬關條約</span>》和《<span class="kw hidden" onclick="toggleKw(this)">辛丑條約</span>》。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">慈禧太后</div>
+      <div class="person-role">皇族</div>
+      <p>掌控<span class="kw hidden" onclick="toggleKw(this)">同治帝</span>、<span class="kw hidden" onclick="toggleKw(this)">光緒帝</span>兩朝政局近四十年。出於<span class="kw hidden" onclick="toggleKw(this)">仇外</span>情緒，盲目利用義和團排外，終引發<span class="kw hidden" onclick="toggleKw(this)">八國聯軍</span>侵華。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 第一節：西力東漸 ══ -->
+<div id="s1" class="section">
+  <div class="section-title"><span class="section-num">一</span>第一節｜西力東漸（課本頁159–160）</div>
+
+  <div class="cards">
+    <div class="card gold-t">
+      <div class="card-title">廣州一口通商</div>
+      <ul>
+        <li>踏入十八世紀，隨着<span class="kw hidden" onclick="toggleKw(this)">貿易</span>和<span class="kw hidden" onclick="toggleKw(this)">航海</span>技術發展，西方國家日益重視中國市場</li>
+        <li>清廷認為中國物產<span class="kw hidden" onclick="toggleKw(this)">豐富</span>，<span class="kw hidden" onclick="toggleKw(this)">不重視</span>對外貿易</li>
+        <li>乾隆時期，清廷規定外國商人只准在<span class="kw hidden" onclick="toggleKw(this)">廣州</span>貿易，並設<span class="kw hidden" onclick="toggleKw(this)">公行</span>和頒佈法令管理</li>
+      </ul>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">中英貿易失衡</div>
+      <ul>
+        <li>英國輸出<span class="kw hidden" onclick="toggleKw(this)">棉花</span>和<span class="kw hidden" onclick="toggleKw(this)">毛織品</span>等商品到中國，但銷路不廣</li>
+        <li>英商支付巨額<span class="kw hidden" onclick="toggleKw(this)">白銀</span>購買中國的茶葉、生絲、瓷器等商品</li>
+        <li>造成對華貿易<span class="kw hidden" onclick="toggleKw(this)">逆差</span></li>
+      </ul>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">英使交涉不果</div>
+      <ul>
+        <li>英國先後派<span class="kw hidden" onclick="toggleKw(this)">馬甘尼</span>和<span class="kw hidden" onclick="toggleKw(this)">阿美士德</span>來華</li>
+        <li>提出<span class="kw hidden" onclick="toggleKw(this)">增開商埠</span>和<span class="kw hidden" onclick="toggleKw(this)">派遣使節駐京</span>等要求</li>
+        <li>結果清廷均<span class="kw hidden" onclick="toggleKw(this)">拒絕</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6px;border-left:4px solid var(--gold);border-radius:0 10px 10px 0">
+    <div class="card-title" style="color:var(--gold)">重要詞彙：貿易逆差</div>
+    <p>貿易逆差又稱「<span class="kw hidden" onclick="toggleKw(this)">入超</span>」，意思是一個國家從另一個國家入口的商品總值，超出它向對方輸出商品的總值。若情況相反，則稱為「<span class="kw hidden" onclick="toggleKw(this)">順差</span>」或「出超」。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 第二節：第一次鴉片戰爭 ══ -->
+<div id="s2" class="section">
+  <div class="section-title"><span class="section-num">二</span>第二節｜第一次鴉片戰爭（課本頁161–165）</div>
+
+  <div class="subsection">2.1 背景</div>
+  <div class="cards">
+    <div class="card red-t">
+      <div class="card-title">鴉片危害國計民生</div>
+      <ul>
+        <li>英商走私鴉片，導致中國對外貿易由<span class="kw hidden" onclick="toggleKw(this)">順差</span>變為<span class="kw hidden" onclick="toggleKw(this)">逆差</span></li>
+        <li>白銀外流，危害中國的<span class="kw hidden" onclick="toggleKw(this)">國家財政</span>，亦加重百姓生活負擔</li>
+      </ul>
+    </div>
+    <div class="card red-t">
+      <div class="card-title">林則徐禁煙</div>
+      <ul>
+        <li>吸食鴉片損害人民<span class="kw hidden" onclick="toggleKw(this)">健康</span>，削弱軍隊<span class="kw hidden" onclick="toggleKw(this)">戰鬥力</span></li>
+        <li>道光帝命<span class="kw hidden" onclick="toggleKw(this)">林則徐</span>為<span class="kw hidden" onclick="toggleKw(this)">欽差大臣</span>，到<span class="kw hidden" onclick="toggleKw(this)">廣州</span>查禁鴉片，並在<span class="kw hidden" onclick="toggleKw(this)">虎門</span>銷毀</li>
+      </ul>
+    </div>
+    <div class="card red-t">
+      <div class="card-title">林維喜事件 → 英軍出兵</div>
+      <ul>
+        <li>英國水手在九龍尖沙咀村打死村民<span class="kw hidden" onclick="toggleKw(this)">林維喜</span></li>
+        <li>英方<span class="kw hidden" onclick="toggleKw(this)">拒絕</span>交出兇手，中英關係惡化</li>
+        <li>英商務總監<span class="kw hidden" onclick="toggleKw(this)">義律</span>請求英政府出兵，以保護英商及<span class="kw hidden" onclick="toggleKw(this)">商務利益</span>，並乘機拓展貿易</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection">2.2 戰爭經過</div>
+  <div class="card">
+    <p>戰事持續兩年多（1840–1842年）。英軍進攻路線：廣州→<span class="kw hidden" onclick="toggleKw(this)">廈門</span>→定海→大沽→<span class="kw hidden" onclick="toggleKw(this)">南京</span>。結果，清廷<span class="kw hidden" onclick="toggleKw(this)">戰敗</span>，被迫簽訂和約。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 南京條約 ══ -->
+<div id="s3" class="section">
+  <div class="section-title"><span class="section-num">2.3</span>《南京條約》及其附約（課本頁165–168）</div>
+
+  <div class="card" style="margin-bottom:10px;border-left:4px solid var(--red);border-radius:0 10px 10px 0">
+    <p>《<span class="kw hidden" onclick="toggleKw(this)">南京條約</span>》是近代中國第一個<span class="kw hidden" onclick="toggleKw(this)">不平等條約</span>（1842年），開啟清廷向列強賠款、割地、提供司法、經濟和外交權益的先例。</p>
+  </div>
+
+  <div class="cards">
+    <div class="card red-t">
+      <div class="card-title">條約主要內容</div>
+      <ul>
+        <li>割讓<span class="kw hidden" onclick="toggleKw(this)">香港島</span>給英國</li>
+        <li>賠款<span class="kw hidden" onclick="toggleKw(this)">2,100萬</span>銀元</li>
+        <li>開放五個通商口岸：<span class="kw hidden" onclick="toggleKw(this)">廣州</span>、<span class="kw hidden" onclick="toggleKw(this)">福州</span>、<span class="kw hidden" onclick="toggleKw(this)">廈門</span>、<span class="kw hidden" onclick="toggleKw(this)">寧波</span>、<span class="kw hidden" onclick="toggleKw(this)">上海</span></li>
+        <li>英國可在各口岸<span class="kw hidden" onclick="toggleKw(this)">自由貿易</span>，並派駐<span class="kw hidden" onclick="toggleKw(this)">外交官員</span></li>
+        <li>關稅稅率，由雙方<span class="kw hidden" onclick="toggleKw(this)">共同協議</span></li>
+      </ul>
+    </div>
+    <div class="card red-t">
+      <div class="card-title">附約條文</div>
+      <ul>
+        <li>《五口通商章程》和《虎門條約》</li>
+        <li>規定英國享有「<span class="kw hidden" onclick="toggleKw(this)">領事裁判權</span>」</li>
+        <li>規定英國享有「<span class="kw hidden" onclick="toggleKw(this)">片面最惠國待遇</span>」</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection">2.4 第一次鴉片戰爭的影響</div>
+  <div class="impact-grid">
+    <div class="impact-box pol">
+      <div class="ib-title">政治方面</div>
+      <ul>
+        <li>暴露清廷衰敗，是近代中國<span class="kw hidden" onclick="toggleKw(this)">外憂</span>的開端</li>
+        <li>損害中國在<span class="kw hidden" onclick="toggleKw(this)">司法</span>和<span class="kw hidden" onclick="toggleKw(this)">對外貿易</span>上的自主權</li>
+        <li>割讓土地，破壞中國<span class="kw hidden" onclick="toggleKw(this)">領土完整</span></li>
+      </ul>
+    </div>
+    <div class="impact-box eco">
+      <div class="ib-title">經濟方面</div>
+      <ul>
+        <li>洋貨在中國傾銷，打擊國內<span class="kw hidden" onclick="toggleKw(this)">工商業</span></li>
+        <li>白銀持續外流；清廷為支付賠款而<span class="kw hidden" onclick="toggleKw(this)">開徵新稅</span>，令民生更困苦</li>
+      </ul>
+    </div>
+    <div class="impact-box dip">
+      <div class="ib-title">外交方面</div>
+      <ul>
+        <li>列強日後援引「<span class="kw hidden" onclick="toggleKw(this)">片面最惠國待遇條款</span>」</li>
+        <li><span class="kw hidden" onclick="toggleKw(this)">索取權益</span>，使中國外交極為不利</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 第二次鴉片戰爭 ══ -->
+<div id="s4" class="section">
+  <div class="section-title"><span class="section-num">2.5</span>第二次鴉片戰爭（課本頁168–169）</div>
+
+  <div class="subsection">背景</div>
+  <div class="cards">
+    <div class="card blue-t">
+      <div class="card-title">中外修約糾紛</div>
+      <p>英、法、美欲擴大在華利益，要求<span class="kw hidden" onclick="toggleKw(this)">修約</span>，被清廷拒絕。<span class="kw hidden" onclick="toggleKw(this)">廣州</span>入城問題：當地居民<span class="kw hidden" onclick="toggleKw(this)">排外</span>情緒高漲，兩廣總督<span class="kw hidden" onclick="toggleKw(this)">葉名琛</span>亦無視英人交涉要求。</p>
+    </div>
+    <div class="card blue-t">
+      <div class="card-title">亞羅號事件</div>
+      <p>清廷檢查該船隻時，拘捕水手和除下<span class="kw hidden" onclick="toggleKw(this)">英國國旗</span>，後來僅釋放水手，並無道歉，英以此為藉口出兵侵華。</p>
+    </div>
+    <div class="card blue-t">
+      <div class="card-title">廣西西林教案</div>
+      <p>法國的<span class="kw hidden" onclick="toggleKw(this)">馬賴神父</span>潛入當地傳教，被處死。法方要求嚴懲涉事官員被拒，藉此聯英出兵。</p>
+    </div>
+  </div>
+
+  <div class="subsection">戰爭經過</div>
+  <div class="card">
+    <p>此場戰爭又名為「<span class="kw hidden" onclick="toggleKw(this)">英法聯軍</span>之役」。戰爭歷時<span class="kw hidden" onclick="toggleKw(this)">三</span>年（1857–1860年）。英法聯軍1860年進攻路線：廣州→<span class="kw hidden" onclick="toggleKw(this)">天津</span>→北京。結果，<span class="kw hidden" onclick="toggleKw(this)">清廷</span>戰敗，被迫簽訂和約。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 天津北京條約 ══ -->
+<div id="s5" class="section">
+  <div class="section-title"><span class="section-num">2.6</span>戰後簽訂的條約（課本頁171–172）</div>
+
+  <table class="treaty-table">
+    <thead>
+      <tr>
+        <th>項目</th>
+        <th>《<span class="kw hidden" onclick="toggleKw(this)">天津</span>條約》（1858年）</th>
+        <th>《<span class="kw hidden" onclick="toggleKw(this)">北京</span>條約》（1860年）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>割地</td>
+        <td class="nj">—</td>
+        <td class="bj">割讓<span class="kw hidden" onclick="toggleKw(this)">九龍半島南部</span>給英國</td>
+      </tr>
+      <tr>
+        <td>賠款</td>
+        <td class="nj">賠償英、法軍費各200萬白銀；賠償英商損失200萬白銀</td>
+        <td class="bj">賠償英、法軍費各增至<span class="kw hidden" onclick="toggleKw(this)">800萬</span>兩白銀</td>
+      </tr>
+      <tr>
+        <td>開放商埠</td>
+        <td class="nj">開放南京、漢口等<span class="kw hidden" onclick="toggleKw(this)">十</span>處口岸</td>
+        <td class="bj">增開<span class="kw hidden" onclick="toggleKw(this)">天津</span>為商埠</td>
+      </tr>
+      <tr>
+        <td>其他</td>
+        <td class="nj">
+          <ul>
+            <li>鴉片改名「<span class="kw hidden" onclick="toggleKw(this)">洋藥</span>」，繳稅後進口</li>
+            <li>外國（英、法）政府可派出公使常駐<span class="kw hidden" onclick="toggleKw(this)">北京</span></li>
+            <li>允許其國民在內地自由遊歷、<span class="kw hidden" onclick="toggleKw(this)">傳教</span>和<span class="kw hidden" onclick="toggleKw(this)">通商</span></li>
+            <li>允許船隻在內河<span class="kw hidden" onclick="toggleKw(this)">航行</span></li>
+            <li>繼續享有<span class="kw hidden" onclick="toggleKw(this)">最惠國</span>待遇</li>
+            <li>由<span class="kw hidden" onclick="toggleKw(this)">本國領事</span>審理其在華犯法的僑民</li>
+          </ul>
+        </td>
+        <td class="bj">《天津條約》<span class="kw hidden" onclick="toggleKw(this)">繼續有效</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="subsection">影響</div>
+  <div class="impact-grid">
+    <div class="impact-box pol">
+      <div class="ib-title">政治方面</div>
+      <ul>
+        <li>喪失<span class="kw hidden" onclick="toggleKw(this)">關稅自主</span>權</li>
+        <li>外國船隻得以探知中國虛實，威脅<span class="kw hidden" onclick="toggleKw(this)">國防</span></li>
+        <li>英國取得割地後，俄國乘機侵佔<span class="kw hidden" onclick="toggleKw(this)">東北</span>，令中國失去大片領土</li>
+      </ul>
+    </div>
+    <div class="impact-box eco">
+      <div class="ib-title">經濟方面</div>
+      <ul>
+        <li>賠款加上規定鴉片合法輸入，加劇<span class="kw hidden" onclick="toggleKw(this)">白銀</span>外流</li>
+        <li>通商口岸延伸至<span class="kw hidden" onclick="toggleKw(this)">長江</span>流域和沿海各省，洋貨傾銷，威脅本土工商業</li>
+      </ul>
+    </div>
+    <div class="impact-box dip">
+      <div class="ib-title">外交方面</div>
+      <ul>
+        <li>首都北京陷落，戰後公使駐京，打擊清室<span class="kw hidden" onclick="toggleKw(this)">威信</span></li>
+        <li>各國可援引「<span class="kw hidden" onclick="toggleKw(this)">最惠國待遇</span>」索要利權，令中國外交更處<span class="kw hidden" onclick="toggleKw(this)">弱勢</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 太平天國 ══ -->
+<div id="s6" class="section">
+  <div class="section-title"><span class="section-num">三</span>太平天國運動（課本頁176–180）</div>
+
+  <div class="cards">
+    <div class="card teal-t">
+      <div class="card-title">起因與建立</div>
+      <ul>
+        <li><span class="kw hidden" onclick="toggleKw(this)">洪秀全</span>多次科舉落第，後附會基督教教義創立「<span class="kw hidden" onclick="toggleKw(this)">拜上帝會</span>」</li>
+        <li>1851年在廣西金田村率眾起事，以「推翻滿清」為號召</li>
+        <li>建號太平天國，自稱「<span class="kw hidden" onclick="toggleKw(this)">天王</span>」</li>
+      </ul>
+    </div>
+    <div class="card teal-t">
+      <div class="card-title">發展</div>
+      <ul>
+        <li>太平軍攻克<span class="kw hidden" onclick="toggleKw(this)">南京</span>，改名「<span class="kw hidden" onclick="toggleKw(this)">天京</span>」，在此建都</li>
+        <li>曾進行北伐和西征，一度控制長江中下游大片地區</li>
+        <li>與清廷對抗<span class="kw hidden" onclick="toggleKw(this)">十四</span>年才被平定</li>
+      </ul>
+    </div>
+    <div class="card teal-t">
+      <div class="card-title">平定太平天國</div>
+      <ul>
+        <li>曾國藩組建「<span class="kw hidden" onclick="toggleKw(this)">湘軍</span>」</li>
+        <li>李鴻章組建「<span class="kw hidden" onclick="toggleKw(this)">淮軍</span>」</li>
+        <li>由外國人指揮的洋槍隊「<span class="kw hidden" onclick="toggleKw(this)">常勝軍</span>」協助，採用西式訓練</li>
+        <li>是清中葉以來最大的<span class="kw hidden" onclick="toggleKw(this)">民變</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 甲午戰爭 ══ -->
+<div id="s7" class="section">
+  <div class="section-title"><span class="section-num">四</span>甲午戰爭與《馬關條約》（課本頁181–185）</div>
+
+  <div class="cards">
+    <div class="card red-t">
+      <div class="card-title">甲午戰爭背景</div>
+      <p>日本企圖控制中國的藩屬<span class="kw hidden" onclick="toggleKw(this)">朝鮮</span>，引發中、日兩國於<span class="kw hidden" onclick="toggleKw(this)">1894年8月</span>爆發戰爭，歷時<span class="kw hidden" onclick="toggleKw(this)">九個月</span>。結果，清廷在<span class="kw hidden" onclick="toggleKw(this)">陸戰</span>和<span class="kw hidden" onclick="toggleKw(this)">海戰</span>都敗給日本。</p>
+    </div>
+    <div class="card red-t">
+      <div class="card-title">《馬關條約》（1895年）</div>
+      <ul>
+        <li>令日本獲得<span class="kw hidden" onclick="toggleKw(this)">割地</span>、賠款和經濟等利權</li>
+        <li>更觸發列強在華劃分「<span class="kw hidden" onclick="toggleKw(this)">勢力範圍</span>」的風潮</li>
+        <li>李鴻章代表清廷與日本談判並簽訂</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="card-title">重要詞彙：勢力範圍</div>
+    <p>又稱「<span class="kw hidden" onclick="toggleKw(this)">利益範圍</span>」，指某些國家憑藉其軍事力量和經濟力量，控制別國一部分或全部領土，進行<span class="kw hidden" onclick="toggleKw(this)">經濟掠奪</span>或政治侵略的特殊地區。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 八國聯軍 ══ -->
+<div id="s8" class="section">
+  <div class="section-title"><span class="section-num">五</span>八國聯軍侵華與《辛丑條約》（課本頁190–193）</div>
+
+  <div class="cards">
+    <div class="card red-t">
+      <div class="card-title">義和團與八國聯軍</div>
+      <ul>
+        <li>在山東興起的民間組織，原名「<span class="kw hidden" onclick="toggleKw(this)">義和拳</span>」，以「<span class="kw hidden" onclick="toggleKw(this)">扶清滅洋</span>」為口號</li>
+        <li>自稱「<span class="kw hidden" onclick="toggleKw(this)">槍炮不傷</span>」，被慈禧太后利用，大肆排外</li>
+        <li>引發<span class="kw hidden" onclick="toggleKw(this)">八國聯軍</span>侵華</li>
+      </ul>
+    </div>
+    <div class="card red-t">
+      <div class="card-title">《辛丑條約》（1901年）</div>
+      <ul>
+        <li>八國聯軍侵華、清廷戰敗後，於<span class="kw hidden" onclick="toggleKw(this)">1901年9月</span>與<span class="kw hidden" onclick="toggleKw(this)">十一</span>國代表簽訂</li>
+        <li>除向列強賠款外，更容許外國軍隊在<span class="kw hidden" onclick="toggleKw(this)">北京</span>附近的軍事要地和城內<span class="kw hidden" onclick="toggleKw(this)">使館區</span>駐守</li>
+        <li>使清廷形同受列強直接監視，清朝國力大為削弱</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 香港與條約 ══ -->
+<div id="s9" class="section">
+  <div class="section-title"><span class="section-num">六</span>香港與不平等條約</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-year">1842年</span>
+      <span class="tl-text">《<span class="kw hidden" onclick="toggleKw(this)">南京條約</span>》：清廷割讓<span class="kw hidden" onclick="toggleKw(this)">香港島</span>給英國</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1860年</span>
+      <span class="tl-text">《<span class="kw hidden" onclick="toggleKw(this)">北京條約</span>》：清廷割讓<span class="kw hidden" onclick="toggleKw(this)">九龍半島南部</span>給英國</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1898年</span>
+      <span class="tl-text">英國<span class="kw hidden" onclick="toggleKw(this)">租借新界</span>：英國向清廷租借新界（深圳河以南），租期<span class="kw hidden" onclick="toggleKw(this)">九十九年</span>，至1997年歸還</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 總結 ══ -->
+<div class="section">
+  <div class="section-title"><span class="section-num">總結</span>課題二重要條約一覽</div>
+  <div class="cards">
+    <div class="card gold-t">
+      <div class="card-title">第一次鴉片戰爭後</div>
+      <div class="tags">
+        <span class="tag">《<span class="kw hidden" onclick="toggleKw(this)">南京條約</span>》1842</span>
+        <span class="tag">附：《<span class="kw hidden" onclick="toggleKw(this)">虎門條約</span>》</span>
+        <span class="tag">割：<span class="kw hidden" onclick="toggleKw(this)">香港島</span></span>
+      </div>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">第二次鴉片戰爭後</div>
+      <div class="tags">
+        <span class="tag">《<span class="kw hidden" onclick="toggleKw(this)">天津條約</span>》1858</span>
+        <span class="tag">《<span class="kw hidden" onclick="toggleKw(this)">北京條約</span>》1860</span>
+        <span class="tag">割：<span class="kw hidden" onclick="toggleKw(this)">九龍半島南部</span></span>
+      </div>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">甲午戰爭後</div>
+      <div class="tags">
+        <span class="tag">《<span class="kw hidden" onclick="toggleKw(this)">馬關條約</span>》1895</span>
+        <span class="tag">劃分<span class="kw hidden" onclick="toggleKw(this)">勢力範圍</span>風潮</span>
+      </div>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">八國聯軍侵華後</div>
+      <div class="tags">
+        <span class="tag">《<span class="kw hidden" onclick="toggleKw(this)">辛丑條約</span>》1901</span>
+        <span class="tag">外軍駐<span class="kw hidden" onclick="toggleKw(this)">北京</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="card-title">清朝事件時序</div>
+    <div class="flow" style="flex-wrap:wrap">
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">馬甘尼</span>來華</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">阿美士德</span>來華</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">第一次鴉片</span>戰爭</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">太平天國</span>運動</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">第二次鴉片</span>戰爭</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">甲午戰爭</span></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">英國租借</span>新界</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step" style="font-size:11px"><span class="kw hidden" onclick="toggleKw(this)">八國聯軍</span>侵華</div>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">
+  <p>💡 點擊個別<span style="border-bottom:2px solid var(--red);padding:0 2px">紅色底線</span>詞語可單獨顯示／隱藏　·　使用頂部按鈕一次控制全部關鍵詞</p>
+  <p style="margin-top:4px">中二級歷史 ｜ 單元七 課題二 ｜ 活學中國歷史 課堂探究筆記 ©2025</p>
+</div>
+
+</div><!-- content-area -->
+</div><!-- page-wrap -->
+
+<script>
+let allRevealed = false;
+function toggleAll() {
+  allRevealed = !allRevealed;
+  document.querySelectorAll('.kw').forEach(el => el.classList.toggle('hidden', !allRevealed));
+  const btn = document.getElementById('masterBtn');
+  const pill = document.getElementById('statusPill');
+  if (allRevealed) {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg> 隱藏全部答案`;
+    btn.classList.add('active');
+    pill.textContent = '關鍵詞已顯示';
+    pill.style.cssText = 'background:var(--reveal-bg);color:var(--reveal-txt);border-color:var(--reveal-bd)';
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 顯示全部答案`;
+    btn.classList.remove('active');
+    pill.textContent = '關鍵詞已隱藏';
+    pill.style.cssText = '';
+  }
+}
+function toggleKw(el) { el.classList.toggle('hidden'); }
+</script>
+</body>
+</html>

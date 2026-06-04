@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二歷史 單元七 課題三｜清廷的圖強</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@400;600;700&family=Noto+Sans+HK:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f7f9f5;
+  --bg2:       #ffffff;
+  --bg3:       #edf2e8;
+  --text:      #1a1e16;
+  --text2:     #525a4a;
+  --text3:     #909880;
+  --border:    #d8e0ce;
+  --border2:   #b8c8a8;
+  --green:     #2d6a20;
+  --green-bg:  #f0f7ec;
+  --green-bd:  #98cc80;
+  --gold:      #8a6010;
+  --gold-bg:   #fdf8ec;
+  --gold-bd:   #d8b850;
+  --blue:      #1a4060;
+  --blue-bg:   #f0f5fa;
+  --blue-bd:   #90b8d8;
+  --red:       #7a2020;
+  --red-bg:    #fdf2f0;
+  --red-bd:    #d89080;
+  --ink:       #1a1e16;
+  --reveal-bg:   #fffbea;
+  --reveal-bd:   #c8a000;
+  --reveal-txt:  #5a4000;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans HK', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.8; }
+
+/* ── Sticky bar ── */
+.sticky-bar { position: sticky; top: 0; z-index: 200; background: var(--bg); padding: 0.65rem 0 0; }
+.page-header {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.8rem 1.25rem; margin-bottom: 0.6rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+.page-header h1 { font-family: 'Noto Serif HK', serif; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.unit-badge { font-size: 11px; font-weight: 500; font-family: 'Noto Sans HK', sans-serif; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); padding: 1px 8px; border-radius: 4px; }
+.page-header p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 7px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text2); font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn:hover { background: var(--bg3); }
+.btn.active { background: var(--reveal-bg); color: var(--reveal-txt); border-color: var(--reveal-bd); }
+.btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.status-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--bg3); color: var(--text3); border: 1px solid var(--border); }
+
+/* ── TOC ── */
+.toc { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.6rem; }
+.toc a { font-size: 12px; padding: 3px 11px; border-radius: 20px; border: 1px solid var(--border); color: var(--text2); text-decoration: none; background: var(--bg2); transition: all 0.15s; }
+.toc a:hover { background: var(--bg3); border-color: var(--border2); }
+
+/* ── Layout ── */
+.page-wrap { max-width: 920px; margin: 0 auto; padding: 0 1.4rem 4rem; }
+.content-area { padding-top: 1rem; }
+.section { margin-bottom: 2rem; scroll-margin-top: 130px; }
+.section-title { font-family: 'Noto Serif HK', serif; font-size: 15px; font-weight: 700; padding: 8px 14px; margin-bottom: 12px; border-left: 4px solid var(--green); background: linear-gradient(90deg, var(--green-bg) 0%, transparent 100%); border-radius: 0 8px 8px 0; display: flex; align-items: center; gap: 8px; }
+.section-num { font-size: 11px; font-family: 'Noto Sans HK', sans-serif; font-weight: 700; background: var(--green); color: white; padding: 1px 7px; border-radius: 4px; }
+.subsection { font-size: 12px; font-weight: 700; color: var(--text3); margin: 12px 0 7px; letter-spacing: 0.06em; text-transform: uppercase; padding-left: 4px; }
+
+/* ── Cards ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.card.green-t { border-top: 3px solid var(--green); }
+.card.gold-t  { border-top: 3px solid var(--gold); }
+.card.blue-t  { border-top: 3px solid var(--blue); }
+.card.red-t   { border-top: 3px solid var(--red); }
+.card-title { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 7px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+.card p, .card li { font-size: 13px; line-height: 1.8; color: var(--text); }
+.card ul { padding-left: 16px; }
+.card ul li { margin-bottom: 3px; }
+
+/* ── Person cards ── */
+.person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.person-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; border-top: 3px solid var(--gold); }
+.person-name { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 2px; }
+.person-role { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+.person-card p { font-size: 12px; line-height: 1.75; }
+
+/* ── Vocab table ── */
+.vocab-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.vocab-table td { padding: 9px 13px; border: 1px solid var(--border); font-size: 13px; vertical-align: top; line-height: 1.75; }
+.vocab-table td:first-child { font-weight: 700; color: var(--green); background: var(--green-bg); white-space: nowrap; width: 90px; }
+.vocab-table tr:nth-child(even) td { background: #fafaf7; }
+
+/* ── Goal boxes (3-col) ── */
+.goal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+.goal-box { border-radius: 10px; padding: 12px 13px; }
+.goal-box.gb1 { background: var(--blue-bg); border: 1px solid var(--blue-bd); }
+.goal-box.gb2 { background: var(--green-bg); border: 1px solid var(--green-bd); }
+.goal-box.gb3 { background: var(--gold-bg); border: 1px solid var(--gold-bd); }
+.goal-box .gb-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.goal-box.gb1 .gb-title { color: var(--blue); }
+.goal-box.gb2 .gb-title { color: var(--green); }
+.goal-box.gb3 .gb-title { color: var(--gold); }
+.goal-box p, .goal-box li { font-size: 13px; line-height: 1.8; }
+.goal-box ul { padding-left: 14px; }
+
+/* ── Measures table ── */
+.measures-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.measures-table th { background: var(--bg3); font-size: 12px; font-weight: 700; padding: 7px 12px; border: 1px solid var(--border); color: var(--text2); text-align: left; }
+.measures-table td { padding: 9px 12px; border: 1px solid var(--border); font-size: 13px; vertical-align: top; line-height: 1.8; }
+.measures-table td:first-child { font-weight: 700; color: var(--green); background: var(--green-bg); white-space: nowrap; width: 70px; text-align: center; }
+
+/* ── Institutions grid ── */
+.inst-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.inst-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; border-left: 3px solid var(--green); }
+.inst-name { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+.inst-box p { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* ── Impact boxes ── */
+.impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.impact-box { border-radius: 10px; padding: 11px 13px; }
+.impact-box.mod { background: var(--green-bg); border: 1px solid var(--green-bd); }
+.impact-box.pol { background: var(--blue-bg); border: 1px solid var(--blue-bd); }
+.impact-box.dip { background: var(--gold-bg); border: 1px solid var(--gold-bd); }
+.impact-box .ib-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+.impact-box.mod .ib-title { color: var(--green); }
+.impact-box.pol .ib-title { color: var(--blue); }
+.impact-box.dip .ib-title { color: var(--gold); }
+.impact-box p, .impact-box li { font-size: 12px; line-height: 1.8; }
+.impact-box ul { padding-left: 14px; }
+
+/* ── Timeline ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 6px 0; }
+.tl-item { display: flex; align-items: flex-start; border-left: 2px solid var(--green-bd); margin-left: 20px; padding: 0 0 10px 16px; position: relative; }
+.tl-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--green); border: 2px solid var(--bg); }
+.tl-item:last-child { border-left: 2px solid transparent; }
+.tl-year { font-size: 11px; font-weight: 700; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); padding: 2px 8px; border-radius: 5px; white-space: nowrap; height: fit-content; margin-right: 10px; margin-top: 3px; flex-shrink: 0; }
+.tl-text { font-size: 13px; color: var(--text); padding-top: 3px; line-height: 1.75; }
+
+/* ── Tags ── */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.tag { font-size: 12px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); }
+
+/* ── Flow ── */
+.flow { display: flex; flex-wrap: wrap; gap: 0; align-items: center; margin: 8px 0; }
+.flow-step { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; text-align: center; flex: 1; min-width: 100px; }
+.flow-arrow { font-size: 16px; color: var(--green); padding: 0 4px; flex-shrink: 0; }
+
+/* ── Keywords ── */
+.kw { border-bottom: 2px solid var(--green); cursor: pointer; padding: 0 1px; border-radius: 2px; transition: background 0.1s; color: var(--text); }
+.kw:hover { background: var(--green-bg); }
+.kw.hidden { background: var(--ink); color: var(--ink); border-bottom: none; border-radius: 3px; padding: 1px 4px; cursor: pointer; min-width: 1.8em; display: inline-block; text-align: center; }
+.kw.hidden:hover { background: #383c30; color: #383c30; }
+
+/* ── Divider ── */
+.divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+/* ── Footer ── */
+.note-footer { text-align: center; font-size: 11px; color: var(--text3); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+@media (max-width: 580px) {
+  .cards, .person-grid, .goal-grid, .impact-grid, .inst-grid { grid-template-columns: 1fr; }
+  .flow { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ══ STICKY BAR ══ -->
+<div class="sticky-bar">
+  <div class="page-header">
+    <div>
+      <h1><span class="unit-badge">單元七 課題三</span>清廷的圖強</h1>
+      <p>活學中國歷史 ｜ 中二級 ｜ 課堂探究筆記</p>
+    </div>
+    <div class="header-right">
+      <span class="status-pill" id="statusPill">關鍵詞已隱藏</span>
+      <button class="btn" id="masterBtn" onclick="toggleAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        顯示全部答案
+      </button>
+    </div>
+  </div>
+  <nav class="toc">
+    <a href="#s0">人物檔案</a>
+    <a href="#s1">重要詞彙</a>
+    <a href="#s2">洋務運動目標</a>
+    <a href="#s3">洋務運動措施</a>
+    <a href="#s4">重要機構</a>
+    <a href="#s5">洋務運動影響</a>
+    <a href="#s6">事件時序</a>
+  </nav>
+</div>
+
+<div class="content-area">
+
+<!-- ══ 人物檔案 ══ -->
+<div id="s0" class="section">
+  <div class="section-title"><span class="section-num">人物</span>人物檔案</div>
+  <div class="person-grid">
+    <div class="person-card">
+      <div class="person-name">恭親王奕訢</div>
+      <div class="person-role">皇族、朝廷官員</div>
+      <p>咸豐帝的弟弟，是中央<span class="kw hidden" onclick="toggleKw(this)">洋務派</span>的代表，掌管<span class="kw hidden" onclick="toggleKw(this)">軍機處</span>和總理衙門，也是首任<span class="kw hidden" onclick="toggleKw(this)">總理衙門大臣</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">曾國藩</div>
+      <div class="person-role">朝廷官員</div>
+      <p>平定太平軍有功，後成為洋務派<span class="kw hidden" onclick="toggleKw(this)">地方</span>代表。洋務運動期間，創辦<span class="kw hidden" onclick="toggleKw(this)">安慶內軍械所</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">李鴻章</div>
+      <div class="person-role">朝廷官員</div>
+      <p>平定太平軍有功，後成為洋務派地方代表。積極開辦<span class="kw hidden" onclick="toggleKw(this)">軍火工業</span>和民用工業，並組建<span class="kw hidden" onclick="toggleKw(this)">北洋艦隊</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">張之洞</div>
+      <div class="person-role">朝廷官員</div>
+      <p>後起的洋務派首領，創辦<span class="kw hidden" onclick="toggleKw(this)">湖北槍炮廠</span>、<span class="kw hidden" onclick="toggleKw(this)">漢陽鐵廠</span>等軍事產業。戊戌維新失敗後，支持立憲，並參與推行<span class="kw hidden" onclick="toggleKw(this)">清末新政</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">光緒帝</div>
+      <div class="person-role">君主</div>
+      <p>咸豐帝的侄兒，年幼即位，大權由<span class="kw hidden" onclick="toggleKw(this)">慈禧太后</span>掌握。他決心變法，提拔維新派人士進行變法，卻被慈禧太后<span class="kw hidden" onclick="toggleKw(this)">幽禁</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">康有為</div>
+      <div class="person-role">維新派士人</div>
+      <p>組織「<span class="kw hidden" onclick="toggleKw(this)">強學會</span>」，鼓吹變法，後與梁啟超受光緒帝之命，主持<span class="kw hidden" onclick="toggleKw(this)">戊戌維新</span>。政變後逃到海外，鼓吹<span class="kw hidden" onclick="toggleKw(this)">君主立憲</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">梁啟超</div>
+      <div class="person-role">維新派士人</div>
+      <p>康有為的弟子，在上海主編《<span class="kw hidden" onclick="toggleKw(this)">時務報</span>》。後來與康有為參加戊戌維新。政變後逃亡<span class="kw hidden" onclick="toggleKw(this)">日本</span>，創辦《<span class="kw hidden" onclick="toggleKw(this)">新民叢報</span>》，鼓吹君主立憲。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">慈禧太后</div>
+      <div class="person-role">皇族</div>
+      <p>咸豐帝的妻子，把持朝政<span class="kw hidden" onclick="toggleKw(this)">四十</span>多年。初時不反對光緒帝推行改革，但後來擔心改革會威脅自己和親信的權位，發動<span class="kw hidden" onclick="toggleKw(this)">戊戌政變</span>，廢止新法。八國聯軍侵華後，以光緒帝名義推行<span class="kw hidden" onclick="toggleKw(this)">清末新政</span>。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">袁世凱</div>
+      <div class="person-role">朝廷官員</div>
+      <p>參與推行清末新政，主持中央的<span class="kw hidden" onclick="toggleKw(this)">練兵處</span>，以西法編制和訓練新式陸軍，又把守衞京師的軍隊整合為<span class="kw hidden" onclick="toggleKw(this)">北洋新軍</span>。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 重要詞彙 ══ -->
+<div id="s1" class="section">
+  <div class="section-title"><span class="section-num">詞彙</span>重要詞彙</div>
+  <table class="vocab-table">
+    <tbody>
+      <tr>
+        <td>洋務運動</td>
+        <td>歷時<span class="kw hidden" onclick="toggleKw(this)">三十</span>多年的改革，提倡學習西方的<span class="kw hidden" onclick="toggleKw(this)">技術</span>以圖自強。前期興辦<span class="kw hidden" onclick="toggleKw(this)">軍事工業</span>追求強兵，後興辦<span class="kw hidden" onclick="toggleKw(this)">實業</span>以富國。</td>
+      </tr>
+      <tr>
+        <td>現代化</td>
+        <td>一個國家從傳統社會走向現代社會的過程，包括<span class="kw hidden" onclick="toggleKw(this)">政治</span>、<span class="kw hidden" onclick="toggleKw(this)">軍事</span>、<span class="kw hidden" onclick="toggleKw(this)">經濟</span>、<span class="kw hidden" onclick="toggleKw(this)">文教</span>等不同方面。</td>
+      </tr>
+      <tr>
+        <td>總理衙門</td>
+        <td>全稱「<span class="kw hidden" onclick="toggleKw(this)">總理各國事務衙門</span>」，是晚清主管<span class="kw hidden" onclick="toggleKw(this)">外交</span>事務、派出駐外國使節的中央機構。其成立標誌着洋務運動的<span class="kw hidden" onclick="toggleKw(this)">開始</span>。</td>
+      </tr>
+      <tr>
+        <td>戊戌維新</td>
+        <td>光緒帝下詔變法，在百多日內頒佈<span class="kw hidden" onclick="toggleKw(this)">110</span>多項諭令，效仿日本<span class="kw hidden" onclick="toggleKw(this)">明治維新</span>，推行全面改革。但僅持續<span class="kw hidden" onclick="toggleKw(this)">103</span>天，故又名「<span class="kw hidden" onclick="toggleKw(this)">百日維新</span>」。</td>
+      </tr>
+      <tr>
+        <td>清末新政</td>
+        <td>八國聯軍侵華後，由<span class="kw hidden" onclick="toggleKw(this)">慈禧太后</span>以光緒帝名義推行的新政，以延續清廷的<span class="kw hidden" onclick="toggleKw(this)">統治</span>。新政措施中，很多都與<span class="kw hidden" onclick="toggleKw(this)">戊戌維新</span>的相近。</td>
+      </tr>
+      <tr>
+        <td>預備立憲</td>
+        <td>1908年，清廷頒佈《<span class="kw hidden" onclick="toggleKw(this)">欽定憲法大綱</span>》，預定<span class="kw hidden" onclick="toggleKw(this)">九</span>年後才能完成立憲，正式召開<span class="kw hidden" onclick="toggleKw(this)">國會</span>。不少國人對這個安排徹底失望。</td>
+      </tr>
+      <tr>
+        <td>新軍</td>
+        <td>以<span class="kw hidden" onclick="toggleKw(this)">西法</span>編制和訓練的新式陸軍，<span class="kw hidden" onclick="toggleKw(this)">北洋新軍</span>為中央軍、各省的新軍為地方軍。當中一些受<span class="kw hidden" onclick="toggleKw(this)">革命</span>思想影響的新軍，後來成為推翻清朝的重要力量。</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 洋務運動目標 ══ -->
+<div id="s2" class="section">
+  <div class="section-title"><span class="section-num">一</span>第一節｜洋務運動（課本頁201–207）</div>
+
+  <div class="subsection">1.1 洋務運動的目標</div>
+  <div class="goal-grid">
+    <div class="goal-box gb1">
+      <div class="gb-title">鞏固統治</div>
+      <p>兩次鴉片戰爭、太平天國運動等內憂外患，動搖清廷的<span class="kw hidden" onclick="toggleKw(this)">統治根基</span>，必須推行改革。</p>
+    </div>
+    <div class="goal-box gb2">
+      <div class="gb-title">學習西方技術</div>
+      <p><span class="kw hidden" onclick="toggleKw(this)">魏源</span>等學者和部分官員，曾見識洋槍洋炮的威力，於是提倡學習西方的<span class="kw hidden" onclick="toggleKw(this)">先進技術</span>以圖自強。</p>
+    </div>
+    <div class="goal-box gb3">
+      <div class="gb-title">實現富國強兵</div>
+      <ul>
+        <li>洋務派提倡「<span class="kw hidden" onclick="toggleKw(this)">師夷長技以制夷</span>」</li>
+        <li>透過興辦<span class="kw hidden" onclick="toggleKw(this)">軍事工業</span>和<span class="kw hidden" onclick="toggleKw(this)">民用企業</span>，實現富強兼備</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6px; border-left:4px solid var(--green); border-radius:0 10px 10px 0">
+    <div class="card-title" style="color:var(--green)">口號：師夷長技以制夷</div>
+    <p>意思是學習西方的<span class="kw hidden" onclick="toggleKw(this)">長處</span>（先進技術）來應付<span class="kw hidden" onclick="toggleKw(this)">西方</span>（列強）。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 洋務運動措施 ══ -->
+<div id="s3" class="section">
+  <div class="section-title"><span class="section-num">1.2</span>洋務運動的重要措施（課本頁203–205）</div>
+
+  <div class="card" style="margin-bottom:10px">
+    <p>洋務運動歷時<span class="kw hidden" onclick="toggleKw(this)">30</span>多年。</p>
+  </div>
+
+  <table class="measures-table">
+    <thead>
+      <tr><th>範疇</th><th>措施內容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>外交方面</td>
+        <td>
+          <ul>
+            <li>在北京設立「<span class="kw hidden" onclick="toggleKw(this)">總理各國事務衙門</span>」（總理衙門），由奕訢管理</li>
+            <li>該機構處理<span class="kw hidden" onclick="toggleKw(this)">外交</span>和洋務，派使臣訪問和<span class="kw hidden" onclick="toggleKw(this)">留駐</span>外國</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>軍事方面</td>
+        <td>
+          <ul>
+            <li>設新式陣事工業，製造<span class="kw hidden" onclick="toggleKw(this)">槍炮彈藥</span>和<span class="kw hidden" onclick="toggleKw(this)">軍艦</span></li>
+            <li>向外<span class="kw hidden" onclick="toggleKw(this)">採購武器</span>，以<span class="kw hidden" onclick="toggleKw(this)">西法</span>操練陸軍、修築軍港炮台和組成建西式海軍，例如<span class="kw hidden" onclick="toggleKw(this)">北洋</span>艦隊</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>經濟方面</td>
+        <td>
+          <ul>
+            <li>興辦<span class="kw hidden" onclick="toggleKw(this)">民用</span>企業，涉及<span class="kw hidden" onclick="toggleKw(this)">交通運輸</span>、郵電、礦務、鋼鐵和紡織等種類</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>文教方面</td>
+        <td>
+          <ul>
+            <li>設「<span class="kw hidden" onclick="toggleKw(this)">同文館</span>」，教授<span class="kw hidden" onclick="toggleKw(this)">外語</span>和西方知識，培養人才</li>
+            <li><span class="kw hidden" onclick="toggleKw(this)">翻譯</span>西書和引入西學</li>
+            <li>創辦<span class="kw hidden" onclick="toggleKw(this)">船政</span>和<span class="kw hidden" onclick="toggleKw(this)">武備</span>學堂，培育新式軍事技術人才</li>
+            <li>派遣幼童<span class="kw hidden" onclick="toggleKw(this)">出洋／到美國</span>留學</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 重要機構 ══ -->
+<div id="s4" class="section">
+  <div class="section-title"><span class="section-num">1.3</span>洋務運動期間的重要機構</div>
+
+  <div class="inst-grid">
+    <div class="inst-box">
+      <div class="inst-name">總理各國事務衙門<br><span style="font-weight:400;color:var(--text3)">（總理衙門）</span></div>
+      <p>中央外交機構，由<span class="kw hidden" onclick="toggleKw(this)">奕訢</span>管理，洋務運動的<span class="kw hidden" onclick="toggleKw(this)">起點</span></p>
+    </div>
+    <div class="inst-box">
+      <div class="inst-name">北京同文館</div>
+      <p>教授<span class="kw hidden" onclick="toggleKw(this)">外語</span>和西方知識，培養<span class="kw hidden" onclick="toggleKw(this)">翻譯</span>和外交人才</p>
+    </div>
+    <div class="inst-box">
+      <div class="inst-name">開平礦務局</div>
+      <p>興辦<span class="kw hidden" onclick="toggleKw(this)">礦務</span>，屬民用企業，由<span class="kw hidden" onclick="toggleKw(this)">李鴻章</span>創辦</p>
+    </div>
+    <div class="inst-box">
+      <div class="inst-name">江南製造總局<br>製炮廠</div>
+      <p>製造<span class="kw hidden" onclick="toggleKw(this)">槍炮彈藥</span>，屬軍事工業</p>
+    </div>
+    <div class="inst-box">
+      <div class="inst-name">福州馬尾船政局</div>
+      <p>建造<span class="kw hidden" onclick="toggleKw(this)">軍艦</span>，培育<span class="kw hidden" onclick="toggleKw(this)">船政</span>人才，由<span class="kw hidden" onclick="toggleKw(this)">曾國藩</span>及<span class="kw hidden" onclick="toggleKw(this)">左宗棠</span>籌建</p>
+    </div>
+    <div class="inst-box">
+      <div class="inst-name">安慶內軍械所</div>
+      <p>清廷最早的<span class="kw hidden" onclick="toggleKw(this)">軍火</span>工廠，由<span class="kw hidden" onclick="toggleKw(this)">曾國藩</span>創辦</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 洋務運動影響 ══ -->
+<div id="s5" class="section">
+  <div class="section-title"><span class="section-num">1.4</span>洋務運動的影響（課本頁206）</div>
+
+  <div class="impact-grid">
+    <div class="impact-box mod">
+      <div class="ib-title">開展現代化進程</div>
+      <ul>
+        <li>引進西方的設備和科技，是中國軍事和經濟<span class="kw hidden" onclick="toggleKw(this)">現代化</span>的開端</li>
+        <li>引進新的<span class="kw hidden" onclick="toggleKw(this)">教育</span>模式，派學生出國留學，有助國人<span class="kw hidden" onclick="toggleKw(this)">擴闊眼界</span>，認識世情</li>
+      </ul>
+    </div>
+    <div class="impact-box pol">
+      <div class="ib-title">促成政治變革</div>
+      <ul>
+        <li>洋務運動給予國人接觸<span class="kw hidden" onclick="toggleKw(this)">新思想</span>的機會</li>
+        <li>更多人提倡學習西方的「<span class="kw hidden" onclick="toggleKw(this)">君主立憲</span>」等政治制度</li>
+        <li>促成日後的<span class="kw hidden" onclick="toggleKw(this)">維新</span>運動</li>
+      </ul>
+    </div>
+    <div class="impact-box dip">
+      <div class="ib-title">改變外交模式</div>
+      <ul>
+        <li>改變了清廷以「<span class="kw hidden" onclick="toggleKw(this)">天朝上國</span>」自居的態度</li>
+        <li>中國逐漸融入<span class="kw hidden" onclick="toggleKw(this)">國際外交</span>體系</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 事件時序 ══ -->
+<div id="s6" class="section">
+  <div class="section-title"><span class="section-num">總結</span>清廷圖強事件時序</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-year">文宗年間</span>
+      <span class="tl-text">設立<span class="kw hidden" onclick="toggleKw(this)">總理衙門</span>（總理各國事務衙門），標誌洋務運動<span class="kw hidden" onclick="toggleKw(this)">開始</span></span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">穆宗年間</span>
+      <span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">洋務運動</span>全面展開：興辦軍事工業（前期）和民用企業（後期）</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1894年</span>
+      <span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">甲午戰敗</span>：洋務運動的成果——北洋艦隊——被日本摧毀，暴露洋務運動局限</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1898年</span>
+      <span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">戊戌維新</span>：光緒帝頒佈110多項諭令，效仿明治維新推行全面改革，僅持續<span class="kw hidden" onclick="toggleKw(this)">103</span>天，被慈禧太后發動政變廢止</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1901年後</span>
+      <span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">清末新政</span>：慈禧太后以光緒帝名義推行，措施與戊戌維新相近，包括廢除<span class="kw hidden" onclick="toggleKw(this)">科舉</span>、訓練新軍、籌備立憲等</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1908年</span>
+      <span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">預備立憲</span>：頒佈《欽定憲法大綱》，預定<span class="kw hidden" onclick="toggleKw(this)">九年</span>後才能完成立憲，不少國人徹底失望</span>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">三大圖強運動比較</div>
+  <div class="cards">
+    <div class="card green-t">
+      <div class="card-title">洋務運動（約1861–1895）</div>
+      <ul>
+        <li>只學習西方<span class="kw hidden" onclick="toggleKw(this)">技術</span>，不改變<span class="kw hidden" onclick="toggleKw(this)">政治制度</span></li>
+        <li>口號：「<span class="kw hidden" onclick="toggleKw(this)">師夷長技以制夷</span>」</li>
+        <li>代表人物：<span class="kw hidden" onclick="toggleKw(this)">奕訢</span>、<span class="kw hidden" onclick="toggleKw(this)">曾國藩</span>、<span class="kw hidden" onclick="toggleKw(this)">李鴻章</span>、<span class="kw hidden" onclick="toggleKw(this)">張之洞</span></li>
+      </ul>
+    </div>
+    <div class="card blue-t">
+      <div class="card-title">戊戌維新（1898年）</div>
+      <ul>
+        <li>效仿日本<span class="kw hidden" onclick="toggleKw(this)">明治維新</span>，推行全面改革</li>
+        <li>包括政治、<span class="kw hidden" onclick="toggleKw(this)">教育</span>、經濟、軍事改革</li>
+        <li>代表人物：<span class="kw hidden" onclick="toggleKw(this)">光緒帝</span>、<span class="kw hidden" onclick="toggleKw(this)">康有為</span>、<span class="kw hidden" onclick="toggleKw(this)">梁啟超</span></li>
+        <li>只持續<span class="kw hidden" onclick="toggleKw(this)">103</span>天，被<span class="kw hidden" onclick="toggleKw(this)">慈禧太后</span>廢止</li>
+      </ul>
+    </div>
+    <div class="card gold-t">
+      <div class="card-title">清末新政（1901年後）</div>
+      <ul>
+        <li>八國聯軍侵華後，由<span class="kw hidden" onclick="toggleKw(this)">慈禧太后</span>推行</li>
+        <li>廢除<span class="kw hidden" onclick="toggleKw(this)">科舉</span>制度，訓練<span class="kw hidden" onclick="toggleKw(this)">新軍</span></li>
+        <li>籌備<span class="kw hidden" onclick="toggleKw(this)">立憲</span>，但《欽定憲法大綱》引起不滿</li>
+        <li>代表人物：<span class="kw hidden" onclick="toggleKw(this)">慈禧太后</span>、<span class="kw hidden" onclick="toggleKw(this)">張之洞</span>、<span class="kw hidden" onclick="toggleKw(this)">袁世凱</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">
+  <p>💡 點擊個別<span style="border-bottom:2px solid var(--green);padding:0 2px">綠色底線</span>詞語可單獨顯示／隱藏　·　使用頂部按鈕一次控制全部關鍵詞</p>
+  <p style="margin-top:4px">中二級歷史 ｜ 單元七 課題三 ｜ 活學中國歷史 課堂探究筆記 ©2025</p>
+</div>
+
+</div><!-- content-area -->
+</div><!-- page-wrap -->
+
+<script>
+let allRevealed = false;
+function toggleAll() {
+  allRevealed = !allRevealed;
+  document.querySelectorAll('.kw').forEach(el => el.classList.toggle('hidden', !allRevealed));
+  const btn = document.getElementById('masterBtn');
+  const pill = document.getElementById('statusPill');
+  if (allRevealed) {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg> 隱藏全部答案`;
+    btn.classList.add('active');
+    pill.textContent = '關鍵詞已顯示';
+    pill.style.cssText = 'background:var(--reveal-bg);color:var(--reveal-txt);border-color:var(--reveal-bd)';
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 顯示全部答案`;
+    btn.classList.remove('active');
+    pill.textContent = '關鍵詞已隱藏';
+    pill.style.cssText = '';
+  }
+}
+function toggleKw(el) { el.classList.toggle('hidden'); }
+</script>
+</body>
+</html>

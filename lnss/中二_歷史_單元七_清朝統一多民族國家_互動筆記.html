@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二歷史 單元七 課題一｜清朝與統一多民族國家的鞏固與發展</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@400;600;700&family=Noto+Sans+HK:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #faf8f4;
+  --bg2:       #ffffff;
+  --bg3:       #f3efe8;
+  --text:      #1c1a16;
+  --text2:     #5c5850;
+  --text3:     #9c9488;
+  --border:    #e4ddd4;
+  --border2:   #cec6ba;
+  --gold:      #b8860b;
+  --gold-bg:   #fdf8ec;
+  --gold-bd:   #e8d48a;
+  --red:       #8b1a1a;
+  --red-bg:    #fdf2f2;
+  --red-bd:    #e8b4b4;
+  --teal:      #1a5c5c;
+  --teal-bg:   #f0f7f7;
+  --teal-bd:   #a0cece;
+  --brown:     #6b4226;
+  --brown-bg:  #fdf6f0;
+  --brown-bd:  #d4a882;
+  --ink:       #1c1a16;
+  --reveal-bg:   #fffbea;
+  --reveal-bd:   #d4a800;
+  --reveal-txt:  #6b4800;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans HK', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ─── Sticky header ─── */
+.sticky-bar {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--bg);
+  padding: 0.65rem 0 0;
+}
+.page-header {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem 1.25rem;
+  margin-bottom: 0.6rem;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+.page-header-left h1 {
+  font-family: 'Noto Serif HK', serif;
+  font-size: 15px; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.page-header-left h1 span.unit-badge {
+  font-size: 11px; font-weight: 500;
+  background: var(--gold-bg); color: var(--gold);
+  border: 1px solid var(--gold-bd);
+  padding: 1px 8px; border-radius: 4px; font-family: 'Noto Sans HK', sans-serif;
+}
+.page-header-left p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 13px; border-radius: 7px; border: 1px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-size: 12px;
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.btn:hover { background: var(--bg3); }
+.btn.active { background: var(--reveal-bg); color: var(--reveal-txt); border-color: var(--reveal-bd); }
+.btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.status-pill {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  background: var(--bg3); color: var(--text3); border: 1px solid var(--border);
+}
+
+/* ─── TOC ─── */
+.toc { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.6rem; }
+.toc a {
+  font-size: 12px; padding: 3px 11px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text2);
+  text-decoration: none; background: var(--bg2); transition: all 0.15s;
+}
+.toc a:hover { background: var(--bg3); border-color: var(--border2); }
+
+/* ─── Page wrap ─── */
+.page-wrap { max-width: 920px; margin: 0 auto; padding: 0 1.4rem 4rem; }
+.content-area { padding-top: 1rem; }
+
+/* ─── Section ─── */
+.section { margin-bottom: 2rem; scroll-margin-top: 130px; }
+.section-title {
+  font-family: 'Noto Serif HK', serif;
+  font-size: 15px; font-weight: 700;
+  padding: 8px 14px; margin-bottom: 12px;
+  border-left: 4px solid var(--gold);
+  background: linear-gradient(90deg, var(--gold-bg) 0%, transparent 100%);
+  border-radius: 0 8px 8px 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-num {
+  font-size: 11px; font-family: 'Noto Sans HK', sans-serif;
+  font-weight: 700; background: var(--gold); color: white;
+  padding: 1px 7px; border-radius: 4px;
+}
+.subsection {
+  font-size: 12px; font-weight: 700; color: var(--text3);
+  margin: 12px 0 7px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding-left: 4px;
+}
+
+/* ─── Cards grid ─── */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+}
+.card.red-accent   { border-top: 3px solid var(--red); }
+.card.teal-accent  { border-top: 3px solid var(--teal); }
+.card.brown-accent { border-top: 3px solid var(--brown); }
+.card.gold-accent  { border-top: 3px solid var(--gold); }
+.card-title {
+  font-size: 12px; font-weight: 700; color: var(--text2);
+  margin-bottom: 7px; padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+  text-transform: none; letter-spacing: 0;
+}
+.card p, .card li { font-size: 13px; line-height: 1.8; color: var(--text); }
+.card ul { padding-left: 16px; }
+.card ul li { margin-bottom: 3px; }
+.card .note { font-size: 12px; color: var(--text3); margin-top: 5px; }
+
+/* ─── Policy table rows ─── */
+.policy-row {
+  display: grid; grid-template-columns: 90px 1fr;
+  border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; margin-bottom: 8px; background: var(--bg2);
+}
+.policy-label {
+  background: var(--bg3); padding: 12px 10px;
+  font-size: 13px; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; border-right: 1px solid var(--border);
+  writing-mode: initial;
+}
+.policy-label.red   { background: var(--red-bg); color: var(--red); border-right-color: var(--red-bd); }
+.policy-label.teal  { background: var(--teal-bg); color: var(--teal); border-right-color: var(--teal-bd); }
+.policy-body { padding: 11px 14px; }
+.policy-body p, .policy-body li { font-size: 13px; line-height: 1.8; }
+.policy-body ul { padding-left: 15px; }
+.policy-body .intent { font-size: 12px; color: var(--text3); margin-top: 5px; }
+.intent-label { font-weight: 700; color: var(--gold); }
+
+/* ─── Ethnic policy table ─── */
+.ethnic-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.ethnic-table th {
+  background: var(--bg3); font-size: 12px; font-weight: 700;
+  padding: 7px 12px; border: 1px solid var(--border); color: var(--text2);
+}
+.ethnic-table td {
+  padding: 9px 12px; border: 1px solid var(--border);
+  font-size: 13px; vertical-align: top; line-height: 1.75;
+}
+.ethnic-table td:first-child {
+  font-weight: 700; text-align: center; background: var(--bg3);
+  color: var(--brown); width: 70px; white-space: nowrap;
+}
+.ethnic-table tr:nth-child(even) td { background: #fafaf8; }
+
+/* ─── Timeline ─── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 6px 0; }
+.tl-item {
+  display: flex; gap: 0; align-items: stretch;
+  border-left: 2px solid var(--gold-bd); margin-left: 20px; padding: 0 0 10px 16px;
+  position: relative;
+}
+.tl-item::before {
+  content: ''; position: absolute; left: -6px; top: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--bg);
+}
+.tl-item:last-child { border-left: 2px solid transparent; }
+.tl-year {
+  font-size: 11px; font-weight: 700; background: var(--gold-bg); color: var(--gold);
+  border: 1px solid var(--gold-bd); padding: 2px 8px; border-radius: 5px;
+  white-space: nowrap; height: fit-content; margin-right: 10px; margin-top: 3px;
+  flex-shrink: 0;
+}
+.tl-text { font-size: 13px; color: var(--text); padding-top: 3px; line-height: 1.75; }
+
+/* ─── Outcome boxes ─── */
+.outcome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.outcome-box {
+  background: var(--teal-bg); border: 1px solid var(--teal-bd);
+  border-radius: 10px; padding: 11px 13px;
+}
+.outcome-box .ob-title { font-size: 11px; font-weight: 700; color: var(--teal); margin-bottom: 5px; }
+.outcome-box p { font-size: 13px; line-height: 1.75; }
+
+/* ─── Decline grid ─── */
+.decline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.decline-box {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 4px solid var(--red); border-radius: 0 10px 10px 0;
+  padding: 11px 13px;
+}
+.decline-box .db-title { font-size: 12px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+.decline-box p, .decline-box li { font-size: 13px; line-height: 1.8; }
+.decline-box ul { padding-left: 14px; }
+.result-note { font-size: 12px; font-weight: 700; color: var(--brown); margin-top: 5px; }
+
+/* ─── Keyword system ─── */
+.kw {
+  border-bottom: 2px solid var(--gold);
+  cursor: pointer; padding: 0 1px; border-radius: 2px;
+  transition: background 0.1s; color: var(--text);
+}
+.kw:hover { background: var(--gold-bg); }
+.kw.hidden {
+  background: var(--ink); color: var(--ink);
+  border-bottom: none; border-radius: 3px;
+  padding: 1px 4px; cursor: pointer;
+  min-width: 1.8em; display: inline-block; text-align: center;
+}
+.kw.hidden:hover { background: #3a3835; color: #3a3835; }
+
+/* ─── Tag pills ─── */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.tag {
+  font-size: 12px; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--bg2); color: var(--text);
+}
+
+/* ─── Divider ─── */
+.divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+/* ─── Flow steps ─── */
+.flow { display: flex; flex-wrap: wrap; gap: 0; align-items: center; margin: 8px 0; }
+.flow-step {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px; font-size: 13px;
+  text-align: center; flex: 1; min-width: 90px;
+}
+.flow-arrow { font-size: 16px; color: var(--gold); padding: 0 4px; flex-shrink: 0; }
+
+/* ─── Figure box (人物) ─── */
+.person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.person-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 11px 13px;
+  border-top: 3px solid var(--brown);
+}
+.person-name { font-size: 14px; font-weight: 700; color: var(--brown); margin-bottom: 3px; }
+.person-role { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+.person-card p { font-size: 12px; line-height: 1.75; }
+
+/* ─── Footer ─── */
+.note-footer {
+  text-align: center; font-size: 11px; color: var(--text3);
+  margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 580px) {
+  .cards, .decline-grid, .outcome-grid, .person-grid { grid-template-columns: 1fr; }
+  .policy-row { grid-template-columns: 70px 1fr; }
+  .flow { flex-direction: column; }
+  .ethnic-table td:first-child { width: 55px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ══ STICKY BAR ══ -->
+<div class="sticky-bar">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1>
+        <span class="unit-badge">單元七 課題一</span>
+        清朝與統一多民族國家的鞏固與發展
+      </h1>
+      <p>活學中國歷史 ｜ 中二級 ｜ 課堂探究筆記</p>
+    </div>
+    <div class="header-right">
+      <span class="status-pill" id="statusPill">關鍵詞已隱藏</span>
+      <button class="btn" id="masterBtn" onclick="toggleAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        顯示全部答案
+      </button>
+    </div>
+  </div>
+  <nav class="toc">
+    <a href="#s0">人物檔案</a>
+    <a href="#s1">清朝統一</a>
+    <a href="#s2">三藩之亂</a>
+    <a href="#s3">康雍乾盛世</a>
+    <a href="#s4">對漢族政策</a>
+    <a href="#s5">對邊疆民族</a>
+    <a href="#s6">統治成效</a>
+    <a href="#s7">清代中衰</a>
+  </nav>
+</div>
+
+<div class="content-area">
+
+<!-- ══ 人物檔案 ══ -->
+<div id="s0" class="section">
+  <div class="section-title"><span class="section-num">人物</span>人物檔案</div>
+  <div class="person-grid">
+    <div class="person-card">
+      <div class="person-name">吳三桂</div>
+      <div class="person-role">明末降將</div>
+      <p>向清投降，引清兵入關攻打<span class="kw hidden" onclick="toggleKw(this)">李自成</span>。後被封為<span class="kw hidden" onclick="toggleKw(this)">平西王</span>，駐守雲南、貴州，率先發起「三藩之亂」。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">尚可喜</div>
+      <div class="person-role">明末降將</div>
+      <p>被封為<span class="kw hidden" onclick="toggleKw(this)">平南王</span>，駐守廣東。反對叛亂，但被兒子奪權，其子響應「三藩之亂」。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">耿仲明</div>
+      <div class="person-role">明末降將</div>
+      <p>被封為<span class="kw hidden" onclick="toggleKw(this)">靖南王</span>，駐守福建，其孫<span class="kw hidden" onclick="toggleKw(this)">耿精忠</span>響應「三藩之亂」。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">康熙帝</div>
+      <div class="person-role">君主（皇太極之孫）</div>
+      <p>決定<span class="kw hidden" onclick="toggleKw(this)">削藩</span>，觸發「三藩之亂」，八年後平定。後來<span class="kw hidden" onclick="toggleKw(this)">收復台灣</span>。文治武功為「康雍乾盛世」奠定基礎。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">鄭成功</div>
+      <div class="person-role">明末將領</div>
+      <p>南明唐王敗亡後拒絕投降，率眾東渡台灣，驅逐<span class="kw hidden" onclick="toggleKw(this)">荷蘭人</span>，佔據台灣為抗清基地。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">鄭克塽</div>
+      <div class="person-role">鄭成功之孫</div>
+      <p>清廷派兵攻打台灣時<span class="kw hidden" onclick="toggleKw(this)">投降</span>，清廷設置<span class="kw hidden" onclick="toggleKw(this)">台灣府</span>管治，統一全國。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">雍正帝</div>
+      <div class="person-role">康熙帝之子</div>
+      <p>勵精圖治，平定青海<span class="kw hidden" onclick="toggleKw(this)">和碩特</span>叛亂，力推「<span class="kw hidden" onclick="toggleKw(this)">改土歸流</span>」政策，締造「康雍乾盛世」。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">乾隆帝</div>
+      <div class="person-role">雍正帝之子</div>
+      <p>編修《<span class="kw hidden" onclick="toggleKw(this)">四庫全書</span>》。在位期間國力達致頂峰，但因頻繁征戰、<span class="kw hidden" onclick="toggleKw(this)">揮霍無度</span>，導致清代中衰。</p>
+    </div>
+    <div class="person-card">
+      <div class="person-name">和珅</div>
+      <div class="person-role">大臣</div>
+      <p>獲乾隆帝寵信，<span class="kw hidden" onclick="toggleKw(this)">結黨營私</span>，聚財收賄，敗壞朝政。乾隆帝死後被<span class="kw hidden" onclick="toggleKw(this)">抄家</span>。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 第一節：清朝的統一 ══ -->
+<div id="s1" class="section">
+  <div class="section-title"><span class="section-num">一</span>第一節｜清朝的統一與清初盛世</div>
+
+  <div class="subsection">1.1 清朝的統一（課本頁137–141）</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-year">1644年</span>
+      <span class="tl-text"><b>入關定都北京：</b>李自成攻入北京，明亡。山海關守將<span class="kw hidden" onclick="toggleKw(this)">吳三桂</span>引清兵入關，李自成敗走，滿族正式入主中原。</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">隨後</span>
+      <span class="tl-text"><b>消除民變勢力：</b>清軍追擊李自成，又攻打四川的<span class="kw hidden" onclick="toggleKw(this)">張獻忠</span>，平定明末民變勢力。</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">南方</span>
+      <span class="tl-text"><b>征服南明諸王：</b>明宗室和遺臣在南方建立「<span class="kw hidden" onclick="toggleKw(this)">南明</span>」，但被清廷消滅。</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1661年</span>
+      <span class="tl-text"><b>遷界令：</b><span class="kw hidden" onclick="toggleKw(this)">鄭成功</span>率眾東渡台灣，驅逐<span class="kw hidden" onclick="toggleKw(this)">荷蘭人</span>。清廷頒佈<span class="kw hidden" onclick="toggleKw(this)">遷界令</span>，規定沿海地區（包括今香港範圍）所有居民向<span class="kw hidden" onclick="toggleKw(this)">內陸</span>遷徙。</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1669年</span>
+      <span class="tl-text">批准<span class="kw hidden" onclick="toggleKw(this)">復界</span>，讓居民遷回故地。</span>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1683年</span>
+      <span class="tl-text"><b>收復台灣：</b><span class="kw hidden" onclick="toggleKw(this)">鄭克塽</span>投降，清廷設置<span class="kw hidden" onclick="toggleKw(this)">台灣府</span>管治，統一全國。</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 三藩之亂 ══ -->
+<div id="s2" class="section">
+  <div class="section-title"><span class="section-num">1.2</span>平定三藩之亂（課本頁140）</div>
+
+  <div class="cards">
+    <div class="card gold-accent">
+      <div class="card-title">三位降將及其根據點</div>
+      <ul>
+        <li><span class="kw hidden" onclick="toggleKw(this)">吳三桂</span>（平西王）— 根據點 A：雲南、貴州（昆明一帶）</li>
+        <li><span class="kw hidden" onclick="toggleKw(this)">尚可喜</span>（平南王）— 根據點 B：廣東（廣州一帶）</li>
+        <li><span class="kw hidden" onclick="toggleKw(this)">耿仲明</span>（靖南王）— 根據點 C：福建（福州一帶）</li>
+      </ul>
+    </div>
+    <div class="card gold-accent">
+      <div class="card-title">三藩之亂的起因與結果</div>
+      <p>康熙帝在位期間決定<span class="kw hidden" onclick="toggleKw(this)">削藩</span>，觸發吳三桂等藩王起兵反抗。</p>
+      <p style="margin-top:6px">亂事在<span class="kw hidden" onclick="toggleKw(this)">八</span>年後才平定。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="card-title">重要詞彙：三藩之亂</div>
+    <p>康熙帝決定削藩，觸發<span class="kw hidden" onclick="toggleKw(this)">吳三桂</span>等藩王起兵反抗。清廷經過<span class="kw hidden" onclick="toggleKw(this)">八</span>年平定亂事。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 康雍乾盛世 ══ -->
+<div id="s3" class="section">
+  <div class="section-title"><span class="section-num">1.3</span>康雍乾盛世（課本頁143）</div>
+
+  <div class="cards">
+    <div class="card teal-accent">
+      <div class="card-title">康熙帝（1661–1722在位，共61年）</div>
+      <p>平定三藩之亂，收復台灣。文治武功為「康雍乾盛世」奠定<span class="kw hidden" onclick="toggleKw(this)">基礎</span>。</p>
+    </div>
+    <div class="card teal-accent">
+      <div class="card-title">雍正帝（1723–1735在位，共13年）</div>
+      <p>勵精圖治，平定青海叛亂，力推「<span class="kw hidden" onclick="toggleKw(this)">改土歸流</span>」政策。</p>
+    </div>
+    <div class="card teal-accent">
+      <div class="card-title">乾隆帝（1736–1795在位，共60年）</div>
+      <p>編修《<span class="kw hidden" onclick="toggleKw(this)">四庫全書</span>》。在位期間國力達致<span class="kw hidden" onclick="toggleKw(this)">頂峰</span>，但後期揮霍無度，導致中衰。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6px">
+    <div class="card-title">康雍乾盛世的特色</div>
+    <p>清初的<span class="kw hidden" onclick="toggleKw(this)">一百三十</span>多年間，社會經濟繁榮，人口大增，征服不同民族，擴大版圖，文治武功鼎盛。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 對漢族政策 ══ -->
+<div id="s4" class="section">
+  <div class="section-title"><span class="section-num">二</span>第二節｜對漢族的統治政策（課本頁144–146）</div>
+
+  <div class="subsection">高壓政策</div>
+
+  <div class="policy-row">
+    <div class="policy-label red">薙髮留辮</div>
+    <div class="policy-body">
+      <p><b>內容：</b>嚴格執行，甚至有言「留頭不留髮，留髮不留頭」。</p>
+      <p class="intent"><span class="intent-label">目的：</span>抑壓漢人的<span class="kw hidden" onclick="toggleKw(this)">民族意識</span>。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label red">屠殺立威</div>
+    <div class="policy-body">
+      <p><b>內容：</b>清軍多次殺戮抗清軍民，如發生「<span class="kw hidden" onclick="toggleKw(this)">揚州十日</span>」、「嘉定三屠」等事件。</p>
+      <p class="intent"><span class="intent-label">目的：</span><span class="kw hidden" onclick="toggleKw(this)">以武力震懾</span>。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label red">駐兵設防</div>
+    <div class="policy-body">
+      <p><b>內容：</b>在全國要地派駐<span class="kw hidden" onclick="toggleKw(this)">八旗</span>兵；以漢人組成<span class="kw hidden" onclick="toggleKw(this)">綠營兵</span>，加以輔助前者。</p>
+      <p class="intent"><span class="intent-label">目的：</span>監視及鎮壓漢人。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label red">壓抑士人</div>
+    <div class="policy-body">
+      <p><b>內容：</b>嚴禁士人聚眾結社<span class="kw hidden" onclick="toggleKw(this)">講學</span>、議論朝政；大興<span class="kw hidden" onclick="toggleKw(this)">文字獄</span>，如「《明史》案」。</p>
+      <p class="intent"><span class="intent-label">目的：</span><span class="kw hidden" onclick="toggleKw(this)">壓制反清思想言論</span>。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin: 10px 0 16px; border-left: 4px solid var(--red); border-radius: 0 10px 10px 0;">
+    <div class="card-title" style="color:var(--red)">重要詞彙：文字獄</div>
+    <p>朝廷不滿士人創作、監修或印行的文字作品，認為作品有<span class="kw hidden" onclick="toggleKw(this)">懷念前朝</span>、<span class="kw hidden" onclick="toggleKw(this)">反對朝廷</span>或對皇帝不敬的內容而將其定罪。目的是使士人不敢傳播<span class="kw hidden" onclick="toggleKw(this)">反對朝廷</span>的思想，藉此<span class="kw hidden" onclick="toggleKw(this)">鞏固統治</span>。</p>
+  </div>
+
+  <div class="subsection">懷柔政策</div>
+
+  <div class="policy-row">
+    <div class="policy-label teal">追悼明室</div>
+    <div class="policy-body">
+      <p><b>內容：</b>禮葬<span class="kw hidden" onclick="toggleKw(this)">明思宗</span>帝后，表彰為明朝殉節的朝臣。</p>
+      <p class="intent"><span class="intent-label">目的：</span>爭取漢人的好感。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label teal">籠絡士人</div>
+    <div class="policy-body">
+      <p><b>內容：</b>錄用明朝舊臣，又推崇<span class="kw hidden" onclick="toggleKw(this)">儒學</span>，恢復<span class="kw hidden" onclick="toggleKw(this)">科舉</span>制度。</p>
+      <p class="intent"><span class="intent-label">目的：</span>爭取<span class="kw hidden" onclick="toggleKw(this)">士人支持</span>。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label teal">編修書籍</div>
+    <div class="policy-body">
+      <p><b>內容：</b>招攬學者編纂《<span class="kw hidden" onclick="toggleKw(this)">四庫全書</span>》等圖書，並藉機銷毀<span class="kw hidden" onclick="toggleKw(this)">不利統治</span>的書籍。</p>
+      <p class="intent"><span class="intent-label">目的：</span>緩和排滿情緒，鞏固統治。</p>
+    </div>
+  </div>
+
+  <div class="policy-row">
+    <div class="policy-label teal">寬減賦稅</div>
+    <div class="policy-body">
+      <p><b>內容：</b>廢除明末加徵的「<span class="kw hidden" onclick="toggleKw(this)">三餉</span>」，減免部分賦稅。</p>
+      <p class="intent"><span class="intent-label">目的：</span><span class="kw hidden" onclick="toggleKw(this)">穩定民生</span>。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 對邊疆民族 ══ -->
+<div id="s5" class="section">
+  <div class="section-title"><span class="section-num">2.2</span>對邊疆民族及地區的統治政策（課本頁148–150）</div>
+
+  <div class="card" style="margin-bottom:10px">
+    <p>設置<span class="kw hidden" onclick="toggleKw(this)">理藩院</span>管理各邊疆民族；對各族採用「<span class="kw hidden" onclick="toggleKw(this)">分而治之</span>」的策略。</p>
+  </div>
+
+  <table class="ethnic-table">
+    <thead>
+      <tr><th>民族</th><th>統治政策</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>蒙古族</td>
+        <td>
+          採取<span class="kw hidden" onclick="toggleKw(this)">籠絡</span>與<span class="kw hidden" onclick="toggleKw(this)">抑壓</span>兼備的政策：
+          <ul style="padding-left:15px;margin-top:4px">
+            <li>安排滿族<span class="kw hidden" onclick="toggleKw(this)">皇室</span>與蒙古<span class="kw hidden" onclick="toggleKw(this)">貴族</span>通婚</li>
+            <li>組織蒙古<span class="kw hidden" onclick="toggleKw(this)">八旗兵</span>，把該族編為「<span class="kw hidden" onclick="toggleKw(this)">盟</span>」和「<span class="kw hidden" onclick="toggleKw(this)">旗</span>」分散管治</li>
+            <li>禁止他們與漢人往來、通婚和學習<span class="kw hidden" onclick="toggleKw(this)">漢文</span></li>
+            <li>制訂標準<span class="kw hidden" onclick="toggleKw(this)">蒙古文字</span>，深化身份認同</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>藏族</td>
+        <td>
+          <ul style="padding-left:15px">
+            <li>藏族信奉<span class="kw hidden" onclick="toggleKw(this)">喇嘛</span>教，奉行<span class="kw hidden" onclick="toggleKw(this)">政教合一</span>的體制</li>
+            <li>清廷尊崇其宗教，冊封<span class="kw hidden" onclick="toggleKw(this)">達賴喇嘛</span>和<span class="kw hidden" onclick="toggleKw(this)">班禪喇嘛</span></li>
+            <li>鼓勵藏人<span class="kw hidden" onclick="toggleKw(this)">出家</span>，限制他們與漢人接觸和通婚</li>
+            <li>派出<span class="kw hidden" onclick="toggleKw(this)">駐藏大臣</span>，與達賴、班禪共同管理西藏</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>回部</td>
+        <td>
+          <ul style="padding-left:15px">
+            <li>主要居於<span class="kw hidden" onclick="toggleKw(this)">新疆天山</span>以南，信奉<span class="kw hidden" onclick="toggleKw(this)">伊斯蘭</span>教</li>
+            <li>清廷任命由<span class="kw hidden" onclick="toggleKw(this)">貴族</span>出任的「<span class="kw hidden" onclick="toggleKw(this)">伯克</span>」加以管理</li>
+            <li>清廷<span class="kw hidden" onclick="toggleKw(this)">離間</span>當地教徒和非教徒，製造宗派衝突</li>
+            <li>設<span class="kw hidden" onclick="toggleKw(this)">伊犁將軍</span>總領新疆軍政，禁止他們與漢人往來</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>西南少數民族</td>
+        <td>
+          <ul style="padding-left:15px">
+            <li>明代至清初採取<span class="kw hidden" onclick="toggleKw(this)">土司制度</span></li>
+            <li>清雍正年間採用「<span class="kw hidden" onclick="toggleKw(this)">改土歸流</span>」：廢除土司，改派<span class="kw hidden" onclick="toggleKw(this)">朝廷官員（流官）</span>管治</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 統治成效 ══ -->
+<div id="s6" class="section">
+  <div class="section-title"><span class="section-num">2.3</span>統治政策的成效（課本頁151）</div>
+
+  <div class="outcome-grid">
+    <div class="outcome-box">
+      <div class="ob-title">靈活運用不同政策</div>
+      <p>加強中央政府對<span class="kw hidden" onclick="toggleKw(this)">邊區</span>的控制 → 形成<span class="kw hidden" onclick="toggleKw(this)">統一多民族</span>國家。</p>
+    </div>
+    <div class="outcome-box">
+      <div class="ob-title">對漢族恩威並施</div>
+      <p>抑壓<span class="kw hidden" onclick="toggleKw(this)">反清</span>力量，並獲得<span class="kw hidden" onclick="toggleKw(this)">士人</span>的支持 → 鞏固<span class="kw hidden" onclick="toggleKw(this)">統治</span>，國祚長達268年。</p>
+    </div>
+    <div class="outcome-box">
+      <div class="ob-title">針對民族特色施政</div>
+      <p>對不同的<span class="kw hidden" onclick="toggleKw(this)">邊疆地區和民族</span>確立有效統治 → 疆域較前朝<span class="kw hidden" onclick="toggleKw(this)">廣大</span>，奠定中國今日版圖。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px; border-left:4px solid var(--gold); border-radius:0 10px 10px 0;">
+    <div class="card-title" style="color:var(--gold)">史料應用：清朝成功統治的關鍵</div>
+    <p>清朝所以能成功統治中國，不是武力的關係，而是政治的關係。政治成功的最大因素，就是「一鬆一緊」，深得兩重政策的作用。<span class="note">（改寫自蕭一山《清史》）</span></p>
+    <p style="margin-top:8px">即：在政治上<span class="kw hidden" onclick="toggleKw(this)">恩威並施</span>，兼用<span class="kw hidden" onclick="toggleKw(this)">高壓</span>與<span class="kw hidden" onclick="toggleKw(this)">懷柔</span>政策。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 清代中衰 ══ -->
+<div id="s7" class="section">
+  <div class="section-title"><span class="section-num">三</span>第三節｜清代的中衰（課本頁153–154）</div>
+
+  <div class="decline-grid">
+    <div class="decline-box">
+      <div class="db-title">財政枯竭</div>
+      <ul>
+        <li>乾隆帝自誇有「<span class="kw hidden" onclick="toggleKw(this)">十全武功</span>」，對外征戰頻繁</li>
+        <li>他<span class="kw hidden" onclick="toggleKw(this)">六次</span>南巡，大修宮苑</li>
+      </ul>
+      <p class="result-note">結果：國庫日漸<span class="kw hidden" onclick="toggleKw(this)">枯竭</span>。</p>
+    </div>
+    <div class="decline-box">
+      <div class="db-title">吏治敗壞</div>
+      <ul>
+        <li>乾隆帝荒怠政事，寵信<span class="kw hidden" onclick="toggleKw(this)">和珅</span>，結黨營私，聚財收賄</li>
+      </ul>
+      <p class="result-note">結果：朝中上下<span class="kw hidden" onclick="toggleKw(this)">貪污枉法</span>成風。</p>
+    </div>
+    <div class="decline-box">
+      <div class="db-title">軍事廢弛</div>
+      <ul>
+        <li>八旗兵因<span class="kw hidden" onclick="toggleKw(this)">生活安穩</span>，養尊處優，失去<span class="kw hidden" onclick="toggleKw(this)">勇武</span>之風</li>
+        <li>綠營兵疏於<span class="kw hidden" onclick="toggleKw(this)">訓練</span>，日漸腐化</li>
+      </ul>
+      <p class="result-note">結果：削弱應付內憂外患的能力。</p>
+    </div>
+    <div class="decline-box">
+      <div class="db-title">社會不穩</div>
+      <ul>
+        <li>人口大增，但<span class="kw hidden" onclick="toggleKw(this)">耕地</span>面積沒有相應增加</li>
+        <li>土地<span class="kw hidden" onclick="toggleKw(this)">兼併</span>嚴重</li>
+      </ul>
+      <p class="result-note">結果：民生困苦，<span class="kw hidden" onclick="toggleKw(this)">民變</span>四起。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 課題總結 ══ -->
+<div class="section">
+  <div class="section-title"><span class="section-num">總結</span>課題總結</div>
+  <div class="cards">
+    <div class="card gold-accent">
+      <div class="card-title">清朝統一步驟</div>
+      <div class="flow">
+        <div class="flow-step">入關定都<span class="kw hidden" onclick="toggleKw(this)">北京</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">消滅<span class="kw hidden" onclick="toggleKw(this)">民變</span>勢力</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">征服<span class="kw hidden" onclick="toggleKw(this)">南明</span>諸王</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">平定<span class="kw hidden" onclick="toggleKw(this)">三藩</span>之亂</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">收復<span class="kw hidden" onclick="toggleKw(this)">台灣</span></div>
+      </div>
+    </div>
+    <div class="card teal-accent">
+      <div class="card-title">康雍乾盛世</div>
+      <div class="flow">
+        <div class="flow-step"><span class="kw hidden" onclick="toggleKw(this)">康熙</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="kw hidden" onclick="toggleKw(this)">雍正</span></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step"><span class="kw hidden" onclick="toggleKw(this)">乾隆</span></div>
+      </div>
+      <p style="font-size:12px;margin-top:8px;color:var(--text2)">共<span class="kw hidden" onclick="toggleKw(this)">一百三十</span>多年間，文治武功鼎盛</p>
+    </div>
+  </div>
+  <div class="cards" style="margin-top:8px">
+    <div class="card red-accent">
+      <div class="card-title">對漢族：高壓政策（4項）</div>
+      <div class="tags">
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">薙髮留辮</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">屠殺立威</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">駐兵設防</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">壓抑士人</span></span>
+      </div>
+    </div>
+    <div class="card teal-accent">
+      <div class="card-title">對漢族：懷柔政策（4項）</div>
+      <div class="tags">
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">追悼明室</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">籠絡士人</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">編修書籍</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">寬減賦稅</span></span>
+      </div>
+    </div>
+    <div class="card brown-accent">
+      <div class="card-title">對邊疆民族（4族）</div>
+      <div class="tags">
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">蒙古族</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">藏族</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">回部</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">西南少數民族</span></span>
+      </div>
+    </div>
+    <div class="card red-accent">
+      <div class="card-title">清代中衰原因（4項）</div>
+      <div class="tags">
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">財政枯竭</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">吏治敗壞</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">軍事廢弛</span></span>
+        <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">社會不穩</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">
+  <p>💡 點擊個別<span style="border-bottom:2px solid var(--gold);padding:0 2px">金色底線</span>詞語可單獨顯示／隱藏　·　使用頂部按鈕一次控制全部關鍵詞</p>
+  <p style="margin-top:4px">中二級歷史 ｜ 單元七 課題一 ｜ 活學中國歷史 課堂探究筆記 ©2025</p>
+</div>
+
+</div><!-- content-area -->
+</div><!-- page-wrap -->
+
+<script>
+let allRevealed = false;
+function toggleAll() {
+  allRevealed = !allRevealed;
+  document.querySelectorAll('.kw').forEach(el => el.classList.toggle('hidden', !allRevealed));
+  const btn = document.getElementById('masterBtn');
+  const pill = document.getElementById('statusPill');
+  if (allRevealed) {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg> 隱藏全部答案`;
+    btn.classList.add('active');
+    pill.textContent = '關鍵詞已顯示';
+    pill.style.cssText = 'background:var(--reveal-bg);color:var(--reveal-txt);border-color:var(--reveal-bd)';
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 顯示全部答案`;
+    btn.classList.remove('active');
+    pill.textContent = '關鍵詞已隱藏';
+    pill.style.cssText = '';
+  }
+}
+function toggleKw(el) { el.classList.toggle('hidden'); }
+</script>
+</body>
+</html>

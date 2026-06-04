@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中二級 公民、經濟與社會科 — 溫習筆記（互動版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f7f4;
+  --bg2: #ffffff;
+  --bg3: #f0ede8;
+  --text: #1a1917;
+  --text2: #5a5753;
+  --text3: #9a9590;
+  --border: #e2ddd8;
+  --border2: #ccc7c0;
+  --accent: #c84b2f;
+  --accent-bg: #fdf1ee;
+  --accent-border: #f0c4b8;
+  --blue: #2563a8;
+  --blue-bg: #eef4fb;
+  --blue-border: #b8d0ed;
+  --green: #2d7a4f;
+  --green-bg: #eef7f2;
+  --green-border: #a8d9bc;
+  --amber: #b45309;
+  --amber-bg: #fef7ec;
+  --amber-border: #f5d28a;
+  --kw-hidden-bg: #1a1917;
+  --kw-hidden-text: #1a1917;
+  --reveal-bg: #fff8e6;
+  --reveal-border: #e8c84a;
+  --reveal-text: #7a5c00;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans HK', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* Layout */
+.page-wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+/* Sticky header bar */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  padding: 0.75rem 0 0;
+}
+
+/* Top header */
+.page-header {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.25rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.page-header h1 { font-size: 16px; font-weight: 700; color: var(--text); }
+.page-header p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-size: 13px;
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.btn:hover { background: var(--bg3); }
+.btn.active {
+  background: var(--reveal-bg); color: var(--reveal-text);
+  border-color: var(--reveal-border);
+}
+.btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.status-badge {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  background: var(--bg3); color: var(--text3); border: 1px solid var(--border);
+}
+
+/* TOC */
+.toc { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.75rem; padding-bottom: 0.5px; }
+.toc a {
+  font-size: 12px; padding: 4px 12px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text2);
+  text-decoration: none; background: var(--bg2); transition: all 0.15s;
+}
+.toc a:hover { background: var(--bg3); border-color: var(--border2); color: var(--text); }
+
+/* Sections */
+.section { margin-bottom: 2rem; scroll-margin-top: 130px; }
+.section-title {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  padding: 9px 14px; background: var(--bg2);
+  border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.section-num {
+  font-size: 11px; background: var(--accent); color: white;
+  padding: 2px 7px; border-radius: 4px; font-weight: 500;
+}
+.subsection { font-size: 12px; font-weight: 700; color: var(--text3);
+  margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.06em;
+  padding-left: 4px; }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+}
+.card-title {
+  font-size: 11px; font-weight: 700; color: var(--text3);
+  margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.05em;
+  padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.card p, .card li { font-size: 13px; color: var(--text); line-height: 1.75; }
+.card ul { padding-left: 16px; }
+.card ul li { margin-bottom: 3px; }
+
+/* Formula box */
+.formula {
+  background: var(--bg3); border-radius: 6px; padding: 8px 12px;
+  font-size: 13px; font-weight: 700; color: var(--text);
+  text-align: center; margin: 8px 0; border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+
+/* Keywords */
+.kw {
+  display: inline; border-bottom: 2px solid var(--accent);
+  cursor: pointer; padding: 0 1px; border-radius: 2px;
+  transition: all 0.12s; color: var(--text);
+}
+.kw:hover { background: var(--accent-bg); }
+.kw.hidden {
+  background: var(--kw-hidden-bg); color: var(--kw-hidden-bg);
+  border-bottom: none; border-radius: 3px;
+  padding: 1px 4px; cursor: pointer;
+  min-width: 1.8em; display: inline-block; text-align: center;
+  transition: all 0.12s;
+}
+.kw.hidden:hover { background: #3a3835; color: #3a3835; }
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 7px; margin: 6px 0; }
+.tl-item { display: flex; gap: 10px; align-items: flex-start; }
+.tl-year {
+  font-size: 11px; font-weight: 700; background: var(--blue-bg); color: var(--blue);
+  padding: 2px 8px; border-radius: 5px; white-space: nowrap; min-width: 50px;
+  text-align: center; margin-top: 3px; border: 1px solid var(--blue-border);
+}
+.tl-text { font-size: 13px; color: var(--text); line-height: 1.7; }
+
+/* Tag pills */
+.tag-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.tag {
+  font-size: 12px; padding: 3px 11px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text);
+  background: var(--bg2);
+}
+
+/* Pro/Con */
+.pro-con { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pro-box {
+  background: var(--green-bg); border: 1px solid var(--green-border);
+  border-radius: 10px; padding: 11px 13px;
+}
+.con-box {
+  background: var(--accent-bg); border: 1px solid var(--accent-border);
+  border-radius: 10px; padding: 11px 13px;
+}
+.pro-box .box-title { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 6px; }
+.con-box .box-title { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.pro-box ul, .con-box ul { padding-left: 15px; }
+.pro-box li, .con-box li { font-size: 12px; color: var(--text); line-height: 1.75; margin-bottom: 3px; }
+
+/* Divider */
+.divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+/* Note footer */
+.note-footer {
+  text-align: center; font-size: 11px; color: var(--text3);
+  margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .pro-con { grid-template-columns: 1fr; }
+  .page-header { flex-direction: column; }
+  .cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="sticky-header">
+<div class="page-header">
+  <div>
+    <h1>中二級 公民、經濟與社會科 — 溫習筆記</h1>
+    <p>單元 2.4 香港的經濟表現及人力資源 ＋ 公共財政與市民的關係</p>
+  </div>
+  <div class="header-controls">
+    <span class="status-badge" id="statusBadge">關鍵詞已隱藏</span>
+    <button class="btn" id="masterBtn" onclick="toggleAll()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      顯示全部答案
+    </button>
+  </div>
+</div>
+
+<nav class="toc" aria-label="目錄">
+  <a href="#s1">公共財政</a>
+  <a href="#s2">經濟指標</a>
+  <a href="#s3">產業結構</a>
+  <a href="#s4">香港經濟特徵</a>
+  <a href="#s5">改革開放</a>
+  <a href="#s6">經濟全球化</a>
+  <a href="#s7">國際金融中心</a>
+  <a href="#s8">青年就業</a>
+  <a href="#s9">大灣區</a>
+</nav>
+</div><!-- end sticky-header -->
+
+<div style="padding-top:1rem">
+<!-- 公共財政 -->
+<div id="s1" class="section">
+  <div class="section-title"><span class="section-num">三</span>公共財政與市民的關係</div>
+
+  <div class="subsection">① 市民對公共財政的權利和責任</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">1.1 享有社會福利的權利</div>
+      <p>市民可依法享有政府提供的福利和免費或廉宜的<span class="kw hidden" onclick="toggleKw(this)">公共服務</span>，如12年免費教育、<span class="kw hidden" onclick="toggleKw(this)">公共醫療</span>服務、文娛康樂設施等，以滿足基本需要。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">1.2 履行納稅的責任</div>
+      <p>政府開支主要來自市民的<span class="kw hidden" onclick="toggleKw(this)">稅款</span>，市民有義務遵守《稅務條例》，按時<span class="kw hidden" onclick="toggleKw(this)">報稅</span>及繳稅。</p>
+    </div>
+  </div>
+
+  <div class="subsection">② 市民參與公共財政政策制定的正確態度</div>
+  <div class="card" style="margin-bottom:8px">
+    <p>市民有責任以<span class="kw hidden" onclick="toggleKw(this)">積極</span>、理性的態度參與政策制定，讓政府更合理地分配公共資源，<span class="kw hidden" onclick="toggleKw(this)">平衡</span>各方利益。</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">2.1 理性分析公共財政政策</div>
+      <p>先了解不同<span class="kw hidden" onclick="toggleKw(this)">持份者</span>的意見，從社會<span class="kw hidden" onclick="toggleKw(this)">整體</span>福祉的角度全面分析。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.2 以恰當渠道表達意見</div>
+      <p>政府每年進行公眾<span class="kw hidden" onclick="toggleKw(this)">諮詢</span>，市民可透過恰當渠道提出意見；政府官員亦會出席<span class="kw hidden" onclick="toggleKw(this)">諮詢會</span>，在場人士可發表意見。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 經濟指標 -->
+<div id="s2" class="section">
+  <div class="section-title"><span class="section-num">一</span>量度經濟表現的指標</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 本地生產總值（GDP）</div>
+      <p>一段時間內生產的貨品和<span class="kw hidden" onclick="toggleKw(this)">服務</span>的市場總值。數值越<span class="kw hidden" onclick="toggleKw(this)">高</span>，代表生產活動越活躍。</p>
+      <div class="formula" style="margin-top:8px;font-size:12px;font-weight:400">香港近年 GDP 呈 <span class="kw hidden" onclick="toggleKw(this)">上升</span> 趨勢，整體經濟表現穩步增長</div>
+    </div>
+    <div class="card">
+      <div class="card-title">B 人均本地生產總值</div>
+      <p>平均<span class="kw hidden" onclick="toggleKw(this)">每人</span>所佔的 GDP。越高代表當地居民生活水平越<span class="kw hidden" onclick="toggleKw(this)">高</span>。</p>
+      <div class="formula">人均 GDP ＝ GDP ÷ <span class="kw hidden" onclick="toggleKw(this)">人口總和</span></div>
+      <p style="font-size:12px;color:var(--text3)">香港近年人均 GDP 呈 <span class="kw hidden" onclick="toggleKw(this)">上升</span> 趨勢</p>
+    </div>
+    <div class="card">
+      <div class="card-title">C 失業率</div>
+      <p>失業人口在<span class="kw hidden" onclick="toggleKw(this)">勞動人口</span>中所佔的百分比。</p>
+      <div class="formula">失業率 ＝ 失業人口 ÷ <span class="kw hidden" onclick="toggleKw(this)">勞動人口</span> × 100%</div>
+      <ul style="margin-top:6px;padding-left:14px">
+        <li style="font-size:12px;color:var(--text3)">經濟理想 → 企業<span class="kw hidden" onclick="toggleKw(this)">擴充</span>業務，失業率低</li>
+        <li style="font-size:12px;color:var(--text3)">經濟欠佳 → 企業<span class="kw hidden" onclick="toggleKw(this)">裁減</span>人手，失業率高</li>
+        <li style="font-size:12px;color:var(--text3)">1997–2023年最高：2003年 7.9%，平均約 4.4%</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">D 通脹率</div>
+      <p>整體<span class="kw hidden" onclick="toggleKw(this)">物價</span>水平持續變動的比率。</p>
+      <div class="tag-grid" style="margin-top:8px">
+        <span class="tag">0%以上 → 通貨<span class="kw hidden" onclick="toggleKw(this)">膨脹</span></span>
+        <span class="tag">0%以下 → 通貨<span class="kw hidden" onclick="toggleKw(this)">緊縮</span></span>
+      </div>
+      <ul style="margin-top:8px;padding-left:14px">
+        <li style="font-size:12px;color:var(--text3)">過高 → <span class="kw hidden" onclick="toggleKw(this)">生活成本</span>上升</li>
+        <li style="font-size:12px;color:var(--text3)">過低 → 打擊企業<span class="kw hidden" onclick="toggleKw(this)">投資</span>意欲</li>
+        <li style="font-size:12px;color:var(--text3)">1997–2023年平均 1.5%；1999–2004年曾現通縮</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 產業結構 -->
+<div id="s3" class="section">
+  <div class="section-title"><span class="section-num">1.2</span>產業結構的分類</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">第一產業</div>
+      <p>從事<span class="kw hidden" onclick="toggleKw(this)">種植</span>、養殖或開採自然資源，例如農業、漁業。</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:6px">香港早已<span class="kw hidden" onclick="toggleKw(this)">式微</span>，2020年僅佔GDP 0.1%</p>
+    </div>
+    <div class="card">
+      <div class="card-title">第二產業</div>
+      <p>把天然或人工原料<span class="kw hidden" onclick="toggleKw(this)">加工</span>的生產活動，例如製造業、建造業、能源業。</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:6px">1980年代起日漸<span class="kw hidden" onclick="toggleKw(this)">萎縮</span></p>
+    </div>
+    <div class="card">
+      <div class="card-title">第三產業</div>
+      <p>提供<span class="kw hidden" onclick="toggleKw(this)">服務</span>的生產活動，例如零售業、金融業、旅遊業。</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:6px">目前佔GDP超過<span class="kw hidden" onclick="toggleKw(this)">九成</span>，繼續茁壯成長</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="card-title">第三產業的發展</div>
+    <p><b>四個主要行業：</b><span class="kw hidden" onclick="toggleKw(this)">金融</span>服務 ／ <span class="kw hidden" onclick="toggleKw(this)">旅遊</span> ／ <span class="kw hidden" onclick="toggleKw(this)">貿易</span>及物流 ／ 專業及其他工商業支援服務</p>
+    <p style="margin-top:6px"><b>六項優勢產業：</b><span class="kw hidden" onclick="toggleKw(this)">文化</span>及創意 ／ 醫療 ／ 教育 ／ <span class="kw hidden" onclick="toggleKw(this)">創新科技</span> ／ 檢測及認證 ／ 環保</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 香港經濟特徵 -->
+<div id="s4" class="section">
+  <div class="section-title"><span class="section-num">②</span>香港經濟的特徵</div>
+
+  <div class="subsection">2.1 高度外向和開放型的經濟</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 高度外向型</div>
+      <p>對外貿易總額一直是GDP的<span class="kw hidden" onclick="toggleKw(this)">2</span>倍以上。內地和海外經濟繁榮，香港便<span class="kw hidden" onclick="toggleKw(this)">受惠</span>；反之則受打擊。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">B 高度開放型</div>
+      <p>大部分貨物、人員、資金、資訊可<span class="kw hidden" onclick="toggleKw(this)">自由</span>進出香港，政府甚少<span class="kw hidden" onclick="toggleKw(this)">干預</span>或補貼經濟活動。</p>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">六大自由</div>
+  <div class="tag-grid">
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">貿易</span>自由</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">營運</span>自由</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">資金進出</span>自由</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">國際航運</span>自由</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">出入境和逗留</span>自由</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">資訊</span>自由</span>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">2.2 地區或全球事件與香港經濟的關係</div>
+  <div class="card">
+    <div class="card-title">金融貿易危機 ＆ 疫情肆虐</div>
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-year">1997</span><span class="tl-text">亞洲金融風暴：貨幣<span class="kw hidden" onclick="toggleKw(this)">匯率</span>遭衝擊，股市、樓市下挫，企業嚴重<span class="kw hidden" onclick="toggleKw(this)">虧損</span></span></div>
+      <div class="tl-item"><span class="tl-year">2003</span><span class="tl-text">沙士疫情爆發，政府實施<span class="kw hidden" onclick="toggleKw(this)">公共管制</span>措施，旅客無法<span class="kw hidden" onclick="toggleKw(this)">自由</span>來港</span></div>
+      <div class="tl-item"><span class="tl-year">2008</span><span class="tl-text"><span class="kw hidden" onclick="toggleKw(this)">全球</span>金融危機爆發，香港經濟受打擊</span></div>
+      <div class="tl-item"><span class="tl-year">2018</span><span class="tl-text">中美貿易摩擦，各自向對方貨物加徵<span class="kw hidden" onclick="toggleKw(this)">關稅</span>或實施貿易限制</span></div>
+      <div class="tl-item"><span class="tl-year">2020</span><span class="tl-text">新冠疫情全球爆發，窒礙香港經濟發展</span></div>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">2.3 香港經濟安全對國家的重要性</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">經濟安全定義</div>
+      <p>消除和化解<span class="kw hidden" onclick="toggleKw(this)">潛在風險</span>，抗拒外來衝擊，確保國家<span class="kw hidden" onclick="toggleKw(this)">經濟利益</span>持續穩定發展；是國家富強的有力<span class="kw hidden" onclick="toggleKw(this)">保障</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">貿易方面</div>
+      <p>香港扮演外資與內地企業的<span class="kw hidden" onclick="toggleKw(this)">中介人</span>角色，加強聯繫內地和國際<span class="kw hidden" onclick="toggleKw(this)">產業鏈</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">金融方面</div>
+      <p><span class="kw hidden" onclick="toggleKw(this)">人民幣</span>國際化進程推進，「<span class="kw hidden" onclick="toggleKw(this)">滬港通</span>」、「深港通」等落實，在引入<span class="kw hidden" onclick="toggleKw(this)">外資</span>上發揮巨大作用。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 改革開放 -->
+<div id="s5" class="section">
+  <div class="section-title"><span class="section-num">③</span>香港經濟與國家發展的緊密關係</div>
+
+  <div class="subsection">3.1 二戰後香港經濟發展概略</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 奠定工業基礎</div>
+      <p>二戰後國共內戰，大批內地民眾湧港，為香港帶來資金、技術和<span class="kw hidden" onclick="toggleKw(this)">勞動力</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">B 製造業興起</div>
+      <p>1950年韓戰後聯合國對華<span class="kw hidden" onclick="toggleKw(this)">禁運</span>，<span class="kw hidden" onclick="toggleKw(this)">紡織</span>、玩具、電子等製造業迅速興起。1960–70年代是全球重要製造業基地。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">C 服務業興起</div>
+      <p>1978年國家實行<span class="kw hidden" onclick="toggleKw(this)">改革開放</span>，製造業北移，香港轉型為以金融、航運、貿易為核心的<span class="kw hidden" onclick="toggleKw(this)">服務業</span>，成為國際金融中心。</p>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">3.2 改革開放帶來的機遇和香港的貢獻</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">機遇</div>
+      <ul>
+        <li>產業轉型：「<span class="kw hidden" onclick="toggleKw(this)">前店後廠</span>」模式，廠家遷往<span class="kw hidden" onclick="toggleKw(this)">珠江三角洲</span></li>
+        <li>經貿地位提升：對香港<span class="kw hidden" onclick="toggleKw(this)">金融</span>服務需求不斷增加，成國際金融、航運和貿易中心</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">香港對改革開放的貢獻</div>
+      <ul>
+        <li><b>引入外資：</b><span class="kw hidden" onclick="toggleKw(this)">香港</span>商人率先投資，提升外企<span class="kw hidden" onclick="toggleKw(this)">信心</span></li>
+        <li><b>示範作用：</b>借鏡香港<span class="kw hidden" onclick="toggleKw(this)">管理</span>策略，完善<span class="kw hidden" onclick="toggleKw(this)">社會主義</span>市場經濟</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">3.3 內地與香港越趨緊密的經濟聯繫</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 貿易量增加</div>
+      <p>內地是香港最<span class="kw hidden" onclick="toggleKw(this)">大</span>的貿易伙伴；2022年佔香港貿易總額約<span class="kw hidden" onclick="toggleKw(this)">一半</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">B 人才交流頻繁</div>
+      <p>「<span class="kw hidden" onclick="toggleKw(this)">高端人才通行證計劃</span>」；「<span class="kw hidden" onclick="toggleKw(this)">十四五規劃</span>」鼓勵港人到大灣區創業就業。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">C 各類投資活動增加</div>
+      <p>內地是香港第<span class="kw hidden" onclick="toggleKw(this)">二</span>大外來直接投資來源地；兩地<span class="kw hidden" onclick="toggleKw(this)">股票</span>市場互聯互通。</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:8px">
+    <p>香港擔當「<span class="kw hidden" onclick="toggleKw(this)">超級聯繫人</span>」：具健全<span class="kw hidden" onclick="toggleKw(this)">法制</span>，連接內地經濟與全球市場；支持開辦<span class="kw hidden" onclick="toggleKw(this)">離岸人民幣</span>業務，建立<span class="kw hidden" onclick="toggleKw(this)">互聯互通</span>機制。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 經濟全球化 -->
+<div id="s6" class="section">
+  <div class="section-title"><span class="section-num">二</span>經濟全球化為香港帶來的機遇和挑戰</div>
+
+  <div class="subsection">1.1 經濟全球化的含義</div>
+  <div class="card" style="margin-bottom:10px">
+    <p>跨越國界的經濟活動日趨頻繁，原料、<span class="kw hidden" onclick="toggleKw(this)">勞動力</span>、商品、服務、資本等經濟要素在全球不斷流動，各經濟體互相影響，漸漸趨向<span class="kw hidden" onclick="toggleKw(this)">一體化</span>的現象。</p>
+  </div>
+
+  <div class="subsection">五大特徵（市場一體化）</div>
+  <div class="tag-grid">
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">原料</span>市場</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">金融</span>市場</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">生產鏈</span></span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">商品和服務</span>市場</span>
+    <span class="tag"><span class="kw hidden" onclick="toggleKw(this)">勞工</span>市場</span>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">1.2 促進經濟全球化的因素</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 各地政府推動</div>
+      <p>提倡<span class="kw hidden" onclick="toggleKw(this)">自由貿易</span>，組建<span class="kw hidden" onclick="toggleKw(this)">區域性</span>經濟組織，消除<span class="kw hidden" onclick="toggleKw(this)">關稅</span>和貿易壁壘。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">B 交通運輸進步</div>
+      <p>提高運輸<span class="kw hidden" onclick="toggleKw(this)">速度</span>和運載量，降低<span class="kw hidden" onclick="toggleKw(this)">成本</span>，刺激<span class="kw hidden" onclick="toggleKw(this)">國際</span>經貿交流和合作。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">C 資訊科技發達</div>
+      <p><span class="kw hidden" onclick="toggleKw(this)">通訊</span>和網絡技術突破，商戶藉<span class="kw hidden" onclick="toggleKw(this)">互聯網</span>進行<span class="kw hidden" onclick="toggleKw(this)">跨地域</span>的經濟活動。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">D 跨國企業推動</div>
+      <p><span class="kw hidden" onclick="toggleKw(this)">已發展</span>國家的跨國企業在各地<span class="kw hidden" onclick="toggleKw(this)">採購</span>、生產、銷售，令各地經濟緊密連在一起。</p>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">② 經濟全球化的影響</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">2.1 促進經濟增長</div>
+      <p>發展中國家設立<span class="kw hidden" onclick="toggleKw(this)">代工廠</span>，創造<span class="kw hidden" onclick="toggleKw(this)">就業</span>，改善居民收入和生活水平。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.2 造成經濟波動</div>
+      <p>各地生產、銷售、投資互相<span class="kw hidden" onclick="toggleKw(this)">依賴</span>，一國不景可拖累他國。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.3 生產互相依賴</div>
+      <p>一地生產<span class="kw hidden" onclick="toggleKw(this)">停頓</span>，容易導致全球生產鏈<span class="kw hidden" onclick="toggleKw(this)">中斷</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.4 改變產業發展</div>
+      <p>跨國企業到<span class="kw hidden" onclick="toggleKw(this)">發展中</span>國家設廠引入技術，惟本地企業或不敵外來<span class="kw hidden" onclick="toggleKw(this)">競爭</span>被迫結業。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.5 增加消費選擇</div>
+      <p>消費者享有更多選擇，但跨國企業或<span class="kw hidden" onclick="toggleKw(this)">壟斷</span>本地市場。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.6 改變勞工待遇</div>
+      <p>把<span class="kw hidden" onclick="toggleKw(this)">低技術</span>工序外判，廠商或<span class="kw hidden" onclick="toggleKw(this)">削減</span>工資，損害勞工<span class="kw hidden" onclick="toggleKw(this)">權益</span>；已發展國家工人或因工廠外移而<span class="kw hidden" onclick="toggleKw(this)">失業</span>。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 國際金融中心 -->
+<div id="s7" class="section">
+  <div class="section-title"><span class="section-num">③</span>香港作為國際金融中心</div>
+
+  <div class="subsection">3.1 國際金融中心的特徵</div>
+  <div class="cards">
+    <div class="card"><div class="card-title">A 金融市場成熟</div><p>匯聚知名企業和<span class="kw hidden" onclick="toggleKw(this)">金融機構</span>，頻繁進行<span class="kw hidden" onclick="toggleKw(this)">融資</span>、放貸等活動。</p></div>
+    <div class="card"><div class="card-title">B 金融服務多元</div><p>股票、<span class="kw hidden" onclick="toggleKw(this)">債券</span>、基金、保險、<span class="kw hidden" onclick="toggleKw(this)">資產</span>管理等多元化服務。</p></div>
+    <div class="card"><div class="card-title">C 健全監管和法律制度</div><p>保障<span class="kw hidden" onclick="toggleKw(this)">投資者</span>利益，須有健全的<span class="kw hidden" onclick="toggleKw(this)">金融監管</span>制度及公正法律制度。</p></div>
+    <div class="card"><div class="card-title">D 資金自由流動</div><p>大量資金每天從各地<span class="kw hidden" onclick="toggleKw(this)">流入</span>，然後自由地<span class="kw hidden" onclick="toggleKw(this)">轉移</span>到其他地方。</p></div>
+    <div class="card"><div class="card-title">E 市場資訊自由流通</div><p>投資者根據即時<span class="kw hidden" onclick="toggleKw(this)">市場</span>消息，及時作出投資決定。</p></div>
+    <div class="card"><div class="card-title">F 奉行市場經濟</div><p>投資活動由投資者自行決策和<span class="kw hidden" onclick="toggleKw(this)">自負盈虧</span>，政府不會隨便干預。</p></div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">3.2 香港成為國際金融中心的原因</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A 地理位置優越</div>
+      <ul>
+        <li>時區在時<span class="kw hidden" onclick="toggleKw(this)">差</span>上成為歐美橋樑，形成接近<span class="kw hidden" onclick="toggleKw(this)">24</span>小時環球金融市場</li>
+        <li>毗連珠三角，是中國重要<span class="kw hidden" onclick="toggleKw(this)">出口</span>貿易基地</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">B 法治基礎深厚</div>
+      <ul>
+        <li>司法<span class="kw hidden" onclick="toggleKw(this)">獨立</span>，保障<span class="kw hidden" onclick="toggleKw(this)">私有財產</span></li>
+        <li>完善金融<span class="kw hidden" onclick="toggleKw(this)">監管制度</span>和法例</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">C 稅制簡單及稅率低</div>
+      <p>稅率偏<span class="kw hidden" onclick="toggleKw(this)">低</span>，不設<span class="kw hidden" onclick="toggleKw(this)">資本增值</span>稅及遺產稅，吸引內外企業和投資者。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">D 背靠內地，面向世界</div>
+      <p>內地企業需<span class="kw hidden" onclick="toggleKw(this)">會計</span>、財務等服務；<span class="kw hidden" onclick="toggleKw(this)">外資</span>企業透過香港進入內地投資。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">F 奉行自由經濟</div>
+      <p>不設<span class="kw hidden" onclick="toggleKw(this)">外匯管制</span>，港元與美元聯繫匯率掛勾；無官方規定的<span class="kw hidden" onclick="toggleKw(this)">外幣匯率</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">G 專業人才充裕</div>
+      <p>注重「<span class="kw hidden" onclick="toggleKw(this)">兩文三語</span>」，具備<span class="kw hidden" onclick="toggleKw(this)">溝通</span>能力；多間<span class="kw hidden" onclick="toggleKw(this)">大專院校</span>開辦金融課程；透過<span class="kw hidden" onclick="toggleKw(this)">專才</span>輸入計劃招募環球人才。</p>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">3.3 機遇及挑戰</div>
+  <div class="pro-con">
+    <div class="pro-box">
+      <div class="box-title">機遇</div>
+      <ul>
+        <li>突顯中外橋樑角色：吸引大量<span class="kw hidden" onclick="toggleKw(this)">跨國企業</span>和投資者</li>
+        <li>服務素質提升：吸引頂尖金融<span class="kw hidden" onclick="toggleKw(this)">人才</span>和先進<span class="kw hidden" onclick="toggleKw(this)">技術</span></li>
+        <li>促進交流合作：學習先進金融<span class="kw hidden" onclick="toggleKw(this)">管理</span>經驗，與他中心<span class="kw hidden" onclick="toggleKw(this)">互動</span></li>
+      </ul>
+    </div>
+    <div class="con-box">
+      <div class="box-title">挑戰</div>
+      <ul>
+        <li>金融市場<span class="kw hidden" onclick="toggleKw(this)">波動性</span>增加，須防控<span class="kw hidden" onclick="toggleKw(this)">動盪</span></li>
+        <li>面對其他<span class="kw hidden" onclick="toggleKw(this)">國際金融中心</span>的競爭</li>
+        <li>金融科技和<span class="kw hidden" onclick="toggleKw(this)">虛擬</span>金融產品快速發展，須更新<span class="kw hidden" onclick="toggleKw(this)">監管</span>制度</li>
+        <li>全球對高端金融人才需求增加</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">④ 香港在國家經濟發展的角色</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">4.1 先行者</div>
+      <p>成為全球最大<span class="kw hidden" onclick="toggleKw(this)">離岸人民幣</span>中心，為內地金融業國際化發揮<span class="kw hidden" onclick="toggleKw(this)">防火牆</span>、試驗田功能。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">4.2 聯繫者</div>
+      <p>「一帶一路」<span class="kw hidden" onclick="toggleKw(this)">超級聯繫人</span>，協助內企「<span class="kw hidden" onclick="toggleKw(this)">走出去</span>」；實行<span class="kw hidden" onclick="toggleKw(this)">普通法</span>，成國際著名<span class="kw hidden" onclick="toggleKw(this)">仲裁中心</span>。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">4.3 推廣者</div>
+      <p>與多國建立<span class="kw hidden" onclick="toggleKw(this)">貿易伙伴</span>關係；舉辦「一帶一路<span class="kw hidden" onclick="toggleKw(this)">高峯會</span>」，提供<span class="kw hidden" onclick="toggleKw(this)">商貿</span>和服務平台。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 青年就業 -->
+<div id="s8" class="section">
+  <div class="section-title"><span class="section-num">三</span>香港經濟起伏對青年就業帶來的機遇和挑戰</div>
+
+  <div class="subsection">① 香港近年的就業情況</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">三級產業就業人數</div>
+      <ul>
+        <li>1970年代起，重心由第<span class="kw hidden" onclick="toggleKw(this)">二</span>產業轉移到第<span class="kw hidden" onclick="toggleKw(this)">三</span>產業</li>
+        <li>2000–2022年：第二產業由16%<span class="kw hidden" onclick="toggleKw(this)">下跌</span>至近12%；第三產業由83%<span class="kw hidden" onclick="toggleKw(this)">上升</span>至約88%</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">青年整體失業率</div>
+      <ul>
+        <li>近年青年就業較整體人口<span class="kw hidden" onclick="toggleKw(this)">差</span></li>
+        <li>15–19歲失業率較<span class="kw hidden" onclick="toggleKw(this)">高</span></li>
+        <li>20–29歲比總體失業率<span class="kw hidden" onclick="toggleKw(this)">高</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">青年就業分布</div>
+      <ul>
+        <li>約90%的15–39歲青年投身第<span class="kw hidden" onclick="toggleKw(this)">三</span>產業</li>
+        <li>從事「<span class="kw hidden" onclick="toggleKw(this)">公共行政</span>」和「<span class="kw hidden" onclick="toggleKw(this)">金融</span>」服務的青年就業率逐漸上升</li>
+        <li>六項優勢產業中以<span class="kw hidden" onclick="toggleKw(this)">文化及創意</span>產業比例最高</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">② 青年就業的機遇與挑戰</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">2.1 經濟起伏</div>
+      <p>香港高度<span class="kw hidden" onclick="toggleKw(this)">外向</span>，易受環球影響。經濟不景 → <span class="kw hidden" onclick="toggleKw(this)">失業率</span>↑，青年就業<span class="kw hidden" onclick="toggleKw(this)">困難</span>；經濟<span class="kw hidden" onclick="toggleKw(this)">好轉</span> → 就業機會增加。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">2.2 新舊行業的興替</div>
+      <p>部分<span class="kw hidden" onclick="toggleKw(this)">重複性</span>強的傳統職位被<span class="kw hidden" onclick="toggleKw(this)">人工智能</span>取代；新興行業如<span class="kw hidden" onclick="toggleKw(this)">程式</span>編寫員和<span class="kw hidden" onclick="toggleKw(this)">數據</span>分析師湧現。</p>
+    </div>
+  </div>
+
+  <div class="subsection" style="margin-top:14px">2.3 就業模式新趨勢：零工經濟</div>
+  <div class="card" style="margin-bottom:8px">
+    <p>青年以<span class="kw hidden" onclick="toggleKw(this)">自僱</span>形式，通過手機或互聯網平台接洽工作，成為「<span class="kw hidden" onclick="toggleKw(this)">斜槓族</span>」，合作方式和工作時間由自己洽商。</p>
+  </div>
+  <div class="pro-con">
+    <div class="pro-box">
+      <div class="box-title">好處</div>
+      <ul>
+        <li>就業有更大<span class="kw hidden" onclick="toggleKw(this)">自由度</span></li>
+        <li>自行安排工作內容和<span class="kw hidden" onclick="toggleKw(this)">時間</span></li>
+        <li>累積經驗，拓展人際網絡</li>
+      </ul>
+    </div>
+    <div class="con-box">
+      <div class="box-title">弊處</div>
+      <ul>
+        <li>工作具高<span class="kw hidden" onclick="toggleKw(this)">重複性</span>，難以提升<span class="kw hidden" onclick="toggleKw(this)">技能</span></li>
+        <li>缺乏福利保障和<span class="kw hidden" onclick="toggleKw(this)">勞工權益</span></li>
+        <li><span class="kw hidden" onclick="toggleKw(this)">規劃</span>不善易耽擱工作進度</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 大灣區 -->
+<div id="s9" class="section">
+  <div class="section-title"><span class="section-num">2.4</span>大灣區為香港青年帶來的機遇與挑戰</div>
+
+  <div class="card" style="margin-bottom:10px">
+    <p>由香港、澳門及廣東省九個城市組成「<span class="kw hidden" onclick="toggleKw(this)">粵港澳大灣區</span>」；2019年公布《<span class="kw hidden" onclick="toggleKw(this)">粵港澳大灣區發展規劃綱要</span>》，全面規劃大灣區的發展目標和範疇。</p>
+  </div>
+
+  <div class="pro-con">
+    <div class="pro-box">
+      <div class="box-title">機遇</div>
+      <ul>
+        <li><b>交通完善：</b>形成「<span class="kw hidden" onclick="toggleKw(this)">一小時生活圈</span>」，提供廣闊就業和創業空間</li>
+        <li><b>產業優勢：</b><span class="kw hidden" onclick="toggleKw(this)">科技創新</span>領域具優勢，可參與<span class="kw hidden" onclick="toggleKw(this)">創業</span>活動</li>
+        <li><b>政府協助：</b>設立「<span class="kw hidden" onclick="toggleKw(this)">大灣區青年就業計劃</span>」及創新創業<span class="kw hidden" onclick="toggleKw(this)">孵化</span>基地</li>
+      </ul>
+    </div>
+    <div class="con-box">
+      <div class="box-title">挑戰</div>
+      <ul>
+        <li><b>文化差異：</b>香港與內地<span class="kw hidden" onclick="toggleKw(this)">社會習慣</span>不同，需時適應</li>
+        <li><b>人才競爭：</b>需與<span class="kw hidden" onclick="toggleKw(this)">全國各地</span>優秀人才競爭</li>
+        <li><b>法制差異：</b>香港與內地的<span class="kw hidden" onclick="toggleKw(this)">法律</span>體系不同，需了解適應</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="note-footer">
+  <p>💡 點擊個別<span style="border-bottom:2px solid var(--accent);padding:0 2px">紅色底線</span>詞語可單獨顯示／隱藏　·　使用頂部按鈕一次控制全部關鍵詞</p>
+  <p style="margin-top:4px">嶺南中學 中二級 公民、經濟與社會科 ｜ 2025–26 第三學期溫習筆記</p>
+</div>
+
+<script>
+let allRevealed = false;
+
+function toggleAll() {
+  allRevealed = !allRevealed;
+  document.querySelectorAll('.kw').forEach(el => {
+    el.classList.toggle('hidden', !allRevealed);
+  });
+  const btn = document.getElementById('masterBtn');
+  const badge = document.getElementById('statusBadge');
+  if (allRevealed) {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg> 隱藏全部答案`;
+    btn.classList.add('active');
+    badge.textContent = '關鍵詞已顯示';
+    badge.style.background = 'var(--reveal-bg)';
+    badge.style.color = 'var(--reveal-text)';
+    badge.style.borderColor = 'var(--reveal-border)';
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 顯示全部答案`;
+    btn.classList.remove('active');
+    badge.textContent = '關鍵詞已隱藏';
+    badge.style.background = '';
+    badge.style.color = '';
+    badge.style.borderColor = '';
+  }
+}
+
+function toggleKw(el) {
+  el.classList.toggle('hidden');
+}
+</script>
+
+</div><!-- end content wrapper -->
+</div><!-- end page-wrap -->
+</body>
+</html>
